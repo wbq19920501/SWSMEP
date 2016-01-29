@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">督查中心</string>
+    <string name="main_title">西南督查中心</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="dialog_message_annot_hardwrite">即将删除文档中当前用户的全部手写批注，是否删除？</string>
+    <string name="msg_loading_tip">正在加载，请稍候！</string>
+    <string name="result_no_exist_sign">文档不存在数字签名</string>
+    <string name="result_sign_unusual">数字签名异常</string>
+    <string name="exception_tip">网络连接发生异常</string>
+    <string name="password">请输入6-16个字符</string>
+    <string name="limit_edittext">0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWYZ</string>
+</resources>

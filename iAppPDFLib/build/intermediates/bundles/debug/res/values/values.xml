@@ -1,0 +1,1527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_actions.xml -->
+    <eat-comment/>
+    <string-array name="list_actions_ids" translatable="false">
+        <item/>
+
+        <item>actions_openOptionsMenu</item>
+
+        <item>mainmenu_outline</item>
+        <item>mainmenu_search</item>
+        <item>mainmenu_bookmark</item>
+        <item>mainmenu_goto_page</item>
+
+        <item>mainmenu_fullscreen</item>
+        <item>mainmenu_showtitle</item>
+        <item>mainmenu_force_portrait</item>
+        <item>mainmenu_force_landscape</item>
+        <item>mainmenu_nightmode</item>
+        <item>mainmenu_splitpages</item>
+        <item>mainmenu_croppages</item>
+        <item>mainmenu_crop</item>
+        <item>mainmenu_thumbnail</item>
+        <item>mainmenu_zoom</item>
+        <item>actions_quickZoom</item>
+        <item>actions_zoomToColumn</item>
+
+        <item>mainmenu_booksettings</item>
+        <item>mainmenu_settings</item>
+        <item>actions_toggleTouchManagerView</item>
+        <item>actions_keyBindings</item>
+
+        <item>actions_verticalConfigScrollUp</item>
+        <item>actions_verticalConfigScrollDown</item>
+        <item>actions_leftTopCorner</item>
+        <item>actions_rightTopCorner</item>
+        <item>actions_leftBottomCorner</item>
+        <item>actions_rightBottomCorner</item>
+
+        <item>mainmenu_about</item>
+        <item>mainmenu_close</item>
+
+    </string-array>
+    <string-array name="list_actions_labels" translatable="false">
+        <item/>
+
+        <item>@string/menu_show_options_menu</item>
+
+        <item>@string/menu_outline</item>
+        <item>@string/menu_searchtext</item>
+        <item>@string/menu_add_bookmark</item>
+        <item>@string/menu_goto_page</item>
+
+        <item>@string/pref_fullscreen_title</item>
+        <item>@string/pref_title_title</item>
+        <item>@string/menu_force_portrait</item>
+        <item>@string/menu_force_landscape</item>
+        <item>@string/menu_nightmode</item>
+        <item>@string/pref_splitpages_title</item>
+        <item>@string/pref_croppages_title</item>
+        <item>@string/menu_crop</item>
+        <item>@string/menu_thumbnail</item>
+        <item>@string/menu_zoom</item>
+        <item>@string/actions_quickZoom</item>
+        <item>@string/actions_zoomToColumn</item>
+
+        <item>@string/menu_booksettings</item>
+        <item>@string/menu_settings</item>
+        <item>@string/menu_tap_configuration</item>
+        <item>@string/menu_key_bindings</item>
+
+        <item>@string/actions_verticalConfigScrollUp</item>
+        <item>@string/actions_verticalConfigScrollDown</item>
+        <item>@string/actions_leftTopCorner</item>
+        <item>@string/actions_rightTopCorner</item>
+        <item>@string/actions_leftBottomCorner</item>
+        <item>@string/actions_rightBottomCorner</item>
+
+        <item>@string/menu_about</item>
+        <item>@string/menu_close</item>
+
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string-array name="pref_align_entries" translatable="false">
+        <item>@string/list_align_by_width</item>
+        <item>@string/list_align_by_height</item>
+        <item>@string/list_align_auto</item>
+    </string-array>
+    <string-array name="pref_align_values" translatable="false">
+        <item>@string/pref_align_by_width</item>
+        <item>@string/pref_align_by_height</item>
+        <item>@string/pref_align_auto</item>
+    </string-array>
+    <string-array name="pref_animation_type_entries" translatable="false">
+        <item>@string/list_animation_none</item>
+        <item>@string/list_animation_curler_simple</item>
+        <item>@string/list_animation_curler_dynamic</item>
+        <item>@string/list_animation_slider</item>
+        <item>@string/list_animation_fader</item>
+        <item>@string/list_animation_squeezer</item>
+        <item>@string/list_animation_slider2</item>
+    </string-array>
+    <string-array name="pref_animation_type_values" translatable="false">
+        <item>@string/pref_animation_type_none</item>
+        <item>@string/pref_animation_type_curler_simple</item>
+        <item>@string/pref_animation_type_curler_dynamic</item>
+        <item>@string/pref_animation_type_slider</item>
+        <item>@string/pref_animation_type_fader</item>
+        <item>@string/pref_animation_type_squeezer</item>
+        <item>@string/pref_animation_type_slider2</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string-array name="pref_bitmapsize_entries" translatable="false">
+        <item>@string/list_bitmapsize_64</item>
+        <item>@string/list_bitmapsize_128</item>
+        <item>@string/list_bitmapsize_256</item>
+        <item>@string/list_bitmapsize_512</item>
+        <item>@string/list_bitmapsize_1024</item>
+    </string-array>
+    <string-array name="pref_bitmapsize_values" translatable="false">
+        <item>@string/pref_bitmapsize_64</item>
+        <item>@string/pref_bitmapsize_128</item>
+        <item>@string/pref_bitmapsize_256</item>
+        <item>@string/pref_bitmapsize_512</item>
+        <item>@string/pref_bitmapsize_1024</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_book.xml -->
+    <eat-comment/>
+    <string-array name="pref_book_rotation_entries" translatable="false">
+        <item>@string/list_rotation_unspecified</item>
+        <item>@string/list_rotation_land</item>
+        <item>@string/list_rotation_port</item>
+    </string-array>
+    <string-array name="pref_book_rotation_values" translatable="false">
+        <item>@string/pref_rotation_unspecified</item>
+        <item>@string/pref_rotation_land</item>
+        <item>@string/pref_rotation_port</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string-array name="pref_cachelocation_entries" translatable="false">
+        <item>@string/list_cachelocation_system</item>
+        <item>@string/list_cachelocation_custom</item>
+    </string-array>
+    <string-array name="pref_cachelocation_values" translatable="false">
+        <item>@string/pref_cachelocation_system</item>
+        <item>@string/pref_cachelocation_custom</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string-array name="pref_djvu_rendering_mode_entries" translatable="false">
+        <item>@string/list_djvu_rendering_mode_0</item>
+        <item>@string/list_djvu_rendering_mode_1</item>
+        <item>@string/list_djvu_rendering_mode_2</item>
+        <item>@string/list_djvu_rendering_mode_3</item>
+        <item>@string/list_djvu_rendering_mode_4</item>
+        <item>@string/list_djvu_rendering_mode_5</item>
+    </string-array>
+    <string-array name="pref_djvu_rendering_mode_values" translatable="false">
+        <item>@string/pref_djvu_rendering_mode_0</item>
+        <item>@string/pref_djvu_rendering_mode_1</item>
+        <item>@string/pref_djvu_rendering_mode_2</item>
+        <item>@string/pref_djvu_rendering_mode_3</item>
+        <item>@string/pref_djvu_rendering_mode_4</item>
+        <item>@string/pref_djvu_rendering_mode_5</item>
+    </string-array>
+    <string-array name="pref_fb2_xmlparser_entries" translatable="false">
+        <item>@string/list_fb2_xmlparser_standard</item>
+        <item>@string/list_fb2_xmlparser_vtd_ex</item>
+        <item>@string/list_fb2_xmlparser_duckbill</item>
+    </string-array>
+    <string-array name="pref_fb2_xmlparser_values" translatable="false">
+        <item>@string/pref_fb2_xmlparser_standard</item>
+        <item>@string/pref_fb2_xmlparser_vtd_ex</item>
+        <item>@string/pref_fb2_xmlparser_duckbill</item>
+    </string-array>
+    <string-array name="pref_fontsize_entries" translatable="false">
+        <item>@string/list_fontsize_tiny</item>
+        <item>@string/list_fontsize_small</item>
+        <item>@string/list_fontsize_normal</item>
+        <item>@string/list_fontsize_large</item>
+        <item>@string/list_fontsize_huge</item>
+    </string-array>
+    <string-array name="pref_fontsize_values" translatable="false">
+        <item>@string/pref_fontsize_tiny</item>
+        <item>@string/pref_fontsize_small</item>
+        <item>@string/pref_fontsize_normal</item>
+        <item>@string/pref_fontsize_large</item>
+        <item>@string/pref_fontsize_huge</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string-array name="pref_lang_entries" translatable="false">
+        <item>@string/list_lang_default</item>
+        <item>@string/list_lang_ru</item>
+        <item>@string/list_lang_en</item>
+        <item>@string/list_lang_de</item>
+        <item>@string/list_lang_es</item>
+        <item>@string/list_lang_fr</item>
+        <item>@string/list_lang_uk</item>
+        <item>@string/list_lang_it</item>
+        <item>@string/list_lang_nl</item>
+        <item>@string/list_lang_zh</item>
+        <item>@string/list_lang_iw</item>
+    </string-array>
+    <string-array name="pref_lang_values" translatable="false">
+        <item>@string/pref_lang_default</item>
+        <item>@string/pref_lang_ru</item>
+        <item>@string/pref_lang_en</item>
+        <item>@string/pref_lang_de</item>
+        <item>@string/pref_lang_es</item>
+        <item>@string/pref_lang_fr</item>
+        <item>@string/pref_lang_uk</item>
+        <item>@string/pref_lang_it</item>
+        <item>@string/pref_lang_nl</item>
+        <item>@string/pref_lang_zh</item>
+        <item>@string/pref_lang_iw</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string-array name="pref_rotation_entries_10" translatable="false">
+        <item>@string/list_rotation_unspecified</item>
+        <item>@string/list_rotation_land</item>
+        <item>@string/list_rotation_port</item>
+        <item>@string/list_rotation_user</item>
+        <item>@string/list_rotation_behind</item>
+        <item>@string/list_rotation_auto</item>
+        <item>@string/list_rotation_nosensor</item>
+        <item>@string/list_rotation_sensor_landscape</item>
+        <item>@string/list_rotation_sensor_portrait</item>
+        <item>@string/list_rotation_reverse_landscape</item>
+        <item>@string/list_rotation_reverse_portrait</item>
+        <item>@string/list_rotation_full_sensor</item>
+    </string-array>
+    <string-array name="pref_rotation_entries_3" translatable="false">
+        <item>@string/list_rotation_unspecified</item>
+        <item>@string/list_rotation_land</item>
+        <item>@string/list_rotation_port</item>
+        <item>@string/list_rotation_user</item>
+        <item>@string/list_rotation_behind</item>
+        <item>@string/list_rotation_auto</item>
+        <item>@string/list_rotation_nosensor</item>
+    </string-array>
+    <string-array name="pref_rotation_values_10" translatable="false">
+        <item>@string/pref_rotation_unspecified</item>
+        <item>@string/pref_rotation_land</item>
+        <item>@string/pref_rotation_port</item>
+        <item>@string/pref_rotation_user</item>
+        <item>@string/pref_rotation_behind</item>
+        <item>@string/pref_rotation_auto</item>
+        <item>@string/pref_rotation_nosensor</item>
+        <item>@string/pref_rotation_sensor_landscape</item>
+        <item>@string/pref_rotation_sensor_portrait</item>
+        <item>@string/pref_rotation_reverse_landscape</item>
+        <item>@string/pref_rotation_reverse_portrait</item>
+        <item>@string/pref_rotation_full_sensor</item>
+    </string-array>
+    <string-array name="pref_rotation_values_3" translatable="false">
+        <item>@string/pref_rotation_unspecified</item>
+        <item>@string/pref_rotation_land</item>
+        <item>@string/pref_rotation_port</item>
+        <item>@string/pref_rotation_user</item>
+        <item>@string/pref_rotation_behind</item>
+        <item>@string/pref_rotation_auto</item>
+        <item>@string/pref_rotation_nosensor</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string-array name="pref_thread_priority_entries" translatable="false">
+        <item>@string/list_thread_priority_lowest</item>
+        <item>@string/list_thread_priority_lower</item>
+        <item>@string/list_thread_priority_normal</item>
+        <item>@string/list_thread_priority_higher</item>
+        <item>@string/list_thread_priority_highest</item>
+    </string-array>
+    <string-array name="pref_thread_priority_values" translatable="false">
+        <item>@string/pref_thread_priority_lowest</item>
+        <item>@string/pref_thread_priority_lower</item>
+        <item>@string/pref_thread_priority_normal</item>
+        <item>@string/pref_thread_priority_higher</item>
+        <item>@string/pref_thread_priority_highest</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string-array name="pref_toastposition_entries" translatable="false">
+        <item>@string/list_toastposition_invisible</item>
+        <item>@string/list_toastposition_lefttop</item>
+        <item>@string/list_toastposition_righttop</item>
+        <item>@string/list_toastposition_leftbottom</item>
+        <item>@string/list_toastposition_bottom</item>
+        <item>@string/list_toastposition_righbottom</item>
+    </string-array>
+    <string-array name="pref_toastposition_values" translatable="false">
+        <item>@string/pref_toastposition_invisible</item>
+        <item>@string/pref_toastposition_lefttop</item>
+        <item>@string/pref_toastposition_righttop</item>
+        <item>@string/pref_toastposition_leftbottom</item>
+        <item>@string/pref_toastposition_bottom</item>
+        <item>@string/pref_toastposition_righbottom</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string-array name="pref_viewmode_entries" translatable="false">
+        <item>@string/list_viewmode_vertical_scroll</item>
+        <item>@string/list_viewmode_horizontal_scroll</item>
+        <item>@string/list_viewmode_single_page</item>
+    </string-array>
+    <string-array name="pref_viewmode_values" translatable="false">
+        <item>@string/pref_viewmode_vertical_scroll</item>
+        <item>@string/pref_viewmode_horizontal_scroll</item>
+        <item>@string/pref_viewmode_single_page</item>
+    </string-array>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="actionbar_white">#FFFFFFFF</color>
+    <color name="cl_buttons">#8FEBEAEA</color>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="CertificateType">Certificate Type:</string>
+    <string name="about_3dparty_title">Third party software</string>
+    <string name="about_changelog_title">Change Log</string>
+    <string name="about_commmon_title">Application info</string>
+    <string name="about_donations">Donations</string>
+    <string name="about_fonts_title">Fonts</string>
+    <string name="about_license_title">License</string>
+    <string name="about_prefix">en</string>
+    <string name="about_thanks_title">Acknowledgments</string>
+    <string name="about_title">About iAppPDF</string>
+    <string name="action_settings">Settings</string>
+    <string name="actions_leftBottomCorner">"Scroll to the bottom left corner"</string>
+    <string name="actions_leftTopCorner">"Scroll to the top left corner"</string>
+    <string name="actions_quickZoom">"Zoom"</string>
+    <string name="actions_rightBottomCorner">"Scroll to the bottom right corner"</string>
+    <string name="actions_rightTopCorner">"Scroll to the top right corner"</string>
+    <string name="actions_verticalConfigScrollDown">"Scroll Down"</string>
+    <string name="actions_verticalConfigScrollUp">"Scroll Up"</string>
+    <string name="actions_zoomToColumn">"Zoom to Row"</string>
+    <string name="addCustomSign">Add custom signature</string>
+    <string name="add_bookmark_name">Enter bookmark description</string>
+    <string name="after_register_time_invalid">Time is invalid after register！</string>
+    <string name="annot_commen">Idiomatic Comment</string>
+    <string name="annot_sound">Voice Comment</string>
+    <string name="annot_sound_del">Delete Voice</string>
+    <string name="auth_company:">Licensed to:</string>
+    <string name="auth_companyName">Authorization company:</string>
+    <string name="auth_info">Authorization Message</string>
+    <string name="auth_time">Useable days：</string>
+    <string name="auth_type">Authorization permission:</string>
+    <string name="author">Comment Leader:</string>
+    <string name="ballpen">Ball Pen</string>
+    <string name="book_copy_complete">"Book copy complete: %s"</string>
+    <string name="book_copy_error">"Book copy failed: %s"</string>
+    <string name="book_copy_progress">"Copying book: %1$s/%2$s…"</string>
+    <string name="book_copy_start">"Copying book…"</string>
+    <string name="book_delete_msg">"Are you sure you want to delete this book?"</string>
+    <string name="book_delete_title">"Delete book"</string>
+    <string name="book_move_complete">"Book move complete: %s"</string>
+    <string name="book_move_error">"Book move failed: %s"</string>
+    <string name="book_move_progress">"Moving book: %1$s/%2$s…"</string>
+    <string name="book_move_start">"Moving book…"</string>
+    <string name="book_rename_msg">"Enter new book file name:"</string>
+    <string name="book_rename_title">"Rename book"</string>
+    <string name="bookcase_shelves">Bookshelves</string>
+    <string name="bookmark_current">Current position</string>
+    <string name="bookmark_end">End</string>
+    <string name="bookmark_invalid_page">Page number out of range. Valid range: %1$d-%2$d</string>
+    <string name="bookmark_list">Bookmarks</string>
+    <string name="bookmark_start">Start</string>
+    <string name="bookmarks_title">Bookmarks</string>
+    <string name="bookmenu_cleardata">Clear cached data</string>
+    <string name="bookmenu_copy">Copy book to…</string>
+    <string name="bookmenu_delete">Delete book</string>
+    <string name="bookmenu_deletesettings">Remove book settings</string>
+    <string name="bookmenu_filegroup">File operations…</string>
+    <string name="bookmenu_move">Move book to…</string>
+    <string name="bookmenu_open">Open book at…</string>
+    <string name="bookmenu_openbookfolder">Show book folder</string>
+    <string name="bookmenu_openbookshelf">Show book shelf</string>
+    <string name="bookmenu_recentgroup">Clear recent data…</string>
+    <string name="bookmenu_removefromrecent">Exclude from recents</string>
+    <string name="bookmenu_rename">Rename book…</string>
+    <string name="bookmenu_settings">Show book settings</string>
+    <string name="brushpen">Brush Pen</string>
+    <string name="button_goto_page">Go</string>
+    <string name="cache_moving_progress">Moving cached files %1$d/%2$d</string>
+    <string name="cache_moving_text">Moving cached files…</string>
+    <string name="cancel">Cancel</string>
+    <string name="choiseCertificate">Choise Certificate</string>
+    <string name="choose_pic_title">Please choise photos that you want to delete!</string>
+    <string name="clear_bookmarks_text">This action will remove all bookmarks from the selected book. Continue?</string>
+    <string name="clear_bookmarks_title">Clear bookmarks</string>
+    <string name="clear_recent_text">This action will remove all books from the recent list. Continue?</string>
+    <string name="clear_recent_title">Clear recent items</string>
+    <string name="close_doc_title">Do you want to close the current document?</string>
+    <string name="company_error">Unit code,authorization code,device unique code match failed！</string>
+    <string name="confirmclose_msg">Do you really want to close this document?</string>
+    <string name="confirmclose_title">Closing viewer…</string>
+    <string name="confirmsave_msg">Would you like to save this document?</string>
+    <string name="confirmsave_no_btn">Close</string>
+    <string name="confirmsave_yes_btn">Save and close</string>
+    <string name="connectDeviceFailed">Connect device failed</string>
+    <string name="copy_book_to_dlg_title">"Copy book to…"</string>
+    <string name="copyrightisnull">Registration authorization information is empty！</string>
+    <string msgid="5303657888280340603" name="crop_discard_text">"Abandon"</string>
+    <string name="crop_rotate_text">Rotate</string>
+    <string msgid="8140440041190264400" name="crop_save_text">"Save"</string>
+    <string name="del_all_pic_title">Do you delete all photos?</string>
+    <string name="del_bookmark_text">Remove this bookmark?</string>
+    <string name="del_bookmark_title">Remove bookmark</string>
+    <string name="del_one_pic_title">Do you delete the selected images?</string>
+    <string name="deleteAllCustomComment">Do you really delete all custom Comments?</string>
+    <string name="delete_all_graphics">Do yout want to delete the current user all handwritten comments in the document?</string>
+    <string name="delete_all_notes">Do you want to delete the current user all text notes in the document?</string>
+    <string name="delete_all_signature">Do you want to delete the current user all stamp in the document?</string>
+    <string name="delete_all_signs">Do you want to delete the current user all handwritten signature in the document?</string>
+    <string name="delete_all_sound">Do you want to delete the current user voice comments in the document?</string>
+    <string name="dialog_backup_backup">Backup…</string>
+    <string name="dialog_backup_name_hint">Enter new backup name…</string>
+    <string name="dialog_backup_remove">Remove…</string>
+    <string name="dialog_backup_restore">Restore…</string>
+    <string name="dialog_bad_file">The document has been damaged!</string>
+    <string name="dialog_delete_note_title">Do yout want to delete the comments?</string>
+    <string name="dialog_open_document">Opening,please wait…</string>
+    <string name="dialog_repair_file">The file abnormal structure can be normal browsing after it is repaired!</string>
+    <string name="dialog_save">Saving,please wait…</string>
+    <string name="dialog_title">Hint</string>
+    <string name="dialog_title_goto_page">Go to…</string>
+    <string name="dialog_verify">The documents are protected, enter "Document Open Password".</string>
+    <string name="dialog_wrong_password">Password error,please re-enter!</string>
+    <string name="doNotfindBluetoothDevice">Do not find the Bluetooth Device!</string>
+    <string name="document_save">Save Exit</string>
+    <string name="enter">Please enter</string>
+    <string name="enterUsernameAndPassword">Enter Username and Password</string>
+    <string name="error_close">Close</string>
+    <string name="error_dlg_title">Application error</string>
+    <string name="error_fileformat_wrong">The document is not standard PDF file,iAppPDF will be closed!</string>
+    <string name="error_invalid_view_mode">This action is only available in view mode %1$s</string>
+    <string name="error_page_out_of_rande">Page number out of range. Valid range: 1-%1$d</string>
+    <string name="file_close">Close Document</string>
+    <string name="file_time_invalid">Time of authorization document is invalid！</string>
+    <string name="fill_field">Filling the template…</string>
+    <string name="finger_add">Please click on the position you want to insert finger annotation</string>
+    <string name="folder_books_count">"Books: %1$d"</string>
+    <string name="font_reminder">Starting with version 1.5, PDF and FB2 fonts are no longer embedded in the application. Standard Android fonts are used instead. If you wish to restore legacy fonts or install custom fonts, please use font package installers from Google Play Market: &lt;ul>&lt;li>&lt;a href="market://details?id=org.ebookdroid.fontpack.legacy">Legacy fonts&lt;/a>&lt;/li>&lt;/ul></string>
+    <string name="font_reminder_title">Warning</string>
+    <string name="forever_valid">Perpetual Valid</string>
+    <string name="freeSignCertificate">is not Exit</string>
+    <string name="getCertificateInfo">Getting the certificate information</string>
+    <string name="getCertificateInfoFailed">Do not getted certificate information</string>
+    <string name="getCertificateList">Getting the Certificate List</string>
+    <string name="getCertificateNameFailed">Do not getted the certificate name</string>
+    <string name="graphic_note">Note：Writing Comment</string>
+    <string name="hasSignCertificate">is Exit</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hint_nosigned">No sign,No save！</string>
+    <string name="iAppPDFVerifyP7">iAppPDF can only verify P7 format signature！The current signature format：</string>
+    <string name="input">Please input password</string>
+    <string name="insertHandwrittenFailed">Insert handwritten comment failed!</string>
+    <string name="insert_vector_tip">Inserting handwritten annotations, please wait！</string>
+    <string name="interchangeCertificate">Interchange Certificate:</string>
+    <string name="keylength">The length of key:</string>
+    <string name="labwidth">Nib Width</string>
+    <string name="lictype_forever">Perpetual License</string>
+    <string name="lictype_limit">Term License</string>
+    <string name="lictype_probation">Trail License</string>
+    <string name="lictype_unlimit">Unlimited License</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="list_align_auto">"自动"</string>
+    <string name="list_align_by_height">"按高度"</string>
+    <string name="list_align_by_width">"按宽度"</string>
+    <string name="list_animation_curler_dynamic">"动态卷"</string>
+    <string name="list_animation_curler_natural">"自然卷"</string>
+    <string name="list_animation_curler_simple">"简单卷"</string>
+    <string name="list_animation_fader">"渐显淡入"</string>
+    <string name="list_animation_none">"无"</string>
+    <string name="list_animation_slider">"滑动"</string>
+    <string name="list_animation_slider2">"Slide over"</string>
+    <string name="list_animation_squeezer">"Squeeze"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="list_bitmapsize_1024" translatable="true">"1024 * 1024"</string>
+    <string name="list_bitmapsize_128" translatable="true">"128 * 128"</string>
+    <string name="list_bitmapsize_256" translatable="true">"256 * 256"</string>
+    <string name="list_bitmapsize_512" translatable="true">"512 * 512"</string>
+    <string name="list_bitmapsize_64" translatable="true">"64 * 64"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="list_cachelocation_custom">"SD卡缓存"</string>
+    <string name="list_cachelocation_system">"系统缓存"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="list_clear_recent_mode_clear_recent_list">Clear recent books list</string>
+    <string name="list_clear_recent_mode_delete_book_settings">Clear all book settings</string>
+    <string name="list_clear_recent_mode_delete_bookmarks">Delete all bookmarks</string>
+    <string name="list_clear_recent_mode_delete_cached_data">Delete all cached data from disk</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="list_djvu_rendering_mode_0">"颜色"</string>
+    <string name="list_djvu_rendering_mode_1">"黑"</string>
+    <string name="list_djvu_rendering_mode_2">"只有颜色"</string>
+    <string name="list_djvu_rendering_mode_3">"仅蒙版"</string>
+    <string name="list_djvu_rendering_mode_4">"仅背景"</string>
+    <string name="list_djvu_rendering_mode_5">"仅前台"</string>
+    <string name="list_fb2_xmlparser_duckbill">"Dumb &amp; Dirty"</string>
+    <string name="list_fb2_xmlparser_standard">"标准"</string>
+    <string name="list_fb2_xmlparser_vtd_ex">"基于VTD"</string>
+    <string name="list_fontsize_huge">"巨大的"</string>
+    <string name="list_fontsize_large">"大"</string>
+    <string name="list_fontsize_normal">"正常"</string>
+    <string name="list_fontsize_small">"小"</string>
+    <string name="list_fontsize_tiny">"微小的"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="list_lang_de">"德语 (Deutsch)"</string>
+    <string name="list_lang_default">"系统默认"</string>
+    <string name="list_lang_en">"英语 (English)"</string>
+    <string name="list_lang_es">"西班牙语 (Español)"</string>
+    <string name="list_lang_fr">"法语 (Française)"</string>
+    <string name="list_lang_it">"意大利语 (Italiano)"</string>
+    <string name="list_lang_iw">"Hebrew (עברית)"</string>
+    <string name="list_lang_nl">"荷兰语 (Nederlands)"</string>
+    <string name="list_lang_ru">"俄语 (Русский)"</string>
+    <string name="list_lang_uk">"乌克兰语 (Український)"</string>
+    <string name="list_lang_zh">"中文简体"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="list_rotation_auto" translatable="true">"自动"</string>
+    <string name="list_rotation_behind" translatable="true">"Behind"</string>
+    <string name="list_rotation_full_sensor" translatable="true">"Full sensor"</string>
+    <string name="list_rotation_land" translatable="true">"Force landscape"</string>
+    <string name="list_rotation_nosensor" translatable="true">"No sensor"</string>
+    <string name="list_rotation_port" translatable="true">"Force portrait"</string>
+    <string name="list_rotation_reverse_landscape" translatable="true">"Reverse landscape"</string>
+    <string name="list_rotation_reverse_portrait" translatable="true">"Reverse portrait"</string>
+    <string name="list_rotation_sensor_landscape" translatable="true">"Sensor landscape"</string>
+    <string name="list_rotation_sensor_portrait" translatable="true">"Sensor portrait"</string>
+    <string name="list_rotation_unspecified" translatable="true">"Unspecified"</string>
+    <string name="list_rotation_user" translatable="true">"User"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="list_thread_priority_higher">"较高"</string>
+    <string name="list_thread_priority_highest">"最高"</string>
+    <string name="list_thread_priority_lower">"较低"</string>
+    <string name="list_thread_priority_lowest">"最低"</string>
+    <string name="list_thread_priority_normal">"正常"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="list_toastposition_bottom">"屏幕底部"</string>
+    <string name="list_toastposition_invisible">"不可见"</string>
+    <string name="list_toastposition_leftbottom">"左下角"</string>
+    <string name="list_toastposition_lefttop">"左上角"</string>
+    <string name="list_toastposition_righbottom">"右下角"</string>
+    <string name="list_toastposition_righttop">"右上角"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="list_viewmode_horizontal_scroll">"水平滚动"</string>
+    <string name="list_viewmode_single_page">"单个页面"</string>
+    <string name="list_viewmode_vertical_scroll">"上下滚动"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="load_note">Loading Comments…</string>
+    <string name="loginFailed">Login Failed</string>
+    <string name="manual_cropping_all">Crop all pages</string>
+    <string name="manual_cropping_back">Return to area selection</string>
+    <string name="manual_cropping_current">Crop current page only</string>
+    <string name="manual_cropping_even">Crop all even (odd) pages</string>
+    <string name="manual_cropping_even_symm">Crop even and odd pages, symmetrically</string>
+    <string name="manual_cropping_remove_all">Remove all crop setting</string>
+    <string name="manual_cropping_remove_current">Remove crop settings from current page(s)</string>
+    <string name="manual_cropping_title">Custom crop options (requires single page):</string>
+    <string name="menu_about">About</string>
+    <string name="menu_add_bookmark">Add bookmark</string>
+    <string name="menu_addannot_menu">"Add Text Annotation"</string>
+    <string name="menu_advanced_menu">"Comments"</string>
+    <string name="menu_allsettings_menu">Settings…</string>
+    <string name="menu_annotlist_hw_menu">"Handwritten Comment Lists "</string>
+    <string name="menu_annotlist_text_menu">"Text Annotation Lists"</string>
+    <string name="menu_backupsettings">Backup &amp; Restore</string>
+    <string name="menu_booksettings">Book Settings</string>
+    <string name="menu_camera_menu">"Photograph Certificate"</string>
+    <string name="menu_cleanrecent">Clear Recent</string>
+    <string name="menu_close">Close</string>
+    <string name="menu_crop">Manual crop</string>
+    <string name="menu_custom_menu">"Custom Functionality"</string>
+    <string name="menu_delannot_menu">"Delete Text Annotation"</string>
+    <string name="menu_delete_signature">Delete Signature</string>
+    <string name="menu_deletephoto_menu">"View Photos"</string>
+    <string name="menu_deletesigner_menu">"Delete Signature"</string>
+    <string name="menu_delfullsigner_menu">"Delete Comments"</string>
+    <string name="menu_edit_bookmark">Edit bookmark</string>
+    <string name="menu_fastsettings_menu">View…</string>
+    <string name="menu_firstpage_menu">"Home Page"</string>
+    <string name="menu_force_landscape">"Forced Landscape"</string>
+    <string name="menu_force_portrait">"Forced Portrait"</string>
+    <string name="menu_fullsigner_menu">"Full Text Comments"</string>
+    <string name="menu_goto_page">Go to…</string>
+    <string name="menu_key_bindings">Configure keys</string>
+    <string name="menu_lastpage_menu">"Last Page"</string>
+    <string name="menu_more">More</string>
+    <string name="menu_navigation_menu">Navigation…</string>
+    <string name="menu_nextpage_menu">"Next Page"</string>
+    <string name="menu_nightmode">Day/Night</string>
+    <string name="menu_opds">OPDS Browser</string>
+    <string name="menu_open_menu">"Open the Doucment"</string>
+    <string name="menu_outline">Outline</string>
+    <string name="menu_previouspage_menu">"Previous Page"</string>
+    <string name="menu_savepdf_menu">"Save and Exit"</string>
+    <string name="menu_search_menu">"Search"</string>
+    <string name="menu_searchbook">Find books</string>
+    <string name="menu_searchtext">Find text</string>
+    <string name="menu_settings">All Settings</string>
+    <string name="menu_show_library">Show library</string>
+    <string name="menu_show_options_menu">Show options menu</string>
+    <string name="menu_show_recent">Show recent</string>
+    <string name="menu_showtoolbar_menu">"Show Toolbar"</string>
+    <string name="menu_signer_menu">"Signature"</string>
+    <string name="menu_storages">Storages</string>
+    <string name="menu_storages_external">SD Card</string>
+    <string name="menu_storages_filesystem">File System</string>
+    <string name="menu_tap_configuration">Configure taps</string>
+    <string name="menu_thumbnail">Set as thumbnail</string>
+    <string name="menu_zoom">Zoom</string>
+    <string name="move_book_to_dlg_title">"Move book to…"</string>
+    <string name="move_note_propmt">Annotation can only move within the page！</string>
+    <string name="msg_bad_intent">"Bad intent or scheme:\n%s"</string>
+    <string name="msg_getting_page_size">Assessing page size %1$d/%2$d</string>
+    <string name="msg_loading">Loading… Please wait</string>
+    <string name="msg_loading_book">"Loading book: %1$s…"</string>
+    <string name="msg_no_intent_data">"No intent data:\n%s"</string>
+    <string name="msg_no_text_found">"Text not found"</string>
+    <string name="msg_password_required">"Enter password…"</string>
+    <string name="msg_search_text_on_page">"Searching on page %1$d…"</string>
+    <string name="msg_unexpected_error">"An unexpected error has occurred:\n%s"</string>
+    <string name="msg_unknown_intent_data_type">"Unknown intent data type:\n%s"</string>
+    <string name="msg_wrong_password">"Wrong password…"</string>
+    <string name="net_error">Network Anomaly！</string>
+    <string name="net_error_and_time_invalid">Time of authorization document is invalid and Network Anomaly！</string>
+    <string name="neterror">Network Connect has failed,please check the Network conditions！</string>
+    <string name="noCertificate">Without Certificate</string>
+    <string name="noData">NO Data</string>
+    <string name="no_pic_del">No images need to be removed！</string>
+    <string name="no_signature1">This document does not stamp a domain, you can not do seal operation.</string>
+    <string name="no_signature2">This document is not signed domain, you can not do signature operation.</string>
+    <string msgid="5011985309980187927" name="no_way_to_share_image">"The application is not available for sharing photos."</string>
+    <string name="note">Text Note</string>
+    <string name="note_add">Please click on the position you want to insert text note!</string>
+    <string name="note_content">Context</string>
+    <string name="note_delete">Delete Note</string>
+    <string name="note_list">Comment List</string>
+    <string name="note_page_num">Page Number</string>
+    <string name="note_time_postil">Comment Time</string>
+    <string name="note_time_text">Annotation Time</string>
+    <string name="note_user_postil">Comment Leader</string>
+    <string name="note_user_text">Annotation Leader</string>
+    <string name="notification_file_add">"File added to library"</string>
+    <string name="notification_file_delete">"File removed from library"</string>
+    <string name="ok">OK</string>
+    <string name="opds">OPDS Browser</string>
+    <string name="opds_add_new_feed">Add new feed</string>
+    <string name="opds_addfeed_alias">"Alias:"</string>
+    <string name="opds_addfeed_auth">"Authorization required"</string>
+    <string name="opds_addfeed_msg">"Enter alias and URL for the catalog"</string>
+    <string name="opds_addfeed_ok">"Add"</string>
+    <string name="opds_addfeed_title">"Adding new catalog"</string>
+    <string name="opds_addfeed_url">"URL:"</string>
+    <string name="opds_authfeed_msg">"Enter user name and password for this catalog"</string>
+    <string name="opds_authfeed_ok">"Login"</string>
+    <string name="opds_authfeed_password">"Password:"</string>
+    <string name="opds_authfeed_title">"Authorization"</string>
+    <string name="opds_authfeed_username">"Username:"</string>
+    <string name="opds_book_download">Download</string>
+    <string name="opds_connecting">"Connecting…"</string>
+    <string name="opds_deletefeed_msg">"Do you really want to delete this catalog?"</string>
+    <string name="opds_deletefeed_ok">"Delete"</string>
+    <string name="opds_deletefeed_title">"Delete catalog"</string>
+    <string name="opds_download_complete">"Book download complete: %1$s"</string>
+    <string name="opds_download_error">"Book download failed: %1$s"</string>
+    <string name="opds_downloading_dlg_raw_type">"Raw type"</string>
+    <string name="opds_downloading_dlg_title">"Downloading book as…"</string>
+    <string name="opds_downloading_type_dlg_title">"Select type of book to download"</string>
+    <string name="opds_editfeed_msg">"Enter alias and URL for this catalog"</string>
+    <string name="opds_editfeed_ok">"Save"</string>
+    <string name="opds_editfeed_title">"Edit catalog"</string>
+    <string name="opds_error_msg">"%s"</string>
+    <string name="opds_error_title">"OPDS Error"</string>
+    <string name="opds_feed_add">Add</string>
+    <string name="opds_feed_delete">Delete</string>
+    <string name="opds_feed_edit">Edit</string>
+    <string name="opds_loading_book">"Loading book: %1$s/%2$s…"</string>
+    <string name="opds_loading_catalog">"Loading catalog…"</string>
+    <string name="opds_retry_download">"Retry"</string>
+    <string name="opds_unpacking_book">"Unpacking book: %1$s/%2$s…"</string>
+    <string name="opdsclose">Close</string>
+    <string name="opdsgoto">Open</string>
+    <string name="opdsnextfolder">Next section</string>
+    <string name="opdsprevfolder">Prev section</string>
+    <string name="opdsrefreshfolder">Refresh</string>
+    <string name="opdsupfolder">Up</string>
+    <string name="outline_missed">No outline available</string>
+    <string name="outline_title">Outline</string>
+    <string name="pageRender">Page being rendered,unable to zoom</string>
+    <string name="password_authentication">Password Authorization</string>
+    <string name="pencil">Pencil</string>
+    <string name="pensettingtitle">Set width and color</string>
+    <string name="penwidth">Width:</string>
+    <string name="pictureRegion">This document do not has picture region,the action of insert picture is unavailable！</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_align_auto" translatable="false">Auto</string>
+    <string name="pref_align_by_height" translatable="false">By Height</string>
+    <string name="pref_align_by_width" translatable="false">By Width</string>
+    <string name="pref_align_id" translatable="false">align</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_align_summary">"如何对齐页"</string>
+    <string name="pref_align_title">"页面对齐模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_animate_scrolling_defvalue" translatable="false">true</string>
+    <string name="pref_animate_scrolling_id" translatable="false">animate_scrolling</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_animate_scrolling_summary">"动画滚动滚动模式"</string>
+    <string name="pref_animate_scrolling_title">"动画滚动"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_animation_type_curler_dynamic" translatable="false">Dynamic curler</string>
+    <string name="pref_animation_type_curler_simple" translatable="false">Simple curler</string>
+    <string name="pref_animation_type_fader" translatable="false">Fade in</string>
+    <string name="pref_animation_type_id" translatable="false">animationType</string>
+    <string name="pref_animation_type_none" translatable="false">None</string>
+    <string name="pref_animation_type_slider" translatable="false">Slider</string>
+    <string name="pref_animation_type_slider2" translatable="false">Another Slider</string>
+    <string name="pref_animation_type_squeezer" translatable="false">Squeeze</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_animationtype_summary">"选择过渡的动画类型"</string>
+    <string name="pref_animationtype_title">"动画类型"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_autolevels_defvalue" translatable="false">false</string>
+    <string name="pref_autolevels_id" translatable="false">autolevels</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_autolevels_summary">"使用自动水平矫正"</string>
+    <string name="pref_autolevels_title">"自动色阶"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_autoscanremovable_defvalue" translatable="false">false</string>
+    <string name="pref_autoscanremovable_id" translatable="false">autoscanremovable</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_autoscanremovable_summary">Automatic scan inserted removable media</string>
+    <string name="pref_autoscanremovable_title">Auto Scan removable</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_bitmapsize_1024" translatable="false">10</string>
+    <string name="pref_bitmapsize_128" translatable="false">7</string>
+    <string name="pref_bitmapsize_256" translatable="false">8</string>
+    <string name="pref_bitmapsize_512" translatable="false">9</string>
+    <string name="pref_bitmapsize_64" translatable="false">6</string>
+    <string name="pref_bitmapsize_id" translatable="false">bitmapsize</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_bitmapsize_summary">"设置位图尺寸"</string>
+    <string name="pref_bitmapsize_title">"位图尺寸"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_book.xml -->
+    <eat-comment/>
+    <string name="pref_book_align_id" translatable="false">book_align</string>
+    <string name="pref_book_animation_type_id" translatable="false">book_animationType</string>
+    <string name="pref_book_autolevels_id" translatable="false">book_autolevels</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_book_category">"当前设置"</string>
+    <string name="pref_book_category_summary">"当前阅读的文件设置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_book.xml -->
+    <eat-comment/>
+    <string name="pref_book_contrast_id" translatable="false">book_contrast</string>
+    <string name="pref_book_croppages_id" translatable="false">book_croppages</string>
+    <string name="pref_book_exposure_id" translatable="false">book_exposure</string>
+    <string name="pref_book_firstpageoffset_defvalue" translatable="false">1</string>
+    <string name="pref_book_firstpageoffset_id" translatable="false">book_firstpageoffset</string>
+    <string name="pref_book_firstpageoffset_maxvalue" translatable="false">2147483647</string>
+    <string name="pref_book_firstpageoffset_minvalue" translatable="false">1</string>
+    <string name="pref_book_gamma_id" translatable="false">book_gamma</string>
+    <string name="pref_book_id" translatable="false">book</string>
+    <string name="pref_book_nightmode_id" translatable="false">book_nightmode</string>
+    <string name="pref_book_posimages_in_nightmode_id" translatable="false">book-posimages-in-nightmode</string>
+    <string name="pref_book_rotation_id" translatable="false">book_rotation</string>
+    <string name="pref_book_splitpages_id" translatable="false">book_splitpages</string>
+    <string name="pref_book_splitpages_rtl_id" translatable="false">book_splitpages_rtl</string>
+    <string name="pref_book_viewmode_id" translatable="false">book_viewmode</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_brautoscandir_defvalue" translatable="false">/sdcard</string>
+    <string name="pref_brautoscandir_id" translatable="false">brautoscandir</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_brautoscandir_summary">"自动搜索的文件目录"</string>
+    <string name="pref_brautoscandir_title">"自动扫描目录"</string>
+    <string name="pref_brbrfiletypesscreen_summary">"书库中显示的文件类型"</string>
+    <string name="pref_brbrfiletypesscreen_title">"文件类型"</string>
+    <string name="pref_brfiletypecbr_summary">"显示CBR文件"</string>
+    <string name="pref_brfiletypecbr_title" translatable="true">".cbr"</string>
+    <string name="pref_brfiletypecbz_summary">"显示CBZ文件"</string>
+    <string name="pref_brfiletypecbz_title" translatable="true">".cbz"</string>
+    <string name="pref_brfiletypedjv_summary">"显示Djv文件"</string>
+    <string name="pref_brfiletypedjv_title" translatable="true">".djv"</string>
+    <string name="pref_brfiletypedjvu_summary">"显示DjVu文件"</string>
+    <string name="pref_brfiletypedjvu_title" translatable="true">".djvu"</string>
+    <string name="pref_brfiletypefb2.zip_summary">"显示FB2.ZIP文件"</string>
+    <string name="pref_brfiletypefb2.zip_title" translatable="true">".fb2.zip"</string>
+    <string name="pref_brfiletypefb2_summary">"显示FB2中的文件"</string>
+    <string name="pref_brfiletypefb2_title" translatable="true">".fb2"</string>
+    <string name="pref_brfiletypeoxps_summary">"显示OXPS文件"</string>
+    <string name="pref_brfiletypeoxps_title" translatable="true">".oxps"</string>
+    <string name="pref_brfiletypepdf_summary">"显示PDF文件"</string>
+    <string name="pref_brfiletypepdf_title" translatable="true">".pdf"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_brfiletypes" translatable="false">brfiletypes</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_brfiletypespecific_summary">"每个单独文件格式的设置"</string>
+    <string name="pref_brfiletypespecific_title">"特定格式"</string>
+    <string name="pref_brfiletypespecificdjvu_summary">"DJVU 特定格式设置"</string>
+    <string name="pref_brfiletypespecificdjvu_title" translatable="true">"DJVU"</string>
+    <string name="pref_brfiletypespecificfb2_summary">"FB2 特定格式设置"</string>
+    <string name="pref_brfiletypespecificfb2_title" translatable="true">"FB2"</string>
+    <string name="pref_brfiletypespecificpdf_summary">"PDF特定格式设置"</string>
+    <string name="pref_brfiletypespecificpdf_title" translatable="true">"PDF"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_brfiletypexps_summary">"显示XPS文件"</string>
+    <string name="pref_brfiletypexps_title" translatable="true">".xps"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_brightness_defvalue" translatable="false">100</string>
+    <string name="pref_brightness_id" translatable="false">brightness</string>
+    <string name="pref_brightness_maxvalue" translatable="false">100</string>
+    <string name="pref_brightness_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_brightness_summary">"调整设置整体亮度(0–100)"</string>
+    <string name="pref_brightness_title">"亮度"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_brightnessnightmodeonly_defvalue" translatable="false">false</string>
+    <string name="pref_brightnessnightmodeonly_id" translatable="false">brightnessnightmodeonly</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_brightnessnightmodeonly_summary">"亮度设置在夜间模式中应用"</string>
+    <string name="pref_brightnessnightmodeonly_title">"夜间模式的亮度"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_browser_category">"文件浏览"</string>
+    <string name="pref_browser_category_summary">"文件浏览方式和文件类型设置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_brsearchbookquery_id" translatable="false">brsearchbookquery</string>
+    <string name="pref_cachelocation_custom" translatable="false">Custom</string>
+    <string name="pref_cachelocation_defvalue" translatable="false">System</string>
+    <string name="pref_cachelocation_id" translatable="false">cachelocation</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_cachelocation_summary">"缓存文件存放的位置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_cachelocation_system" translatable="false">System</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_cachelocation_title">"缓存位置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_confirmclose_defvalue" translatable="false">false</string>
+    <string name="pref_confirmclose_id" translatable="false">confirmclose</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_confirmclose_summary">"问结束确认背上按下"</string>
+    <string name="pref_confirmclose_title">"确认关闭"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_contrast_defvalue" translatable="false">100</string>
+    <string name="pref_contrast_id" translatable="false">contrast</string>
+    <string name="pref_contrast_maxvalue" translatable="false">1000</string>
+    <string name="pref_contrast_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_contrast_summary">"对比度校正极 (0——1000,默认为 100)：100""</string>
+    <string name="pref_contrast_title">"对比"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_croppages_defvalue" translatable="false">false</string>
+    <string name="pref_croppages_id" translatable="false">croppages</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_croppages_summary">"裁剪页面边框"</string>
+    <string name="pref_croppages_title">"裁剪页面"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_current_search_highlight_defvalue" translatable="false">0x7F007F00</string>
+    <string name="pref_current_search_highlight_id" translatable="false">current_search_highlight</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_current_search_highlight_summary">"选择颜色突出当前搜索结果"</string>
+    <string name="pref_current_search_highlight_title">"搜索当前突出"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_customdpi_defvalue" translatable="false">false</string>
+    <string name="pref_customdpi_id" translatable="false">customdpi</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_customdpi_summary">"定义低于 DPI值"</string>
+    <string name="pref_customdpi_title">"使用自定义 DPI"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decodethread_priority_id" translatable="false">decodethread_priority</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decodethread_priority_summary">"设置解码线程优先级"</string>
+    <string name="pref_decodethread_priority_title">"解码线程优先级"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decoding_threads_defvalue" translatable="false">1</string>
+    <string name="pref_decoding_threads_id" translatable="false">decoding_threads</string>
+    <string name="pref_decoding_threads_maxvalue" translatable="false">16</string>
+    <string name="pref_decoding_threads_minvalue" translatable="false">1</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decoding_threads_summary">"运行解码线程的数量"</string>
+    <string name="pref_decoding_threads_title">"解码线程数量"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decodingonscroll_defvalue" translatable="false">true</string>
+    <string name="pref_decodingonscroll_id" translatable="false">decodingonscroll</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_decodingonscroll_summary">"Allow to decode pages during scrolling or fling"</string>
+    <string name="pref_decodingonscroll_title">"Decoding during scrolling"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_dingbatfontpack_defvalue" translatable="false"/>
+    <string name="pref_dingbatfontpack_id" translatable="false">dingbatfontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_dingbatfontpack_summary">"定义字体包使用图片字体"</string>
+    <string name="pref_dingbatfontpack_title">"他的字体家族"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_djvu_rendering_mode_0" translatable="false">0</string>
+    <string name="pref_djvu_rendering_mode_1" translatable="false">1</string>
+    <string name="pref_djvu_rendering_mode_2" translatable="false">2</string>
+    <string name="pref_djvu_rendering_mode_3" translatable="false">3</string>
+    <string name="pref_djvu_rendering_mode_4" translatable="false">4</string>
+    <string name="pref_djvu_rendering_mode_5" translatable="false">5</string>
+    <string name="pref_djvu_rendering_mode_id" translatable="false">djvu_rendering_mode</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_djvu_rendering_mode_summary">""页面渲染模式“"</string>
+    <string name="pref_djvu_rendering_mode_title">"渲染模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_drawthread_priority_id" translatable="false">drawthread_priority</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_drawthread_priority_summary">"设置表面绘图线程优先级"</string>
+    <string name="pref_drawthread_priority_title">"表面绘图线程优先级"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_exposure_defvalue" translatable="false">100</string>
+    <string name="pref_exposure_id" translatable="false">exposure</string>
+    <string name="pref_exposure_maxvalue" translatable="false">200</string>
+    <string name="pref_exposure_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_exposure_summary">"曝光校正极 (0——200, 默认为100)：100"</string>
+    <string name="pref_exposure_title">"曝光"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2_xmlparser_duckbill" translatable="false">Duckbill</string>
+    <string name="pref_fb2_xmlparser_id" translatable="false">fb2xmlparser</string>
+    <string name="pref_fb2_xmlparser_standard" translatable="false">Standard</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2_xmlparser_summary">"XML解析器"</string>
+    <string name="pref_fb2_xmlparser_title">"XML解析器"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2_xmlparser_vtd_ex" translatable="false">VTDEx</string>
+    <string name="pref_fb2cacheimages_defvalue" translatable="false">false</string>
+    <string name="pref_fb2cacheimages_id" translatable="false">fb2cacheimages</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2cacheimages_summary">"临时将图像文件存储在磁盘上减少内存使用"</string>
+    <string name="pref_fb2cacheimages_title">"磁盘缓存图像"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2fontpack_defvalue" translatable="false">System, sans</string>
+    <string name="pref_fb2fontpack_id" translatable="false">fb2fontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2fontpack_summary">"定义字体包使用配渲染"</string>
+    <string name="pref_fb2fontpack_title">"FB2字体家族"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2hyphen_defvalue" translatable="false">false</string>
+    <string name="pref_fb2hyphen_id" translatable="false">fb2hyphen</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fb2hyphen_summary">"实验断字的实现"</string>
+    <string name="pref_fb2hyphen_title">"启用断字"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_firstpageoffset_summary">"Index of first page shown to user"</string>
+    <string name="pref_firstpageoffset_title">"First page offset"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fontsize_huge" translatable="false">HUGE</string>
+    <string name="pref_fontsize_id" translatable="false">fontsize</string>
+    <string name="pref_fontsize_large" translatable="false">LARGE</string>
+    <string name="pref_fontsize_normal" translatable="false">NORMAL</string>
+    <string name="pref_fontsize_small" translatable="false">SMALL</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fontsize_summary">"字体的大小"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fontsize_tiny" translatable="false">TINY</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_fontsize_title">"字体大小"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_fullscreen_defvalue" translatable="false">false</string>
+    <string name="pref_fullscreen_id" translatable="false">fullscreen</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_fullscreen_summary">"隐藏状态栏。"</string>
+    <string name="pref_fullscreen_title">"全屏幕"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_gamma_defvalue" translatable="false">100</string>
+    <string name="pref_gamma_id" translatable="false">gamma</string>
+    <string name="pref_gamma_maxvalue" translatable="false">200</string>
+    <string name="pref_gamma_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_gamma_summary">"Gamma correction level (0 – 200, 100 by default)"</string>
+    <string name="pref_gamma_title">"Gamma"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_heappreallocate_defvalue" translatable="false">0</string>
+    <string name="pref_heappreallocate_id" translatable="false">heappreallocate</string>
+    <string name="pref_heappreallocate_maxvalue" translatable="false">256</string>
+    <string name="pref_heappreallocate_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_heappreallocate_summary">"程序启动时预分配堆栈大小（兆字节）"</string>
+    <string name="pref_heappreallocate_title">"预分配堆栈"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_keepscreenon_defvalue" translatable="false">true</string>
+    <string name="pref_keepscreenon_id" translatable="false">keepscreenon</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_keepscreenon_summary">"始终保持屏幕"</string>
+    <string name="pref_keepscreenon_title">"保持屏幕"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_profiles.xml -->
+    <eat-comment/>
+    <string name="pref_keys_binding_defvalue" translatable="false"/>
+    <string name="pref_keys_binding_id" translatable="false">keys_binding</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_lang_de" translatable="false">"de"</string>
+    <string name="pref_lang_default" translatable="false">""</string>
+    <string name="pref_lang_defvalue" translatable="false">""</string>
+    <string name="pref_lang_en" translatable="false">"en"</string>
+    <string name="pref_lang_es" translatable="false">"es"</string>
+    <string name="pref_lang_fr" translatable="false">"fr"</string>
+    <string name="pref_lang_id" translatable="false">lang</string>
+    <string name="pref_lang_it" translatable="false">"it"</string>
+    <string name="pref_lang_iw" translatable="false">"iw"</string>
+    <string name="pref_lang_nl" translatable="false">"nl"</string>
+    <string name="pref_lang_ru" translatable="false">"ru"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_lang_summary">"用户界面语言 (需要重启)"</string>
+    <string name="pref_lang_title">"语言"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_lang_uk" translatable="false">"uk"</string>
+    <string name="pref_lang_zh" translatable="false">"zh"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_link_highlight_defvalue" translatable="false">0x80FFFF00</string>
+    <string name="pref_link_highlight_id" translatable="false">link_highlight</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_link_highlight_summary">"选择颜色环节突出"</string>
+    <string name="pref_link_highlight_title">"链接突出"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_loadrecent_defvalue" translatable="false">false</string>
+    <string name="pref_loadrecent_id" translatable="false">loadrecent</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_loadrecent_summary">"在应用程序上启动自动加载上次打开的书"</string>
+    <string name="pref_loadrecent_title">"最近加载"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_lowlevel_category">"低级别的应用程序首选项（需重新加载文件）"</string>
+    <string name="pref_lowlevel_category_summary">"低级别的应用程序首选项（需重新加载文件）"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_monofontpack_defvalue" translatable="false"/>
+    <string name="pref_monofontpack_id" translatable="false">monofontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_monofontpack_summary">"定义字体包使用等宽字体家族"</string>
+    <string name="pref_monofontpack_title">"等宽字体家族"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_navigation_category">Navigation &amp; history</string>
+    <string name="pref_navigation_category_summary">Navigation &amp; history settings</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_nightmode_defvalue" translatable="false">false</string>
+    <string name="pref_nightmode_id" translatable="false">nightmode</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_nightmode_summary">"在黑色背景上使用白色符号"</string>
+    <string name="pref_nightmode_title">"夜间模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_pageintitle_defvalue" translatable="false">true</string>
+    <string name="pref_pageintitle_id" translatable="false">pageintitle</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_pageintitle_summary">"在标题栏中显示的页号"</string>
+    <string name="pref_pageintitle_title">"在标题页"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_pagenumbertoastposition_id" translatable="false">pagenumbertoastposition</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_pagenumbertoastposition_summary">"页码自定义位置"</string>
+    <string name="pref_pagenumbertoastposition_title">"页码自定义位置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_pagesinmemory_defvalue" translatable="false">0</string>
+    <string name="pref_pagesinmemory_id" translatable="false">pagesinmemory</string>
+    <string name="pref_pagesinmemory_maxvalue" translatable="false">16</string>
+    <string name="pref_pagesinmemory_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_pagesinmemory_summary">"存储在内存中的页数"</string>
+    <string name="pref_pagesinmemory_title">"内存页面"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_pdfstoragesize_defvalue" translatable="false">64</string>
+    <string name="pref_pdfstoragesize_id" translatable="false">pdfstoragesize</string>
+    <string name="pref_pdfstoragesize_maxvalue" translatable="false">256</string>
+    <string name="pref_pdfstoragesize_minvalue" translatable="false">16</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_pdfstoragesize_summary">"MuPDF内部存储容量大小（兆字节）"</string>
+    <string name="pref_pdfstoragesize_title">"MuPDF内部存储容量"</string>
+    <string name="pref_performance_category">"性能设置"</string>
+    <string name="pref_performance_category_summary">"设置性能参数"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_posimages_in_nightmode_defvalue" translatable="false">false</string>
+    <string name="pref_posimages_in_nightmode_id" translatable="false">posimages-in-nightmode</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_posimages_in_nightmode_summary">"Show gray-scaled images in night mode (do not invert image colors)"</string>
+    <string name="pref_posimages_in_nightmode_title">"Positive images in night mode"</string>
+    <string name="pref_postprocessing_category">"后处理效果"</string>
+    <string name="pref_postprocessing_summary">"后处理效果"</string>
+    <string name="pref_render_category">"呈现"</string>
+    <string name="pref_render_category_summary">"渲染设置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_rotation_auto" translatable="false">Automatic</string>
+    <string name="pref_rotation_behind" translatable="false">Behind</string>
+    <string name="pref_rotation_full_sensor" translatable="false">Full sensor</string>
+    <string name="pref_rotation_id" translatable="false">rotation</string>
+    <string name="pref_rotation_land" translatable="false">Force landscape</string>
+    <string name="pref_rotation_nosensor" translatable="false">No sensor</string>
+    <string name="pref_rotation_port" translatable="false">Force portrait</string>
+    <string name="pref_rotation_reverse_landscape" translatable="false">Reverse landscape</string>
+    <string name="pref_rotation_reverse_portrait" translatable="false">Reverse portrait</string>
+    <string name="pref_rotation_sensor_landscape" translatable="false">Sensor landscape</string>
+    <string name="pref_rotation_sensor_portrait" translatable="false">Sensor portrait</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_rotation_summary">"如何改变旋转"</string>
+    <string name="pref_rotation_title">"旋转模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_rotation_unspecified" translatable="false">Unspecified</string>
+    <string name="pref_rotation_user" translatable="false">User</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_sansfontpack_defvalue" translatable="false"/>
+    <string name="pref_sansfontpack_id" translatable="false">sansfontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_sansfontpack_summary">"定义字体包使用无字体"</string>
+    <string name="pref_sansfontpack_title">"无字体"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_scroll_category">"触摸和滚动"</string>
+    <string name="pref_scroll_category_summary">"触摸和滚动首选项"</string>
+    <string name="pref_scroll_summary">"设置滚动条的高度"</string>
+    <string name="pref_scroll_title">"滚动高度"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_scrollheight_defvalue" translatable="false">50</string>
+    <string name="pref_scrollheight_id" translatable="false">scrollheight</string>
+    <string name="pref_scrollheight_maxvalue" translatable="false">100</string>
+    <string name="pref_scrollheight_minvalue" translatable="false">0</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_search_highlight_defvalue" translatable="false">0x3F00FF00</string>
+    <string name="pref_search_highlight_id" translatable="false">search_highlight</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_search_highlight_summary">"选择颜色的搜索结果突出"</string>
+    <string name="pref_search_highlight_title">"搜索突出"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_seriffontpack_defvalue" translatable="false"/>
+    <string name="pref_seriffontpack_id" translatable="false">seriffontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_seriffontpack_summary">"定义字体包使用衬线字体家族"</string>
+    <string name="pref_seriffontpack_title">"衬线字体家族"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_showanimicon_defvalue" translatable="false">false</string>
+    <string name="pref_showanimicon_id" translatable="false">showanimicon</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_showanimicon_summary">"如果启用动画或拖动，显示动画或拖动图标"</string>
+    <string name="pref_showanimicon_title">"显示动画图标"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_showbookmarksmenu_defvalue" translatable="false">false</string>
+    <string name="pref_showbookmarksmenu_id" translatable="false">showbookmarksmenu</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_showbookmarksmenu_summary">Show bookmarks in menu</string>
+    <string name="pref_showbookmarksmenu_title">Show bookmarks in navigation menu</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_shownotifications_defvalue" translatable="false">true</string>
+    <string name="pref_shownotifications_id" translatable="false">shownotifications</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_shownotifications_summary">Show notifications about added/deleted files</string>
+    <string name="pref_shownotifications_title">Show notifications</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_showremovable_defvalue" translatable="false">true</string>
+    <string name="pref_showremovable_id" translatable="false">showremovable</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_showremovable_summary">Show removable media in storage menu</string>
+    <string name="pref_showremovable_title">Show Removable</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_showscanning_defvalue" translatable="false">true</string>
+    <string name="pref_showscanning_id" translatable="false">showscanning</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_showscanning_summary">Show Auto Scan dirs in storage menu</string>
+    <string name="pref_showscanning_title">Show Scan dirs</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_singlepage_category">"单个页面设置"</string>
+    <string name="pref_singlepage_category_summary">"设置实际为单页模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_slowcmyk_defvalue" translatable="false">false</string>
+    <string name="pref_slowcmyk_id" translatable="false">slowcmyk</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_slowcmyk_summary">"Use slow but accurate CMYK to RGB algorithm"</string>
+    <string name="pref_slowcmyk_title">"Slow CMYK"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_splitpages_defvalue" translatable="false">false</string>
+    <string name="pref_splitpages_id" translatable="false">splitpages</string>
+    <string name="pref_splitpages_rtl_defvalue" translatable="false">false</string>
+    <string name="pref_splitpages_rtl_id" translatable="false">splitpages_rtl</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_splitpages_rtl_summary">"Split landscape pages into two portrait pages right-to-left"</string>
+    <string name="pref_splitpages_rtl_title">"Split pages right-to-left"</string>
+    <string name="pref_splitpages_summary">"将两个纵向页面拆分为横向页面"</string>
+    <string name="pref_splitpages_title">"拆分页"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeGotoHistory_defvalue" translatable="false">true</string>
+    <string name="pref_storeGotoHistory_id" translatable="false">store_goto_history</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeGotoHistory_summary">""</string>
+    <string name="pref_storeGotoHistory_title">"转到页面导航历史记录中的商店"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeLinkGotoHistory_defvalue" translatable="false">true</string>
+    <string name="pref_storeLinkGotoHistory_id" translatable="false">store_link_goto_history</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeLinkGotoHistory_summary">""</string>
+    <string name="pref_storeLinkGotoHistory_title">"转到链接存储在导航历史记录"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeOutlineGotoHistory_defvalue" translatable="false">true</string>
+    <string name="pref_storeOutlineGotoHistory_id" translatable="false">store_outline_goto_history</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeOutlineGotoHistory_summary">""</string>
+    <string name="pref_storeOutlineGotoHistory_title">"商店转到大纲环节在导航历史记录"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeSearchGotoHistory_defvalue" translatable="false">false</string>
+    <string name="pref_storeSearchGotoHistory_id" translatable="false">store_search_goto_history</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_navigation.xml -->
+    <eat-comment/>
+    <string name="pref_storeSearchGotoHistory_summary">""</string>
+    <string name="pref_storeSearchGotoHistory_title">"到商店去搜索结果中的导航历史记录"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_symbolfontpack_defvalue" translatable="false"/>
+    <string name="pref_symbolfontpack_id" translatable="false">symbolfontpack</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_symbolfontpack_summary">"定义字体包使用符号字体"</string>
+    <string name="pref_symbolfontpack_title">"符号字体"</string>
+    <string name="pref_systemfontpack">"默认的字体"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_profiles.xml -->
+    <eat-comment/>
+    <string name="pref_tapprofiles_defvalue" translatable="false"/>
+    <string name="pref_tapprofiles_id" translatable="false">tapprofiles</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_tapsenabled_defvalue" translatable="false">true</string>
+    <string name="pref_tapsenabled_id" translatable="false">tapsenabled</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_tapsenabled_summary">"定义使用点击区域和行动"</string>
+    <string name="pref_tapsenabled_title">"启用点击"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_performance.xml -->
+    <eat-comment/>
+    <string name="pref_thread_priority_higher" translatable="false">8</string>
+    <string name="pref_thread_priority_highest" translatable="false">10</string>
+    <string name="pref_thread_priority_lower" translatable="false">3</string>
+    <string name="pref_thread_priority_lowest" translatable="false">1</string>
+    <string name="pref_thread_priority_normal" translatable="false">5</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_title_defvalue" translatable="false">true</string>
+    <string name="pref_title_id" translatable="false">title</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_title_summary">"显示标题。文件重新打开需要!!!"</string>
+    <string name="pref_title_title">"显示标题"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_toastposition_bottom" translatable="false">Bottom</string>
+    <string name="pref_toastposition_invisible" translatable="false">Invisible</string>
+    <string name="pref_toastposition_leftbottom" translatable="false">LeftBottom</string>
+    <string name="pref_toastposition_lefttop" translatable="false">LeftTop</string>
+    <string name="pref_toastposition_righbottom" translatable="false">RightBottom</string>
+    <string name="pref_toastposition_righttop" translatable="false">RightTop</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_scroll.xml -->
+    <eat-comment/>
+    <string name="pref_touchdelay_summary">"触摸处理延时（毫秒）"</string>
+    <string name="pref_touchdelay_title">"轻触处理延时"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_ui_category">"用户界面"</string>
+    <string name="pref_ui_category_summary">"用户界面设置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_usebookcase_defvalue" translatable="false">true</string>
+    <string name="pref_usebookcase_id" translatable="false">usebookcase</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_browser.xml -->
+    <eat-comment/>
+    <string name="pref_usebookcase_summary">"使用书柜视图，而不是列表"</string>
+    <string name="pref_usebookcase_title">"使用书柜视图"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_viewmode_horizontal_scroll" translatable="false">Horizontal scroll</string>
+    <string name="pref_viewmode_id" translatable="false">viewmode</string>
+    <string name="pref_viewmode_single_page" translatable="false">Single page</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_viewmode_summary">"页面视图模式"</string>
+    <string name="pref_viewmode_title">"页面视图模式"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_render.xml -->
+    <eat-comment/>
+    <string name="pref_viewmode_vertical_scroll" translatable="false">Vertical scroll</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_xdpi_defvalue" translatable="false">120</string>
+    <string name="pref_xdpi_id" translatable="false">xdpi</string>
+    <string name="pref_xdpi_maxvalue" translatable="false">720</string>
+    <string name="pref_xdpi_minvalue" translatable="false">72</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_xdpi_summary" translatable="true">"X DPI"</string>
+    <string name="pref_xdpi_title" translatable="true">"X DPI"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_ydpi_defvalue" translatable="false">120</string>
+    <string name="pref_ydpi_id" translatable="false">ydpi</string>
+    <string name="pref_ydpi_maxvalue" translatable="false">720</string>
+    <string name="pref_ydpi_minvalue" translatable="false">72</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_typespec.xml -->
+    <eat-comment/>
+    <string name="pref_ydpi_summary" translatable="true">"Y DPI"</string>
+    <string name="pref_ydpi_title" translatable="true">"Y DPI"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/service_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_zoomtoastposition_id" translatable="false">zoomtoastposition</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings_preferences_ui.xml -->
+    <eat-comment/>
+    <string name="pref_zoomtoastposition_summary">"缩放自定义的位置"</string>
+    <string name="pref_zoomtoastposition_title">"缩放自定义的位置"</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="pressOnTalk">Press On Talk</string>
+    <string name="print">Print right now</string>
+    <string name="probation_time_invalid">Time of trail licence is invalid！</string>
+    <string name="programError">Program Error</string>
+    <string name="read_only">This object is read-only,it can not be moved or deleted！</string>
+    <string name="recent_title">Recent books</string>
+    <string name="redo_photo">This object already exists,it can be operated after deleted！</string>
+    <string name="redo_signature">This signature already exists,it can be operated after deleted!</string>
+    <string name="register_failed">register failed,reason：</string>
+    <string name="register_info1">Inc Kinggrid:Your software has</string>
+    <string name="register_info2">days overdue,please register on time！</string>
+    <string name="releaseCancel">Release Cancel</string>
+    <string name="releaseFinish">Release Finish</string>
+    <string name="repair">Repairing immediately</string>
+    <string name="runningFaceDetection">Please waiting</string>
+    <string name="save_doc_title">Do you want to save the doucment?It will be close automatically if the doucment been saved!</string>
+    <string name="save_failed">Signed document save failed！</string>
+    <string name="save_failed_info1">The agreement can not be saved when it does not have endorsement！</string>
+    <string name="save_failed_info2">The agreement can not be saved when it does not have information of certificate photographed！</string>
+    <string name="save_success">Signature has been saved!</string>
+    <string name="sealVerifyFailed">Seal Verify Failed!</string>
+    <string name="sealVerifySuccess">Seal Verify Success！</string>
+    <string name="search_book_dlg_title">Search…</string>
+    <string name="search_results_title">Search results</string>
+    <string name="signForAWhile">sign for a while,please wait!</string>
+    <string name="signatureCertificate">Signature Certificate:</string>
+    <string name="signature_add">Seal</string>
+    <string name="signature_del">Delete Seal</string>
+    <string name="soft_update_cancel">Cancel</string>
+    <string name="soft_update_info">Do you want to update to the latest version of the software already exists</string>
+    <string name="soft_update_later">Update later</string>
+    <string name="soft_update_no">It is the latest version</string>
+    <string name="soft_update_title">Software Update</string>
+    <string name="soft_update_updatebtn">Update</string>
+    <string name="soft_updating">UPdating…</string>
+    <string name="soft_upload_cancel">Cancel</string>
+    <string name="soft_upload_cancelinfo">Upload Canceled</string>
+    <string name="soft_upload_connect">Began to connect to the network</string>
+    <string name="soft_upload_preupload">Ready to upload the file</string>
+    <string name="soft_upload_title">File Upload</string>
+    <string name="soft_upload_upload">Upload</string>
+    <string name="soft_uploading">Uploading</string>
+    <string name="sound_add">Please click on the position you want to insert voice annotation</string>
+    <string name="sound_annot_read">Reading data,just a moment…</string>
+    <string name="sound_annot_title">Click left button to record</string>
+    <string name="sound_annot_write">Writing data,just a moment…</string>
+    <string name="sync">Synchronization</string>
+    <string name="tap_zones_clear">Clear</string>
+    <string name="tap_zones_delete">Delete</string>
+    <string name="tap_zones_double_tap">Double Tap</string>
+    <string name="tap_zones_long_tap">Long tap</string>
+    <string name="tap_zones_reset">Reset</string>
+    <string name="tap_zones_single_tap">Single Tap</string>
+    <string name="tap_zones_two_finger_tap">Two finger tap</string>
+    <string name="text_list">Annotation List</string>
+    <string name="text_page">Page</string>
+    <string name="timeout">"Please upgrade new version!\n Website: http://www.kinggrid.com\n tel:400–6776–800!"</string>
+    <string name="tip_title">Hint</string>
+    <string name="title_activity_annot_commen">Common issuing Management</string>
+    <string name="unknown_error">Unknown Exception！</string>
+    <string name="useRecordDevice">We are using the record device！</string>
+    <string name="username_different_del">You can not delete comments that the other add!</string>
+    <string name="username_different_edit">You can not edit comments that the other add!</string>
+    <string name="voice_list">Voice Lists</string>
+    <string name="warmPrompt">Warm Prompt</string>
+    <string name="waterpen">Water Pen</string>
+    <string name="word_annot_save">Save</string>
+    <string name="word_annot_title">Notes</string>
+    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

@@ -1,0 +1,6 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#C1C2C7" />
+<!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/layout/line_normal.xml -->

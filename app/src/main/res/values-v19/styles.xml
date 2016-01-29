@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App_Statu_Theme" parent="Theme.AppCompat.Light.NoActionBar" type="text/css">
+        <!-- toolbar（actionbar）颜色 -->
+        <!--<item name="colorPrimary">@color/status_bar</item>-->
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@color/status_bar</item>
+        <!-- toolbar标题颜色 -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- 窗口的背景颜色 -->
+        <item name="android:windowBackground">@color/status_bar</item>
+        <!-- translucent system bars-->
+        <item name="android:windowTranslucentStatus" >true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+</resources>

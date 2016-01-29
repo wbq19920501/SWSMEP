@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="white2">#e1dfdf</color>
+    <color name="text_radio_normal">#444444</color>
+    <color name="login_edit_bg">#C80e7cb6</color>
+    <color name="login_yzm">#e1dfdf</color>
+    <color name="bg_color">#444444</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="status_bar">#008cee</color>
+    <color name="menu_line">#d7d7d7</color>
+    <color name="line">#c8c8c8</color>
+</resources>

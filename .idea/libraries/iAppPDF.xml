@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="iAppPDF">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/iAppPDFLib/libs/iAppPDF.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
