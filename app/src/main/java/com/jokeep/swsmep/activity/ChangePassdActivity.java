@@ -20,6 +20,7 @@ import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.XutlsBase;
+import com.jokeep.swsmep.view.ShowDialog;
 import com.kinggrid.kgpdfService.solutions.XMLUtils;
 
 import org.json.JSONException;
@@ -60,8 +61,7 @@ public class ChangePassdActivity extends BaseActivity{
     }
 
     private void init() {
-        dialog = new Dialog(ChangePassdActivity.this,R.style.MyDialog);
-        dialog.setContentView(R.layout.dialog);
+        dialog = new ShowDialog(ChangePassdActivity.this,R.style.MyDialog,"修改密码中...");
         passd_edittext = (LinearLayout) findViewById(R.id.passd_edittext);
         passd_back = (LinearLayout) findViewById(R.id.passd_back);
         old_passd = (EditText) findViewById(R.id.old_passd);
@@ -97,33 +97,23 @@ public class ChangePassdActivity extends BaseActivity{
                 passd2 = new_passd.getText().toString().trim();
                 passd3 = agree_passd.getText().toString().trim();
                 String psd = sp.getString("UserPsd", "");
-                if (passd1.length() < 6 || passd2.length() < 6 || passd3.length() < 6) {
-                    Toast.makeText(ChangePassdActivity.this, "您输入的密码长度不够", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!psd.equals(passd1)) {
+                if (!psd.equals(passd1) || passd1==null || passd1.equals("")) {
                     Toast.makeText(ChangePassdActivity.this, "您输入的旧密码不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (passd1.equals("") || passd1 == null
-                        || passd2.equals("") || passd2 == null
-                        || passd3.equals("") || passd3 == null) {
-                    Toast.makeText(ChangePassdActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                if (passd2.length() < 6 || passd2.equals("") || passd2 == null) {
+                    Toast.makeText(ChangePassdActivity.this, "请输入6位数以上的新密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passd3.length() < 6 || passd3.equals("") || passd3 == null) {
+                    Toast.makeText(ChangePassdActivity.this, "请输入6位数以上的新密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!passd2.equals(passd3)) {
                     Toast.makeText(ChangePassdActivity.this, "两次输入的新密码不一致", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                    httprequest();
-//                JSONObject object = new JSONObject();
-//                try {
-//                    object.put("FUSERPWD", passd2);
-//                    object.put("FUSERID", FUSERID);
-//                } catch (Exception e) {
-//                    Toast.makeText(ChangePassdActivity.this, e.getMessage()+"", Toast.LENGTH_SHORT).show();
-//                    e.printStackTrace();
-//                }
+                httprequest();
             }
         });
     }
@@ -157,7 +147,7 @@ public class ChangePassdActivity extends BaseActivity{
                         if (code==1){
                             Toast.makeText(ChangePassdActivity.this,object2.getString("ErrorMsg").toString(),Toast.LENGTH_SHORT).show();
                         }else if (code==0){
-                            Toast.makeText(ChangePassdActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChangePassdActivity.this,"修改密码成功",Toast.LENGTH_SHORT).show();
                             ChangePassdActivity.this.finish();
                         }
                     } catch (JSONException e) {

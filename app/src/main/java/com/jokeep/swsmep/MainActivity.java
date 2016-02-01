@@ -1,9 +1,12 @@
 package com.jokeep.swsmep;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -45,6 +48,8 @@ import com.jokeep.swsmep.fragment.PhoneFragment;
 import com.jokeep.swsmep.fragment.ScheduleFragment;
 import com.jokeep.swsmep.fragment.WorkFragment;
 import com.jokeep.swsmep.model.UserInfo;
+import com.jokeep.swsmep.photo.Crop;
+import com.jokeep.swsmep.photo.FileUtils;
 import com.jokeep.swsmep.view.CustomImageView;
 import com.jokeep.swsmep.view.RoundImageView;
 import com.jokeep.swsmep.view.SelectPicPopupWindow;
@@ -95,7 +100,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     String FUSERID = null;
 
     private ShowDialog dialog;
-
+    private File mTempDir;
+    private static final int REQUEST_CODE_CAPTURE_CAMEIA = 1458;
+    private String mCurrentPhotoPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +115,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void init() {
         dialog = new ShowDialog(MainActivity.this,R.style.MyDialog,"正在加载...");
+        dialog.setCancelable(false);
+        mTempDir = new File( Environment.getExternalStorageDirectory(),"Temp");
+        if(!mTempDir.exists()){
+            mTempDir.mkdirs();
+        }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         menu_left = (ImageView) findViewById(R.id.mian_menuleft);
         menuleft = (LinearLayout) findViewById(R.id.menu_left);
@@ -169,12 +181,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initmenudata();
     }
     private void initdata() {
+        dialog.show();
         userInfoEntity = new UserInfo.ResultEntity.UserInfoEntity();
         intent = getIntent();
         userInfoEntity = (UserInfo.ResultEntity.UserInfoEntity) intent.getSerializableExtra("result");
         use_name.setText(userInfoEntity.getF_USERNAME() + "(" + userInfoEntity.getF_POSITIONNAME() + ")");
         use_text.setText(userInfoEntity.getF_DEPARTMENTNAME());
         FUSERID = userInfoEntity.getF_USERID();
+
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -182,6 +196,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .setFailureDrawableId(R.mipmap.ic_launcher)
                 .build();
         x.image().bind(use_img, userInfoEntity.getF_USERHEADURI(), imageOptions);
+        dialog.dismiss();
     }
     private void initmenudata() {
         use_exit.setOnClickListener(new View.OnClickListener() {
@@ -223,6 +238,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void popw(View v) {
+        dialog = new ShowDialog(MainActivity.this,R.style.MyDialog,"修改头像中...");
         drawerLayout.closeDrawer(menuleft);
         //实例化SelectPicPopupWindow
         menuWindow = new SelectPicPopupWindow(MainActivity.this, itemsOnClick);
@@ -236,15 +252,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_take_photo:
-                    Toast.makeText(MainActivity.this,"1111",Toast.LENGTH_SHORT).show();
-                    takephoto();
+//                    takephoto();
+                    getImageFromCamera();
                     break;
                 case R.id.btn_pick_photo:
-                    Toast.makeText(MainActivity.this,"2222",Toast.LENGTH_SHORT).show();
-                    intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent,2);
+                    Crop.pickImage(MainActivity.this);
+//                    intent = new Intent();
+//                    intent.setType("image/*");
+//                    intent.setAction(Intent.ACTION_PICK);
+//                    startActivityForResult(intent,2);
                     break;
                 default:
                     break;
@@ -252,7 +268,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             menuWindow.dismiss();
         }
     };
-
+    protected void getImageFromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String fileName = "Temp_camera" + String.valueOf( System.currentTimeMillis());
+        File cropFile = new File( mTempDir, fileName);
+        Uri fileUri = Uri.fromFile( cropFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
+        // name
+        mCurrentPhotoPath = fileUri.getPath();
+        // start the image capture Intent
+        startActivityForResult(intent, REQUEST_CODE_CAPTURE_CAMEIA);
+    }
     private void takephoto() {
         //执行拍照前，应该先判断SD卡是否存在
         String SDState = Environment.getExternalStorageState();
@@ -263,70 +289,126 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Toast.makeText(this,"内存卡不存在", Toast.LENGTH_LONG).show();
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mTempDir.exists()){
+            FileUtils.deleteFile(mTempDir);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK || data != null){
-            Uri uri = data.getData();
-            Bitmap bitmap = null;
-            String imgPath = null;
-            if (null != uri) {
-                ContentResolver resolver = this.getContentResolver();
-                String[] columns = { MediaStore.Images.Media.DATA };
-                Cursor cursor = null;
-                cursor = resolver.query(uri, columns, null, null, null);
-                if (Build.VERSION.SDK_INT > 18)// 4.4以后文件选择发生变化，判断处理
-                {
-                    // http://blog.csdn.net/tempersitu/article/details/20557383
-                    if (requestCode == 2)// 选择图片
-                    {
-                        imgPath = uri.getPath();
-                        if (!TextUtils.isEmpty(imgPath)
-                                && imgPath.contains(":"))
-                        {
-                            String imgIndex = imgPath.split(":")[1];
-                            cursor = resolver.query(
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                    columns, "_id=?", new String[] { imgIndex },
-                                    null);
-                        }
-                    }
-                }
-                if (null != cursor && cursor.moveToFirst())
-                {
-                    int columnIndex = cursor.getColumnIndex(columns[0]);
-                    imgPath = cursor.getString(columnIndex);
-                    cursor.close();
-                }
-                if (!TextUtils.isEmpty(imgPath))
-                {
-                    bitmap = genBitmap(imgPath);
+            if(requestCode == Crop.REQUEST_PICK) {
+                beginCrop(data.getData());
+            } else if(requestCode == Crop.REQUEST_CROP) {
+                handleCrop(resultCode,data);
+            } else if(requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
+                if(mCurrentPhotoPath != null) {
+                    beginCrop(Uri.fromFile( new File( mCurrentPhotoPath)));
                 }
             }
-            else if (requestCode == 1)// 拍照
-            {
-                // 拍照时，注意小米手机不会保存图片到本地，只可以从intent中取出bitmap, 要特殊处理
-                Object object = data.getExtras().get("data");
-                if (null != object && object instanceof Bitmap)
-                {
-                    bitmap = (Bitmap) object;
-                }
-            }
-            if (null != bitmap)
-            {
-                dialog.show();
-                upload(bitmap, imgPath);
-            }
+//            Uri uri = data.getData();
+//            Bitmap bitmap = null;
+//            String imgPath = null;
+//            if (null != uri) {
+//                ContentResolver resolver = this.getContentResolver();
+//                String[] columns = { MediaStore.Images.Media.DATA };
+//                Cursor cursor = null;
+//                cursor = resolver.query(uri, columns, null, null, null);
+//                if (Build.VERSION.SDK_INT > 18)// 4.4以后文件选择发生变化，判断处理
+//                {
+//                    // http://blog.csdn.net/tempersitu/article/details/20557383
+//                    if (requestCode == 2)// 选择图片
+//                    {
+//                        imgPath = uri.getPath();
+//                        if (!TextUtils.isEmpty(imgPath)
+//                                && imgPath.contains(":"))
+//                        {
+//                            String imgIndex = imgPath.split(":")[1];
+//                            cursor = resolver.query(
+//                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                                    columns, "_id=?", new String[] { imgIndex },
+//                                    null);
+//                        }
+//                    }
+//                }
+//                if (null != cursor && cursor.moveToFirst())
+//                {
+//                    int columnIndex = cursor.getColumnIndex(columns[0]);
+//                    imgPath = cursor.getString(columnIndex);
+//                    cursor.close();
+//                }
+//                if (!TextUtils.isEmpty(imgPath))
+//                {
+//                    bitmap = genBitmap(imgPath);
+//                }
+//            }
+//            else if (requestCode == 1)// 拍照
+//            {
+//                // 拍照时，注意小米手机不会保存图片到本地，只可以从intent中取出bitmap, 要特殊处理
+//                Object object = data.getExtras().get("data");
+//                if (null != object && object instanceof Bitmap)
+//                {
+//                    bitmap = (Bitmap) object;
+//                }
+//            }
+//            if (null != bitmap)
+//            {
+//                dialog.show();
+//                upload(bitmap, imgPath);
+//            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == Activity.RESULT_OK) {
+            dialog.show();
+            upload(Crop.getOutput(result), Crop.getOutput(result).getPath());
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(MainActivity.this, Crop.getError(result).getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void beginCrop(Uri source) {
+        String fileName = "Temp_" + String.valueOf( System.currentTimeMillis());
+        File cropFile = new File( mTempDir, fileName);
+        Uri outputUri = Uri.fromFile( cropFile);
+        new Crop(source).output(outputUri).setCropType(true).start(MainActivity.this);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            ExitDialog(MainActivity.this).show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    private Dialog ExitDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("退出");
+        builder.setMessage("确认退出程序吗？");
+        builder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        MainActivity.this.finish();
+                    }
+                });
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-    private void upload(final Bitmap bitmap,String path) {
+                    }
+                });
+        return builder.create();
+    }
+    private void upload(final Uri bitmap,String path) {
 
         byte[] bytes = null;
         InputStream is;
         File myfile = new File(path);
-        String imgtype = myfile.getName().substring(myfile.getName().lastIndexOf(".")+1);
+        String imgtype = ".png";
+//        String imgtype = myfile.getName().substring(myfile.getName().lastIndexOf(".")+1);
         JSONObject object = new JSONObject();
         try {
             is = new FileInputStream(path);
@@ -344,11 +426,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             requesthttp(updata, bitmap);
         } catch (Exception e) {
             dialog.dismiss();
+            Toast.makeText(MainActivity.this,"修改头像失败",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
 
-    private void requesthttp(byte[] updata,final Bitmap bitmap) {
+    private void requesthttp(byte[] updata,final Uri bitmap) {
         RequestParams params = new RequestParams(HttpIP.UpImage);
         params.addBodyParameter("ImageContext",updata,null);
         params.setAsJsonContent(true);
@@ -361,15 +444,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     if (code == 1){
                         Toast.makeText(MainActivity.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
                     }else if (code == 0){
-                        use_img.setImageBitmap(bitmap);
+//                        use_img.setImageBitmap(bitmap);
+                        use_img.setImageURI(bitmap);
                         Toast.makeText(MainActivity.this,"修改头像成功",Toast.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();
                 } catch (JSONException e) {
                     dialog.dismiss();
+                    Toast.makeText(MainActivity.this,"修改头像失败",Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                Log.i("result",result.toString());
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
@@ -395,13 +479,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int imageWidth = options.outWidth;
         int imageHeight = options.outHeight;
 
-        int widthSample = (int) (imageWidth / 60);
-        int heightSample = (int) (imageHeight / 60);
+        int widthSample = (int) (imageWidth/5);
+        int heightSample = (int) (imageHeight/5);
         // 计算缩放比例
         options.inSampleSize = widthSample < heightSample ? heightSample
                 : widthSample;
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(imgPath, options);
+        return BitmapFactory.decodeFile(imgPath);
     }
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -440,14 +524,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 pager.setCurrentItem(3);
                 break;
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ){
-
-        }
-        return false;
     }
 
     private void changepage(int i) {

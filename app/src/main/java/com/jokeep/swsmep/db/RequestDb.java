@@ -28,6 +28,8 @@ public class RequestDb {
         int errorCode = 1;
         UserInfo.ResultEntity.UserInfoEntity userInfoEntity = null;
         UserInfo userInfo = new UserInfo();
+        resultInfo.clear();
+        resultInfo = new ArrayList<UserInfo.ResultEntity.UserInfoEntity>();
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
                 .setDbName("user").setDbVersion(1).setDbUpgradeListener(new DbManager.DbUpgradeListener() {
                     @Override

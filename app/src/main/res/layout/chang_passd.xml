@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改密码"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:textColor="@color/white"/>
     </LinearLayout>
     <LinearLayout
@@ -44,6 +44,7 @@
             android:layout_height="40dp"
             android:text="旧密码："
             android:textSize="20dp"
+            android:textColor="@color/black"
             />
         <View
             android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="20dp"
+            android:textColor="@color/black"
             android:hint="@string/password"
             android:background="@color/white"
             android:digits="@string/limit_edittext"
@@ -70,6 +72,7 @@
             android:layout_height="40dp"
             android:text="新密码："
             android:textSize="20dp"
+            android:textColor="@color/black"
             />
         <View
             android:layout_width="match_parent"
@@ -95,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="确认密码："
+            android:textColor="@color/black"
             android:textSize="20dp"
             />
         <View

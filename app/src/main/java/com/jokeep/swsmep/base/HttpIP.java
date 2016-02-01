@@ -5,8 +5,8 @@ package com.jokeep.swsmep.base;
  * SWSMEP
  */
 public class HttpIP {
-    public static String Base = "http://192.168.2.109/SWSMEP/";
-//    public static String Base = "http://192.168.1.212/SWSMEP/";
+//    public static String Base = "http://192.168.2.109/SWSMEP/";
+    public static String Base = "http://192.168.1.212/SWSMEP/";
     public static String IP = Base+"SSO/Service.asmx";
     public static String MainService = Base+"AndroidService/MainService.svc";
     // 获取加密key,同步tokenId

@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/base/LogBase.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/base/PromotedActionsLibrary.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/base/ToastMSG.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/photo/CircleHighlightView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/utls/OkHttpUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/utls/OkHttpUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jokeep/swsmep/utls/StatusBarCompat.java" charset="UTF-8" />

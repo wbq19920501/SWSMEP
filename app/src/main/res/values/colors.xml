@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="white2">#e1dfdf</color>
     <color name="text_radio_normal">#444444</color>
@@ -11,4 +12,8 @@
     <color name="status_bar">#008cee</color>
     <color name="menu_line">#d7d7d7</color>
     <color name="line">#c8c8c8</color>
+    <color name="crop__button_bar">#f3f3f3</color>
+    <color name="crop__button_text">#666666</color>
+    <color name="crop__selector_pressed">#1a000000</color>
+    <color name="crop__selector_focused">#77000000</color>
 </resources>

@@ -260,6 +260,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 res = client.getResponseString();
                 if (res.equals("1")||res=="1"){
                     Toast.makeText(LoginActivity.this,"登录错误",Toast.LENGTH_SHORT).show();
+                    randomx = random.nextInt(9999 - 1000 + 1) + 1000;
+                    yzm_img.setText(randomx + "");
                     dialog.dismiss();
                 }else {
                     AES.key = res;
@@ -300,15 +302,19 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             res = client.getResponseString();
             if (res.equals("1")||res=="1"){
                 Toast.makeText(LoginActivity.this,"登录错误",Toast.LENGTH_SHORT).show();
+                randomx = random.nextInt(9999 - 1000 + 1) + 1000;
+                yzm_img.setText(randomx + "");
                 dialog.dismiss();
             }else {
                 UserInfo.ResultEntity.UserInfoEntity userInfoEntity = new UserInfo.ResultEntity.UserInfoEntity();
                 DbManager db = x.getDb(((SwsApplication) getApplicationContext()).getDaoConfig());
+
                 int i = RequestDb.UserInfo(res, db);
                 Intent intent = null;
                 switch (i){
                     case SaveMsg.successCode:
                         intent = new Intent(LoginActivity.this,MainActivity.class);
+                        String s = RequestDb.ResultInfo().get(0).getF_USERHEADURI();
                         userInfoEntity = RequestDb.ResultInfo().get(0);
                         intent.putExtra("result", userInfoEntity);
                         startActivity(intent);
@@ -317,6 +323,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     case SaveMsg.errorCode:
                         String errormsg = RequestDb.ErrorMsg();
                         Toast.makeText(LoginActivity.this,errormsg,Toast.LENGTH_SHORT).show();
+                        randomx = random.nextInt(9999 - 1000 + 1) + 1000;
+                        yzm_img.setText(randomx + "");
                         break;
                     case SaveMsg.UPDATEF:
                         break;
