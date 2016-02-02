@@ -148,6 +148,8 @@ public class ChangePassdActivity extends BaseActivity{
                             Toast.makeText(ChangePassdActivity.this,object2.getString("ErrorMsg").toString(),Toast.LENGTH_SHORT).show();
                         }else if (code==0){
                             Toast.makeText(ChangePassdActivity.this,"修改密码成功",Toast.LENGTH_SHORT).show();
+                            editor.putString("UserPsd", passd2);
+                            editor.commit();
                             ChangePassdActivity.this.finish();
                         }
                     } catch (JSONException e) {

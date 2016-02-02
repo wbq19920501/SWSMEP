@@ -10,8 +10,8 @@ import android.view.View;
  */
 public abstract class BaseFragment extends Fragment {
 
-    protected Activity context;
-    protected View fragView;
+    public Activity context;
+    public View fragment;
 //    public FinalDb db;
 
     @Override
@@ -30,7 +30,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected void recycle() {
         context = null;
-        fragView = null;
+        fragment = null;
         System.gc();
     }
 

@@ -252,15 +252,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_take_photo:
-//                    takephoto();
                     getImageFromCamera();
                     break;
                 case R.id.btn_pick_photo:
                     Crop.pickImage(MainActivity.this);
-//                    intent = new Intent();
-//                    intent.setType("image/*");
-//                    intent.setAction(Intent.ACTION_PICK);
-//                    startActivityForResult(intent,2);
                     break;
                 default:
                     break;
@@ -278,16 +273,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mCurrentPhotoPath = fileUri.getPath();
         // start the image capture Intent
         startActivityForResult(intent, REQUEST_CODE_CAPTURE_CAMEIA);
-    }
-    private void takephoto() {
-        //执行拍照前，应该先判断SD卡是否存在
-        String SDState = Environment.getExternalStorageState();
-        if(SDState.equals(Environment.MEDIA_MOUNTED)) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
-            startActivityForResult(intent, 1);
-        }else{
-            Toast.makeText(this,"内存卡不存在", Toast.LENGTH_LONG).show();
-        }
     }
     @Override
     protected void onDestroy() {
@@ -308,56 +293,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     beginCrop(Uri.fromFile( new File( mCurrentPhotoPath)));
                 }
             }
-//            Uri uri = data.getData();
-//            Bitmap bitmap = null;
-//            String imgPath = null;
-//            if (null != uri) {
-//                ContentResolver resolver = this.getContentResolver();
-//                String[] columns = { MediaStore.Images.Media.DATA };
-//                Cursor cursor = null;
-//                cursor = resolver.query(uri, columns, null, null, null);
-//                if (Build.VERSION.SDK_INT > 18)// 4.4以后文件选择发生变化，判断处理
-//                {
-//                    // http://blog.csdn.net/tempersitu/article/details/20557383
-//                    if (requestCode == 2)// 选择图片
-//                    {
-//                        imgPath = uri.getPath();
-//                        if (!TextUtils.isEmpty(imgPath)
-//                                && imgPath.contains(":"))
-//                        {
-//                            String imgIndex = imgPath.split(":")[1];
-//                            cursor = resolver.query(
-//                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                                    columns, "_id=?", new String[] { imgIndex },
-//                                    null);
-//                        }
-//                    }
-//                }
-//                if (null != cursor && cursor.moveToFirst())
-//                {
-//                    int columnIndex = cursor.getColumnIndex(columns[0]);
-//                    imgPath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                }
-//                if (!TextUtils.isEmpty(imgPath))
-//                {
-//                    bitmap = genBitmap(imgPath);
-//                }
-//            }
-//            else if (requestCode == 1)// 拍照
-//            {
-//                // 拍照时，注意小米手机不会保存图片到本地，只可以从intent中取出bitmap, 要特殊处理
-//                Object object = data.getExtras().get("data");
-//                if (null != object && object instanceof Bitmap)
-//                {
-//                    bitmap = (Bitmap) object;
-//                }
-//            }
-//            if (null != bitmap)
-//            {
-//                dialog.show();
-//                upload(bitmap, imgPath);
-//            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
