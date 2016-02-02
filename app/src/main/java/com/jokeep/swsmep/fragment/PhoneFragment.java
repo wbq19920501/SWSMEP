@@ -53,7 +53,7 @@ public class PhoneFragment extends Fragment {
     }
 
     protected void init() {
-        type = 1;
+        type = 2;
         exlistview = (ExpandableListView) fragment.findViewById(R.id.phone_exlistview);
         childarray = new ArrayList<List<String>>();
         array = new ArrayList<String>();
