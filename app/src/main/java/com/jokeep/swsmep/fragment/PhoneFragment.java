@@ -1,19 +1,23 @@
 package com.jokeep.swsmep.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +60,8 @@ public class PhoneFragment extends Fragment {
      */
     private PinyinComparator pinyinComparator;
     private SortAdapter adapter;
+
+    int h = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -191,6 +197,19 @@ public class PhoneFragment extends Fragment {
                     holder = (ItemHolder) convertView.getTag();
                 }
                 final ItemHolder finalHolder = holder;
+                WindowManager wm = (WindowManager) getContext()
+                        .getSystemService(Context.WINDOW_SERVICE);
+                int height = wm.getDefaultDisplay().getHeight();
+                h = fragment.getHeight();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                        60, h);
+                lp.gravity = Gravity.RIGHT;
+                holder.sidebar.setLayoutParams(lp);
+
+                FrameLayout.LayoutParams lp2 = new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.FILL_PARENT, h);
+
+                holder.sidebarlistview.setLayoutParams(lp2);
                 holder.sidebar.setTextView(sidebar_dialog);
                 holder.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
                     @Override
@@ -218,7 +237,23 @@ public class PhoneFragment extends Fragment {
                 list1.add("李德华");
                 list1.add("白水水");
                 list1.add("齐天大圣");
+                list1.add("阿妹");
+                list1.add("陈奕迅");
+                list1.add("曾一鸣");
+                list1.add("成龙");
+                list1.add("王力宏");
+                list1.add("李德华");
+                list1.add("白水水");
+                list1.add("齐天大圣");
                 List<String> list2 = new ArrayList<String>();
+                list2.add("办公司处长1");
+                list2.add("办公司委员2");
+                list2.add("办公司处长3");
+                list2.add("办公司委员4");
+                list2.add("办公司处长5");
+                list2.add("办公司委员6");
+                list2.add("办公司处长7");
+                list2.add("办公司委员8");
                 list2.add("办公司处长1");
                 list2.add("办公司委员2");
                 list2.add("办公司处长3");

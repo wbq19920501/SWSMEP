@@ -75,7 +75,12 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 //        }else{
 //            viewHolder.tvLetter.setVisibility(View.GONE);
 //        }
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,list.get(position).getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
         viewHolder.name.setText(this.list.get(position).getName());
         viewHolder.nametype.setText(this.list.get(position).getNametype());
         viewHolder.link_msg.setOnClickListener(new View.OnClickListener() {
