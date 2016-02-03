@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.model.SortModel;
@@ -50,7 +51,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 
     public View getView(final int position, View view, ViewGroup arg2) {
         ViewHolder viewHolder = null;
-        final SortModel mContent = list.get(position);
+//        final SortModel mContent = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.linkman_item, null);
@@ -77,6 +78,18 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 
         viewHolder.name.setText(this.list.get(position).getName());
         viewHolder.nametype.setText(this.list.get(position).getNametype());
+        viewHolder.link_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, list.get(position).getNametype(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewHolder.call_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,list.get(position).getSortLetters(),Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
 
     }

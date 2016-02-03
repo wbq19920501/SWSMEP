@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -19,9 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.adapter.SortAdapter;
 import com.jokeep.swsmep.base.BaseFragment;
+import com.jokeep.swsmep.model.CharacterParser;
+import com.jokeep.swsmep.model.PinyinComparator;
+import com.jokeep.swsmep.model.SortModel;
+import com.jokeep.swsmep.view.SideBar;
+import com.jokeep.swsmep.view.SideBarListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,8 +41,22 @@ public class PhoneFragment extends Fragment {
     private List<List<String>> childarray;
     private List<String> array;
     View fragment;
+    TextView sidebar_dialog;
     Intent intent;
     private int type;
+
+    /**
+     * 汉字转换成拼音的类
+     */
+    private CharacterParser characterParser;
+    private List<SortModel> SourceDateList;
+
+    /**
+     * 根据拼音来排列ListView里面的数据类
+     */
+    private PinyinComparator pinyinComparator;
+    private SortAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment == null){
@@ -55,6 +77,7 @@ public class PhoneFragment extends Fragment {
     protected void init() {
         type = 2;
         exlistview = (ExpandableListView) fragment.findViewById(R.id.phone_exlistview);
+        sidebar_dialog = (TextView) fragment.findViewById(R.id.sidebar_dialog);
         childarray = new ArrayList<List<String>>();
         array = new ArrayList<String>();
         array.add("1");
@@ -77,6 +100,11 @@ public class PhoneFragment extends Fragment {
             }
         });
         exlistview.setAdapter(new ExpandableAdapter());
+
+        //实例化汉字转拼音类
+        characterParser = CharacterParser.getInstance();
+
+        pinyinComparator = new PinyinComparator();
     }
     private class ExpandableAdapter extends BaseExpandableListAdapter{
         @Override
@@ -86,7 +114,8 @@ public class PhoneFragment extends Fragment {
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return childarray.get(groupPosition).size();
+//            return childarray.get(groupPosition).size();
+            return 1;
         }
 
         @Override
@@ -155,9 +184,56 @@ public class PhoneFragment extends Fragment {
                     convertView = LayoutInflater.from(getActivity()).inflate(R.layout.phone2,null);
                     holder = new ItemHolder();
                     convertView.setTag(holder);
+                    holder.sidebarlistview = (SideBarListView) convertView.findViewById(R.id.sidebarlist);
+                    holder.sidebar_dialog = (TextView) convertView.findViewById(R.id.sidebar_dialog);
+                    holder.sidebar = (SideBar) convertView.findViewById(R.id.sidebar);
                 }else {
                     holder = (ItemHolder) convertView.getTag();
                 }
+                final ItemHolder finalHolder = holder;
+                holder.sidebar.setTextView(sidebar_dialog);
+                holder.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+                    @Override
+                    public void onTouchingLetterChanged(String s) {
+                        //该字母首次出现的位置
+                        int position = adapter.getPositionForSection(s.charAt(0));
+                        if (position != -1) {
+                            finalHolder.sidebarlistview.setSelection(position);
+                        }
+                    }
+                });
+//                holder.sidebarlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        //这里要利用adapter.getItem(position)来获取当前position所对应的对象
+//                        Toast.makeText(getActivity(), ((SortModel) adapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                List<String> list1 = new ArrayList<String>();
+                list1.add("阿妹");
+                list1.add("陈奕迅");
+                list1.add("曾一鸣");
+                list1.add("成龙");
+                list1.add("王力宏");
+                list1.add("李德华");
+                list1.add("白水水");
+                list1.add("齐天大圣");
+                List<String> list2 = new ArrayList<String>();
+                list2.add("办公司处长1");
+                list2.add("办公司委员2");
+                list2.add("办公司处长3");
+                list2.add("办公司委员4");
+                list2.add("办公司处长5");
+                list2.add("办公司委员6");
+                list2.add("办公司处长7");
+                list2.add("办公司委员8");
+                SourceDateList = filledData((String[]) list1.toArray(new String[0]),(String[]) list2.toArray(new String[0]));
+//                SourceDateList = filledData(getResources().getStringArray(R.array.date));
+
+                // 根据a-z进行排序源数据
+                Collections.sort(SourceDateList, pinyinComparator);
+                adapter = new SortAdapter(getActivity(), SourceDateList);
+                holder.sidebarlistview.setAdapter(adapter);
             }
             return convertView;
         }
@@ -166,6 +242,27 @@ public class PhoneFragment extends Fragment {
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;
         }
+    }
+
+    private List<SortModel> filledData(String[] date,String[] date2) {
+        List<SortModel> mSortList = new ArrayList<SortModel>();
+        for(int i=0; i<date.length; i++){
+            SortModel sortModel = new SortModel();
+            sortModel.setName(date[i]);
+            sortModel.setNametype(date2[i]);
+            //汉字转换成拼音
+            String pinyin = characterParser.getSelling(date[i]);
+            String sortString = pinyin.substring(0, 1).toUpperCase();
+
+            // 正则表达式，判断首字母是否是英文字母
+            if(sortString.matches("[A-Z]")){
+                sortModel.setSortLetters(sortString.toUpperCase());
+            }else{
+                sortModel.setSortLetters("#");
+            }
+            mSortList.add(sortModel);
+        }
+        return mSortList;
     }
 
     private void phone1data(final ItemHolder holder) {
@@ -307,5 +404,9 @@ public class PhoneFragment extends Fragment {
         TextView call2_1,call2_3,callphone2_1,callphone2_3,
                 fax2_2,postcode2_2,email2_2,adress2_2;
         ImageView call2_2,call2_4,callphone2_2,callphone2_4;
+
+        SideBarListView sidebarlistview;
+        TextView sidebar_dialog;
+        SideBar sidebar;
     }
 }

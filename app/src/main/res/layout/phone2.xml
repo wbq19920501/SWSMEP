@@ -2,7 +2,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.jokeep.swsmep.view.SideBarListView
+        android:id="@+id/sidebarlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/white2"
+        android:dividerHeight="0.5dp"
+        />
+    <TextView
+        android:id="@+id/sidebar_dialog"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/show_head_toast_bg"
+        android:gravity="center"
+        android:textColor="#ffffffff"
+        android:textSize="30dp"
+        android:visibility="invisible" />
     <com.jokeep.swsmep.view.SideBar
+        android:id="@+id/sidebar"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"/>

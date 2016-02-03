@@ -59,13 +59,13 @@ public class SideBar extends View{
         int height = getHeight();// 获取对应高度
         int width = getWidth(); // 获取对应宽度
         int singleHeight = height / b.length;// 获取每一个字母的高度
-
+//        int singleHeight = 30;
         for (int i = 0; i < b.length; i++) {
             paint.setColor(Color.rgb(33, 65, 98));
             // paint.setColor(Color.WHITE);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setAntiAlias(true);
-            paint.setTextSize(20);
+            paint.setTextSize(30);
             // 选中的状态
             if (i == choose) {
                 paint.setColor(Color.parseColor("#3399ff"));
@@ -139,4 +139,11 @@ public class SideBar extends View{
     public interface OnTouchingLetterChangedListener {
         public void onTouchingLetterChanged(String s);
     }
+
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+//                MeasureSpec.AT_MOST);
+//        super.onMeasure(widthMeasureSpec, expandSpec);
+//    }
 }
