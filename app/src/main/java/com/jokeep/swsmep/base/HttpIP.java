@@ -15,4 +15,5 @@ public class HttpIP {
     public static final String Login = "AndroidLoginCheck";
     public static final String ResetPassword = "/ResetPassword";
     public static final String UpImage = Base+"Web/AndroidUpLoadFileService.svc/UpdatePhoto";
+    public static final String PhoneMan = "/AddressBook_Filter";
 }

@@ -2,6 +2,7 @@ package com.jokeep.swsmep.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -18,6 +19,8 @@ import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.model.CharacterParser;
 import com.jokeep.swsmep.model.PinyinComparator;
 import com.jokeep.swsmep.model.SortModel;
+import com.jokeep.swsmep.model.UnitBook;
+import com.jokeep.swsmep.model.UserBook;
 import com.jokeep.swsmep.view.SideBar;
 
 import java.util.ArrayList;
@@ -50,6 +53,7 @@ public class PhoneManActivity extends BaseActivity{
      */
     private PinyinComparator pinyinComparator;
     Intent intent;
+    List<UserBook> listuserbook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,10 @@ public class PhoneManActivity extends BaseActivity{
     private void init() {
         phone_name = (TextView) findViewById(R.id.phone_name);
         intent = getIntent();
+        listuserbook = new ArrayList<UserBook>();
         phone_name.setText(intent.getExtras().getString("textname"));
+        listuserbook = (List<UserBook>) getIntent().getSerializableExtra("userbook");
+        Log.d("listuserbook",listuserbook.toString());
         sidebarlist = (ListView) findViewById(R.id.sidebarlist);
         sidebar_dialog = (TextView) findViewById(R.id.sidebar_dialog);
         sidebar = (SideBar) findViewById(R.id.sidebar);
@@ -123,24 +130,6 @@ public class PhoneManActivity extends BaseActivity{
                 PingYin = characterParser.getSelling(getResources().getStringArray(R.array.date)[firstVisibleItem]);
             }
         });
-        List<String> list1 = new ArrayList<String>();
-        list1.add("阿妹");
-        list1.add("陈奕迅");
-        list1.add("曾一鸣");
-        list1.add("成龙");
-        list1.add("王力宏");
-        list1.add("李德华");
-        list1.add("白水水");
-        list1.add("齐天大圣");
-        List<String> list2 = new ArrayList<String>();
-        list2.add("办公司处长1");
-        list2.add("办公司委员2");
-        list2.add("办公司处长3");
-        list2.add("办公司委员4");
-        list2.add("办公司处长5");
-        list2.add("办公司委员6");
-        list2.add("办公司处长7");
-        list2.add("办公司委员8");
 //        SourceDateList = filledData((String[]) list1.toArray(new String[0]),(String[]) list2.toArray(new String[0]));
         SourceDateList = filledData(getResources().getStringArray(R.array.date), getResources().getStringArray(R.array.date));
 
