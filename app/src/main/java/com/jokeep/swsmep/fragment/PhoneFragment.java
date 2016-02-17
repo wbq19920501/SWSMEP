@@ -46,6 +46,7 @@ public class PhoneFragment extends Fragment {
     private List<String> array;
     View fragment;
     TextView sidebar_dialog;
+    SideBar sidebar2;
     Intent intent;
     private int type;
 
@@ -84,6 +85,17 @@ public class PhoneFragment extends Fragment {
         type = 2;
         exlistview = (ExpandableListView) fragment.findViewById(R.id.phone_exlistview);
         sidebar_dialog = (TextView) fragment.findViewById(R.id.sidebar_dialog);
+        sidebar2 = (SideBar) fragment.findViewById(R.id.sidebar);
+        sidebar2.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                //该字母首次出现的位置
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+//                    sidebarlistview.setSelection(position);
+                }
+            }
+        });
         childarray = new ArrayList<List<String>>();
         array = new ArrayList<String>();
         array.add("1");
@@ -192,7 +204,7 @@ public class PhoneFragment extends Fragment {
                     convertView.setTag(holder);
                     holder.sidebarlistview = (SideBarListView) convertView.findViewById(R.id.sidebarlist);
                     holder.sidebar_dialog = (TextView) convertView.findViewById(R.id.sidebar_dialog);
-                    holder.sidebar = (SideBar) convertView.findViewById(R.id.sidebar);
+//                    holder.sidebar = (SideBar) convertView.findViewById(R.id.sidebar);
                 }else {
                     holder = (ItemHolder) convertView.getTag();
                 }
@@ -204,23 +216,23 @@ public class PhoneFragment extends Fragment {
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                         60, h);
                 lp.gravity = Gravity.RIGHT;
-                holder.sidebar.setLayoutParams(lp);
+//                holder.sidebar.setLayoutParams(lp);
 
                 FrameLayout.LayoutParams lp2 = new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.FILL_PARENT, h);
 
                 holder.sidebarlistview.setLayoutParams(lp2);
-                holder.sidebar.setTextView(sidebar_dialog);
-                holder.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-                    @Override
-                    public void onTouchingLetterChanged(String s) {
-                        //该字母首次出现的位置
-                        int position = adapter.getPositionForSection(s.charAt(0));
-                        if (position != -1) {
-                            finalHolder.sidebarlistview.setSelection(position);
-                        }
-                    }
-                });
+//                holder.sidebar.setTextView(sidebar_dialog);
+//                holder.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+//                    @Override
+//                    public void onTouchingLetterChanged(String s) {
+//                        //该字母首次出现的位置
+//                        int position = adapter.getPositionForSection(s.charAt(0));
+//                        if (position != -1) {
+//                            finalHolder.sidebarlistview.setSelection(position);
+//                        }
+//                    }
+//                });
 //                holder.sidebarlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                    @Override
 //                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -422,11 +434,11 @@ public class PhoneFragment extends Fragment {
         holder.callphone2_4  = (ImageView) convertView.findViewById(R.id.callphone2_4);
     }
 
-    class GroipHolder{
+    static class GroipHolder{
         ImageView img;
         TextView textname;
     }
-    class ItemHolder{
+    static class ItemHolder{
         LinearLayout phone1_call1,phone1_call2;
         LinearLayout call1,call1_0,callphone1,callphone1_0,
                 fax1_1,postcode1_1,email1_1,adress1_1;
@@ -442,6 +454,6 @@ public class PhoneFragment extends Fragment {
 
         SideBarListView sidebarlistview;
         TextView sidebar_dialog;
-        SideBar sidebar;
+//        SideBar sidebar;
     }
 }

@@ -2,12 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ExpandableListView
+    <!--<ExpandableListView-->
+        <!--android:id="@+id/phone_exlistview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:groupIndicator="@null">-->
+    <!--</ExpandableListView>-->
+    <com.jokeep.swsmep.view.PinnedHeaderExpandableListView
         android:id="@+id/phone_exlistview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:groupIndicator="@null">
-    </ExpandableListView>
+        android:fastScrollEnabled="false"
+        android:scrollbars="none"
+        android:groupIndicator="@null"/>
     <TextView
         android:id="@+id/sidebar_dialog"
         android:layout_width="80dp"
@@ -18,4 +25,9 @@
         android:textColor="#ffffffff"
         android:textSize="30dp"
         android:visibility="invisible" />
+    <com.jokeep.swsmep.view.SideBar
+        android:id="@+id/sidebar"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"/>
 </FrameLayout>

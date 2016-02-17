@@ -21,13 +21,14 @@
             android:textSize="18dp"
             android:text="阿妹"
             android:paddingTop="10dp"
-            />
+            android:textColor="#333333"/>
         <TextView
             android:id="@+id/link_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="阿妹1"/>
+            android:text="阿妹1"
+            android:textColor="#999999"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"

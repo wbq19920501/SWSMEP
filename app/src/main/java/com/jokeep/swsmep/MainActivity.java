@@ -44,6 +44,8 @@ import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.ToastMSG;
 import com.jokeep.swsmep.fragment.NewsFragment;
+import com.jokeep.swsmep.fragment.Phone2Fragment;
+import com.jokeep.swsmep.fragment.Phone3Fragment;
 import com.jokeep.swsmep.fragment.PhoneFragment;
 import com.jokeep.swsmep.fragment.ScheduleFragment;
 import com.jokeep.swsmep.fragment.WorkFragment;
@@ -86,7 +88,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     WorkFragment workfragment;
     NewsFragment newsfragment;
     ScheduleFragment schedulefragment;
-    PhoneFragment phonefragment;
+    Phone3Fragment phonefragment;
 
     private RoundImageView use_img;
     private Button upload_img,change_psd,chang_number,use_exit;
@@ -158,7 +160,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         workfragment = new WorkFragment();
         newsfragment = new NewsFragment();
         schedulefragment = new ScheduleFragment();
-        phonefragment = new PhoneFragment();
+        phonefragment = new Phone3Fragment();
         fragmentList.add(workfragment);
         fragmentList.add(newsfragment);
         fragmentList.add(schedulefragment);

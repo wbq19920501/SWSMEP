@@ -21,7 +21,7 @@
     <application
         android:name=".base.SwsApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/login_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -44,6 +44,10 @@
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:screenOrientation="portrait"/>
         <activity android:name=".photo.CropImageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PhoneManActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PhoneManMsgActivity"
             android:screenOrientation="portrait"/>
     </application>
 

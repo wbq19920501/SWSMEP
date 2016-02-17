@@ -69,4 +69,16 @@
         <item name="android:drawableLeft">@drawable/crop__ic_cancel</item>
         <item name="android:text">@string/crop__cancel</item>
     </style>
+
+    <style name="ActivityInOut">
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/zoom_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/zoom_exit</item>
+    </style>
 </resources>

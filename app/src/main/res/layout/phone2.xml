@@ -8,6 +8,8 @@
         android:layout_height="match_parent"
         android:divider="@color/white2"
         android:dividerHeight="0.5dp"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none"
         />
     <TextView
         android:id="@+id/sidebar_dialog"
@@ -19,9 +21,9 @@
         android:textColor="#ffffffff"
         android:textSize="30dp"
         android:visibility="invisible" />
-    <com.jokeep.swsmep.view.SideBar
-        android:id="@+id/sidebar"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"/>
+    <!--<com.jokeep.swsmep.view.SideBar-->
+        <!--android:id="@+id/sidebar"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="right"/>-->
 </FrameLayout>
