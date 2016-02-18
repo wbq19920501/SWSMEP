@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,6 +42,8 @@ public class PhoneManActivity extends BaseActivity{
 
     String PingYin;
     LinearLayout back;
+    FrameLayout manmsg;
+    LinearLayout no_msg;
 
     /**
      * 汉字转换成拼音的类
@@ -72,6 +75,12 @@ public class PhoneManActivity extends BaseActivity{
         sidebar_dialog = (TextView) findViewById(R.id.sidebar_dialog);
         sidebar = (SideBar) findViewById(R.id.sidebar);
         back = (LinearLayout) findViewById(R.id.back);
+        manmsg = (FrameLayout) findViewById(R.id.manmsg);
+        no_msg = (LinearLayout) findViewById(R.id.no_msg);
+        if (listuserbook.size()==0){
+            manmsg.setVisibility(View.GONE);
+            no_msg.setVisibility(View.VISIBLE);
+        }
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,14 +117,14 @@ public class PhoneManActivity extends BaseActivity{
                         sidebar_dialog.setVisibility(View.GONE);
                         break;
                     case SCROLL_STATE_FLING://滚动状态
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL://触摸在屏幕上滚动
                         int firstVisiblePosition = sidebarlist.getFirstVisiblePosition();
                         int lastVisiblePosition = sidebarlist.getLastVisiblePosition();
                         PingYin = characterParser.getSelling(((SortModel) adapter.getItem(firstVisiblePosition)).getName());
                         String sortString = PingYin.substring(0, 1).toUpperCase();
                         sidebar_dialog.setText(sortString);
                         sidebar_dialog.setVisibility(View.VISIBLE);
-                        break;
-                    case SCROLL_STATE_TOUCH_SCROLL://触摸在屏幕上滚动
                         break;
                 }
             }
@@ -127,17 +136,18 @@ public class PhoneManActivity extends BaseActivity{
              */
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                PingYin = characterParser.getSelling(getResources().getStringArray(R.array.date)[firstVisibleItem]);
+//                PingYin = characterParser.getSelling(getResources().getStringArray(R.array.date)[firstVisibleItem]);
             }
         });
-//        SourceDateList = filledData((String[]) list1.toArray(new String[0]),(String[]) list2.toArray(new String[0]));
-        SourceDateList = filledData(getResources().getStringArray(R.array.date), getResources().getStringArray(R.array.date));
+        SourceDateList = filledData(listuserbook);
+//        SourceDateList = filledData(getResources().getStringArray(R.array.date), getResources().getStringArray(R.array.date));
 
         // 根据a-z进行排序源数据
         Collections.sort(SourceDateList, pinyinComparator);
         adapter = new SortAdapter(this, SourceDateList);
         sidebarlist.setAdapter(adapter);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
@@ -150,14 +160,18 @@ public class PhoneManActivity extends BaseActivity{
         finish();
         overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
     }
-    private List<SortModel> filledData(String[] date,String[] date2) {
+    private List<SortModel> filledData(List<UserBook> listuserbook) {
         List<SortModel> mSortList = new ArrayList<SortModel>();
-        for(int i=0; i<date.length; i++){
+        for(int i=0; i<listuserbook.size(); i++){
             SortModel sortModel = new SortModel();
-            sortModel.setName(date[i]);
-            sortModel.setNametype(date2[i]);
+            UserBook userBook = listuserbook.get(i);
+            sortModel.setName(userBook.getF_USERNAME());
+            sortModel.setNametype(userBook.getF_DEPARTMENTNAME()+"-"+userBook.getF_POSITIONNAME());
+            sortModel.setCallphone(userBook.getF_CALLPHONE());
+            sortModel.setF_USERID(userBook.getF_USERID());
+            sortModel.setF_CALLPHONETYPE(userBook.getF_CALLPHONETYPE());
             //汉字转换成拼音
-            String pinyin = characterParser.getSelling(date[i]);
+            String pinyin = characterParser.getSelling(userBook.getF_USERNAME());
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母

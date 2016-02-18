@@ -27,7 +27,22 @@
             android:textSize="20dp"
             android:layout_gravity="center"/>
     </LinearLayout>
+    <include
+        layout="@layout/line_change"/>
+    <LinearLayout
+        android:id="@+id/no_msg"
+        android:visibility="gone"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/no_msg"/>
+    </LinearLayout>
     <FrameLayout
+        android:id="@+id/manmsg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ListView

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.jokeep.swsmep.activity.PhoneManMsgActivity;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.model.UnitBook;
 import com.jokeep.swsmep.model.UnitInfo;
 import com.jokeep.swsmep.model.UserBook;
 
@@ -44,9 +46,11 @@ public class Phone3Fragment extends Fragment{
 
     View fragment;
     private ListView list;
+    private LinearLayout no_msg;
     private BaseAdapter adapter;
     List<UnitInfo> listunitinfo;
     List<UserBook> listuserbook;
+    List<UnitBook> listunitbook;
     Intent intent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,22 +84,25 @@ public class Phone3Fragment extends Fragment{
                     JSONObject object2 = new JSONObject(s);
                     int code = object2.getInt("ErrorCode");
                     if (code == 1) {
+                        no_msg.setVisibility(View.VISIBLE);
+                        list.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
                     } else if (code == 0) {
+                        no_msg.setVisibility(View.GONE);
+                        list.setVisibility(View.VISIBLE);
                         String resultman = object2.getString("Result").toString();
-                        Log.d("resultman", resultman);
                         JSONArray array = new JSONArray(resultman);
                         JSONObject object3 = array.getJSONObject(0);
                         String UnitBook = object3.getString("UnitBook").toString();
-                        Log.d("UnitBook", UnitBook);
                         String UnitInfo = object3.getString("UnitInfo").toString();
-                        Log.d("UnitInfo", UnitInfo);
                         String UserBook = object3.getString("UserBook").toString();
-                        Log.d("UserBook", UserBook);
                         MsgUnitInfo(UnitInfo);
                         MsgUserBook(UserBook);
+                        MsgUnitBook(UnitBook);
                     }
                 } catch (JSONException e) {
+                    no_msg.setVisibility(View.VISIBLE);
+                    list.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
             }
@@ -103,6 +110,8 @@ public class Phone3Fragment extends Fragment{
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Log.d("ex", ex.getMessage());
+                no_msg.setVisibility(View.VISIBLE);
+                list.setVisibility(View.GONE);
             }
 
             @Override
@@ -115,6 +124,30 @@ public class Phone3Fragment extends Fragment{
 
             }
         });
+    }
+
+    private void MsgUnitBook(String UnitBook) throws JSONException {
+        JSONArray array = new JSONArray(UnitBook);
+        for (int i=0;i<array.length();i++){
+            JSONObject object = (JSONObject) array.get(i);
+            UnitBook unitbook = new UnitBook();
+            unitbook.setF_DUTYPHONENOTE1(object.getString("F_DUTYPHONENOTE1"));
+            unitbook.setF_DUTYPHONENOTE2(object.getString("F_DUTYPHONENOTE2"));
+            unitbook.setF_FAX(object.getString("F_FAX"));
+            unitbook.setF_POSTALCODE(object.getString("F_POSTALCODE"));
+            unitbook.setF_AREACODE(object.getString("F_AREACODE"));
+            unitbook.setF_OTHERUNITBOOKID(object.getString("F_OTHERUNITBOOKID"));
+            unitbook.setF_OTHERUNITBOOKNAME(object.getString("F_OTHERUNITBOOKNAME"));
+            unitbook.setF_ADDRESS(object.getString("F_ADDRESS"));
+            unitbook.setF_OTHERUNITID(object.getString("F_OTHERUNITID"));
+            unitbook.setF_EMAIL(object.getString("F_EMAIL"));
+            unitbook.setF_OFFICEPHONE2(object.getString("F_OFFICEPHONE2"));
+            unitbook.setF_OFFICEPHONE1(object.getString("F_OFFICEPHONE1"));
+            unitbook.setF_TYPE(object.getInt("F_TYPE"));
+            unitbook.setF_DUTYPHONE2(object.getString("F_DUTYPHONE2"));
+            unitbook.setF_DUTYPHONE1(object.getString("F_DUTYPHONE1"));
+            listunitbook.add(unitbook);
+        }
     }
 
     private void MsgUserBook(String UserBook) throws JSONException {
@@ -151,7 +184,9 @@ public class Phone3Fragment extends Fragment{
         editor = sp.edit();
         listunitinfo = new ArrayList<UnitInfo>();
         listuserbook = new ArrayList<UserBook>();
+        listunitbook = new ArrayList<UnitBook>();
         list = (ListView) fragment.findViewById(R.id.phone3_list);
+        no_msg = (LinearLayout) fragment.findViewById(R.id.no_msg);
         adapter = new BaseAdapter() {
             @Override
             public int getCount() {
@@ -190,6 +225,8 @@ public class Phone3Fragment extends Fragment{
                             intent.putExtra("userbook", (Serializable) listuserbook);
                         }else {
                             intent = new Intent(getActivity(), PhoneManMsgActivity.class);
+                            intent.putExtra("unitbook", (Serializable) listunitbook);
+                            intent.putExtra("F_OTHERUNITID",unitInfo.getF_OTHERUNITID());
                         }
                         intent.putExtra("textname", unitInfo.getF_UNITNAME());
                         startActivity(intent);

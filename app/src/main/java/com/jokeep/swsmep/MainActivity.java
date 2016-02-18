@@ -123,6 +123,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             mTempDir.mkdirs();
         }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                drawerView.setClickable(true);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
         menu_left = (ImageView) findViewById(R.id.mian_menuleft);
         menuleft = (LinearLayout) findViewById(R.id.menu_left);
         menu_right = (ImageView) findViewById(R.id.main_menuright);

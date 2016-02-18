@@ -1,6 +1,8 @@
 package com.jokeep.swsmep.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,13 +88,29 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         viewHolder.link_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, list.get(position).getNametype(), Toast.LENGTH_SHORT).show();
+                int i = list.get(position).getF_CALLPHONETYPE();
+                if (i == 0){
+                    //0 可以打电话 1号码是空
+                    String callnumber = list.get(position).getCallphone().toString();
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + callnumber));
+                    mContext.startActivity(intent);
+                }else {
+                    Toast.makeText(mContext, "暂无手机号码", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         viewHolder.call_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,list.get(position).getSortLetters(),Toast.LENGTH_SHORT).show();
+                int i = list.get(position).getF_CALLPHONETYPE();
+                if (i == 0){
+                    //0 可以打电话 1号码是空
+                    String callnumber = list.get(position).getCallphone().toString();
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + callnumber));
+                    mContext.startActivity(intent);
+                }else {
+                    Toast.makeText(mContext, "暂无手机号码", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;
