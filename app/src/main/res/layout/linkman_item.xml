@@ -7,7 +7,7 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:background="@mipmap/linkman_img"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"/>
     <LinearLayout
         android:paddingLeft="10dp"
@@ -35,14 +35,14 @@
         android:layout_height="60dp">
         <ImageView
             android:id="@+id/link_call"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@mipmap/call"/>
         <ImageView
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:id="@+id/link_msg"
             android:layout_toLeftOf="@id/link_call"
             android:layout_centerVertical="true"
