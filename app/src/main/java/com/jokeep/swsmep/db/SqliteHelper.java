@@ -4,13 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.jokeep.swsmep.model.UserBook;
+
 /**
  * Created by wbq501 on 2016-2-17 16:14.
  * SWSMEP
  */
 public class SqliteHelper extends SQLiteOpenHelper{
     //用来保存UserID、Access Token、Access Secret的表名
-    public static final String TB_NAME= "users";
+    public static final String TB_NAME= "phoneman";
     public SqliteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -19,12 +21,13 @@ public class SqliteHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL( "CREATE TABLE IF NOT EXISTS "+
                         TB_NAME+ "("+
-//                        UserInfo. ID+ " integer primary key,"+
-//                        UserInfo. USERID+ " varchar,"+
-//                        UserInfo. TOKEN+ " varchar,"+
-//                        UserInfo. TOKENSECRET+ " varchar,"+
-//                        UserInfo. USERNAME+ " varchar,"+
-//                        UserInfo. USERICON+ " blob"+
+                        UserBook. ID+ " integer primary key,"+
+                        UserBook. PHONENAME+ " varchar"+
+                        UserBook. USERTYPE+ " varchar,"+
+                        UserBook. USERID+ " varchar,"+
+                        UserBook. CALLPHONE+ " varchar,"+
+                        UserBook. USERNAME+ " varchar,"+
+                        UserBook. USERTYPENAME+ " varchar"+
                         ")"
         );
     }

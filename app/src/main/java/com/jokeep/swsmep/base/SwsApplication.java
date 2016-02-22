@@ -50,14 +50,14 @@ public class SwsApplication extends Application{
 //                        .writeUtf8(CER_12306)
 //                        .inputStream()});
 //        OkHttpUtils.getInstance().debug("testDebug").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
-        daoConfig = new DbManager.DaoConfig()
-                    .setDbName("swsmep")
-                    .setDbVersion(1)
-                    .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
-                        @Override
-                        public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
-
-                        }
-                    });
+//        daoConfig = new DbManager.DaoConfig()
+//                    .setDbName("swsmep")
+//                    .setDbVersion(1)
+//                    .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+//                        @Override
+//                        public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+//
+//                        }
+//                    });
     }
 }

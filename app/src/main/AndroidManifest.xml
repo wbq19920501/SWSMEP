@@ -50,6 +50,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.PhoneManMsgActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SearchManActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

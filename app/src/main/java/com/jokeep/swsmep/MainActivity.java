@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import com.jokeep.swsmep.activity.ActivityList;
 import com.jokeep.swsmep.activity.ChangePassdActivity;
+import com.jokeep.swsmep.activity.SearchManActivity;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
@@ -150,6 +151,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(menuleft);
+            }
+        });
+        menu_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, SearchManActivity.class);
+                startActivity(intent);
             }
         });
         initmenu();

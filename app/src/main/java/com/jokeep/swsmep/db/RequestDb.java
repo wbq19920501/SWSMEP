@@ -1,5 +1,7 @@
 package com.jokeep.swsmep.db;
 
+import android.os.Environment;
+
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.model.UserInfo;
 
@@ -9,6 +11,7 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class RequestDb {
     public static List<UserInfo> userInfoList = new ArrayList<UserInfo>();
     public static List<UserInfo.ResultEntity.UserInfoEntity> resultInfo = new ArrayList<UserInfo.ResultEntity.UserInfoEntity>();
     public static String errormsg;
-    public static int UserInfo(String res, DbManager db){
+    public static int UserInfo(String res){
         JSONObject user;
         JSONArray prime;
         JSONObject json;
@@ -31,13 +34,15 @@ public class RequestDb {
         resultInfo.clear();
         resultInfo = new ArrayList<UserInfo.ResultEntity.UserInfoEntity>();
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbName("user").setDbVersion(1).setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                .setDbName("User")
+                .setDbVersion(1)
+                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
                     @Override
                     public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
 
                     }
                 });
-        db = x.getDb(daoConfig);
+        DbManager db = x.getDb(daoConfig);
         try {
             json = new JSONObject(res);
             errorCode = Integer.parseInt(json.getString("ErrorCode"));
@@ -57,6 +62,7 @@ public class RequestDb {
                         userInfoEntity.setF_INTERVAL(object.getString("F_INTERVAL").toString());
                         userInfoEntity.setF_PSDISPASSTIME(object.getInt("F_PSDISPASSTIME"));
 //                        db.save(userInfoEntity);
+//                        db.saveOrUpdate(userInfoEntity);
                     }
                     resultInfo.add(userInfoEntity);
                     break;

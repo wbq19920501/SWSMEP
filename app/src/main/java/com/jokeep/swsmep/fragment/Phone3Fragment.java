@@ -21,6 +21,8 @@ import com.jokeep.swsmep.activity.PhoneManMsgActivity;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.db.DataHelper;
+import com.jokeep.swsmep.db.MsgDb;
 import com.jokeep.swsmep.model.UnitBook;
 import com.jokeep.swsmep.model.UnitInfo;
 import com.jokeep.swsmep.model.UserBook;
@@ -28,7 +30,9 @@ import com.jokeep.swsmep.model.UserBook;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.DbManager;
 import org.xutils.common.Callback;
+import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -65,6 +69,7 @@ public class Phone3Fragment extends Fragment{
                 parent.removeView(fragment);
             }
         }
+        x.view().inject(getActivity());
         init();
         initdata();
         return fragment;
@@ -101,6 +106,10 @@ public class Phone3Fragment extends Fragment{
                         MsgUnitBook(UnitBook);
                     }
                 } catch (JSONException e) {
+                    no_msg.setVisibility(View.VISIBLE);
+                    list.setVisibility(View.GONE);
+                    e.printStackTrace();
+                } catch (DbException e) {
                     no_msg.setVisibility(View.VISIBLE);
                     list.setVisibility(View.GONE);
                     e.printStackTrace();
@@ -150,17 +159,22 @@ public class Phone3Fragment extends Fragment{
         }
     }
 
-    private void MsgUserBook(String UserBook) throws JSONException {
+    private void MsgUserBook(String UserBook) throws JSONException, DbException {
         JSONArray array = new JSONArray(UserBook);
+        DbManager.DaoConfig daoConfig= MsgDb.getDaoConfig();
+        DbManager db = x.getDb(daoConfig);
+        db.delete(UserBook.class);
         for (int i=0;i<array.length();i++){
             JSONObject object = (JSONObject) array.get(i);
             UserBook userbook = new UserBook();
+            userbook.setId(i);
             userbook.setF_POSITIONNAME(object.getString("F_POSITIONNAME"));
             userbook.setF_CALLPHONETYPE(object.getInt("F_CALLPHONETYPE"));
             userbook.setF_USERID(object.getString("F_USERID"));
             userbook.setF_CALLPHONE(object.getString("F_CALLPHONE"));
             userbook.setF_USERNAME(object.getString("F_USERNAME"));
             userbook.setF_DEPARTMENTNAME(object.getString("F_DEPARTMENTNAME"));
+            db.save(userbook);
             listuserbook.add(userbook);
         }
     }

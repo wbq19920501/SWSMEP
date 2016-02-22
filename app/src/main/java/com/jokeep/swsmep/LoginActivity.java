@@ -307,9 +307,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 dialog.dismiss();
             }else {
                 UserInfo.ResultEntity.UserInfoEntity userInfoEntity = new UserInfo.ResultEntity.UserInfoEntity();
-                DbManager db = x.getDb(((SwsApplication) getApplicationContext()).getDaoConfig());
+//                DbManager db = x.getDb(((SwsApplication) getApplicationContext()).getDaoConfig());
 
-                int i = RequestDb.UserInfo(res, db);
+                int i = RequestDb.UserInfo(res);
                 Intent intent = null;
                 switch (i){
                     case SaveMsg.successCode:
