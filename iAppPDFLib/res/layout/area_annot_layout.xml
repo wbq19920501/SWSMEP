@@ -7,13 +7,12 @@
 	    android:id="@+id/handwrite_container"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:background="#60808080">
+	    android:layout_alignParentBottom="true">
 	    <com.kinggrid.kinggridsign.KingGridView
 	        android:id="@+id/handwrite_kgview"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
-	        android:background="@android:color/transparent" />
+	        android:background="#60808080"/>
 	</FrameLayout>
 	
 	<EditText 

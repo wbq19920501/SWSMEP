@@ -308,7 +308,7 @@
     <string name="username_different_edit">你無權編輯其他用戶添加的批註信息!</string>
     <!-- add at 2013.12.18 -->
     <string name="unknown_error">未知異常！</string>
-    <string name="auth_company:">授權給:</string>
+    <string name="auth_company">授權給:</string>
     <string name="error_fileformat_wrong">該文件不是標準PDF文件，iAppPDF即將關閉！</string>
     <!-- add at 2013.12.20 -->
     <string name="auth_info">授權信息</string>
@@ -326,7 +326,6 @@
     <string name="title_activity_annot_commen">常用簽批管理</string>
     <string name="hello_world">Hello world!</string>
 	<string name="password_authentication">密碼驗證</string>
-	<string name="input">請輸入密碼</string>
 	<string name="dialog_verify">文檔受到保護，請輸入"文檔打開密碼"。</string>
 	<string name="dialog_wrong_password">密碼錯誤，請重新輸入！</string>
 	<string name="tip_title">提示</string>
@@ -385,9 +384,4 @@
     <string name="pencil">鉛筆</string>
     <string name="waterpen">水彩筆</string>
     <string name="penwidth">寬度：</string>
-    <string name="word_annot_save">保存</string>
-    <string name="word_annot_title">文字附注</string>
-    <string name="sound_annot_title">點擊左側按鈕開始錄音</string>
-    <string name="sound_annot_read">正在讀取，請稍候…</string>
-    <string name="sound_annot_write">正在嵌入，請稍候…</string>
 </resources>

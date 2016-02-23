@@ -3,16 +3,12 @@ package com.jokeep.swsmep;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,20 +16,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,17 +33,13 @@ import com.jokeep.swsmep.activity.SearchManActivity;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
-import com.jokeep.swsmep.base.ToastMSG;
 import com.jokeep.swsmep.fragment.NewsFragment;
-import com.jokeep.swsmep.fragment.Phone2Fragment;
 import com.jokeep.swsmep.fragment.Phone3Fragment;
-import com.jokeep.swsmep.fragment.PhoneFragment;
 import com.jokeep.swsmep.fragment.ScheduleFragment;
 import com.jokeep.swsmep.fragment.WorkFragment;
 import com.jokeep.swsmep.model.UserInfo;
 import com.jokeep.swsmep.photo.Crop;
 import com.jokeep.swsmep.photo.FileUtils;
-import com.jokeep.swsmep.view.CustomImageView;
 import com.jokeep.swsmep.view.RoundImageView;
 import com.jokeep.swsmep.view.SelectPicPopupWindow;
 import com.jokeep.swsmep.view.ShowDialog;
@@ -68,11 +54,8 @@ import org.xutils.x;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
@@ -158,6 +141,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, SearchManActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
             }
         });
         initmenu();

@@ -21,14 +21,9 @@ import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.XutlsBase;
 import com.jokeep.swsmep.view.ShowDialog;
-import com.kinggrid.kgpdfService.solutions.XMLUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\DEMO\trunk\iAppPDFLib\assets"/></dataSet><dataSet config="debug"><source path="D:\DEMO\trunk\iAppPDFLib\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\suibian\iAppPDFLib\assets"/></dataSet><dataSet config="debug"><source path="D:\suibian\iAppPDFLib\build-types\debug\assets"/></dataSet></merger>

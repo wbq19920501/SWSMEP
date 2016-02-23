@@ -35,7 +35,7 @@
 		    <TextView
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:text="@string/sound_annot_title"        
+			        android:text="点击左侧按钮开始录音"        
 			        android:textSize="16sp"
 			        android:textColor="#78694e"/>
 	    </LinearLayout>
@@ -175,4 +175,4 @@
 			android:layout_height="24dp"
 			android:background="@drawable/eben_bg_close"/>
 	</LinearLayout>
-</LinearLayout><!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/layout/eben_voice_record.xml -->
+</LinearLayout>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/values-zh-rTW/strings.xml -->
-    <eat-comment/>
     <string name="CertificateType">證書類型：</string>
     <string name="about_3dparty_title">第三方軟件</string>
     <string name="about_changelog_title">變更日誌</string>
@@ -27,7 +25,7 @@
     <string name="annot_commen">常用簽批</string>
     <string name="annot_sound">語音批註</string>
     <string name="annot_sound_del">刪除語音</string>
-    <string name="auth_company:">授權給:</string>
+    <string name="auth_company">授權給:</string>
     <string name="auth_companyName">授權許可：</string>
     <string name="auth_info">授權信息</string>
     <string name="auth_time">可用天數：</string>
@@ -140,7 +138,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="hint_nosigned">沒有簽批內容，無需保存！</string>
     <string name="iAppPDFVerifyP7">iAppPDF目前只能驗證P7格式的簽名！當前的格式為：</string>
-    <string name="input">請輸入密碼</string>
     <string name="insertHandwrittenFailed">插入手寫批註失敗！</string>
     <string name="insert_vector_tip">正在插入手寫批註，請稍後！</string>
     <string name="interchangeCertificate">交換證書：</string>
@@ -343,9 +340,6 @@
     <string name="soft_upload_upload">上傳</string>
     <string name="soft_uploading">正在上傳…</string>
     <string name="sound_add">請點擊需要插入語音批註的位置!</string>
-    <string name="sound_annot_read">正在讀取，請稍候…</string>
-    <string name="sound_annot_title">點擊左側按鈕開始錄音</string>
-    <string name="sound_annot_write">正在嵌入，請稍候…</string>
     <string name="sync">同步</string>
     <string name="tap_zones_clear">清理</string>
     <string name="tap_zones_delete">刪除</string>
@@ -366,6 +360,4 @@
     <string name="voice_list">語音清單</string>
     <string name="warmPrompt">溫馨提示：</string>
     <string name="waterpen">水彩筆</string>
-    <string name="word_annot_save">保存</string>
-    <string name="word_annot_title">文字附注</string>
 </resources>

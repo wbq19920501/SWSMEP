@@ -308,7 +308,7 @@
     <string name="username_different_edit">You can not edit comments that the other add!</string>
     <!-- add at 2013.12.18 -->
     <string name="unknown_error">Unknown Exception！</string>
-    <string name="auth_company:">Licensed to:</string>
+    <string name="auth_company">Licensed to:</string>
     <string name="error_fileformat_wrong">The document is not standard PDF file,iAppPDF will be closed!</string>
     <!-- add at 2013.12.20 -->
     <string name="auth_info">Authorization Message</string>
@@ -326,7 +326,6 @@
     <string name="title_activity_annot_commen">Common issuing Management</string>
     <string name="hello_world">Hello world!</string>
     <string name="password_authentication">Password Authorization</string>
-    <string name="input">Please input password</string>
     <string name="dialog_verify">The documents are protected, enter "Document Open Password".</string>
     <string name="dialog_wrong_password">Password error,please re-enter!</string>
     <string name="tip_title">Hint</string>
@@ -385,9 +384,4 @@
     <string name="freeSignCertificate">is not Exit</string>
     <!-- <string name="page">Pages</string>
     <string name="printPage">Print right now</string>  -->
-    <string name="word_annot_save">Save</string>
-    <string name="word_annot_title">Notes</string>
-    <string name="sound_annot_title">Click left button to record</string>
-    <string name="sound_annot_read">Reading data,just a moment…</string>
-    <string name="sound_annot_write">Writing data,just a moment…</string>
 </resources>

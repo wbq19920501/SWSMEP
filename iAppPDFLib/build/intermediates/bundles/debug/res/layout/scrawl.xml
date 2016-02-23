@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
 
-    <!-- <com.ebensz.eink.api.PennableLayout -->
-    <com.kinggrid.iapppdf.ui.viewer.KgPennableLayout
+    <com.ebensz.eink.api.PennableLayout
         android:id="@+id/ink"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent" />
 
 </RelativeLayout>
-<!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/layout/scrawl.xml -->

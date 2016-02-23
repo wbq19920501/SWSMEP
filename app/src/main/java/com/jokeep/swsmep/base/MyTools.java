@@ -41,7 +41,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import com.jokeep.swsmep.utls.Utils;
-import com.kinggrid.pdfservice.PageViewMode;
 
 public class MyTools {
 	// 判断是否有网络
@@ -816,50 +815,50 @@ public class MyTools {
 	 * @param
 	 * @return
 	 */
-	public static Intent getPdfIntent(int id, String filepath,
-			boolean showFile) {
-		File file = new File(filepath);
-		final Uri uri = Uri.fromFile(file);
-		final Intent intent = new Intent("android.intent.action.VIEW", uri);
-		if (id == 1) {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.swsmep.base.BillPdfShowerActivity");
-		} else {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.portal.custom.PdfShowerActivity2");
-		}
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-		intent.putExtra("sUrl",
-				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
-		// 用户id
-		intent.putExtra("userName", "admin");
-		intent.putExtra("signatureField1", "Signature1");
-		intent.putExtra("signatureField2", "Signature2");
-		intent.putExtra("copyRight", sureCopyRight());
-		intent.putExtra("path", filepath);
-		/*
-		 * intent.putExtra("usedKinggridSign",
-		 * chv_usedKinggridSign.isChecked());
-		 */
-		intent.putExtra("loadPDFReaderCache", false);
-		intent.putExtra("onlySaveAnnots", false);
-		intent.putExtra("isCanField_edit", false);
-		intent.putExtra("isSupportEbenT7Mode", false);
-		intent.putExtra("annotType", 1);
-		Bundle bundle = new Bundle();
-		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
-		intent.putExtras(bundle);
-		intent.putExtra("local_flag", 1);
-		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
-
-		intent.putExtras(bundle);
-		intent.putExtra("bookRotation",
-				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		/* startActivityForResult(intent, 1); */
-		intent.putExtra("showFile", showFile);
-		return intent;
-	}
+//	public static Intent getPdfIntent(int id, String filepath,
+//			boolean showFile) {
+//		File file = new File(filepath);
+//		final Uri uri = Uri.fromFile(file);
+//		final Intent intent = new Intent("android.intent.action.VIEW", uri);
+//		if (id == 1) {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.swsmep.base.BillPdfShowerActivity");
+//		} else {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.portal.custom.PdfShowerActivity2");
+//		}
+//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//		intent.putExtra("sUrl",
+//				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
+//		// 用户id
+//		intent.putExtra("userName", "admin");
+//		intent.putExtra("signatureField1", "Signature1");
+//		intent.putExtra("signatureField2", "Signature2");
+//		intent.putExtra("copyRight", sureCopyRight());
+//		intent.putExtra("path", filepath);
+//		/*
+//		 * intent.putExtra("usedKinggridSign",
+//		 * chv_usedKinggridSign.isChecked());
+//		 */
+//		intent.putExtra("loadPDFReaderCache", false);
+//		intent.putExtra("onlySaveAnnots", false);
+//		intent.putExtra("isCanField_edit", false);
+//		intent.putExtra("isSupportEbenT7Mode", false);
+//		intent.putExtra("annotType", 1);
+//		Bundle bundle = new Bundle();
+//		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
+//		intent.putExtras(bundle);
+//		intent.putExtra("local_flag", 1);
+//		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
+//
+//		intent.putExtras(bundle);
+//		intent.putExtra("bookRotation",
+//				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//		/* startActivityForResult(intent, 1); */
+//		intent.putExtra("showFile", showFile);
+//		return intent;
+//	}
 
 	/**
 	 * 初始化领导签字pdf的intent
@@ -870,100 +869,100 @@ public class MyTools {
 	 * @param
 	 * @return
 	 */
-	public static Intent getSignPdfIntent(String filepath, boolean showFile) {
-		File file = new File(filepath);
-		final Uri uri = Uri.fromFile(file);
-		final Intent intent = new Intent("android.intent.action.VIEW", uri);
-		intent.setClassName("com.jokeep.swsmep",
-				"com.jokeep.swsmep.base.BillPdfShowerActivity");
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//	public static Intent getSignPdfIntent(String filepath, boolean showFile) {
+//		File file = new File(filepath);
+//		final Uri uri = Uri.fromFile(file);
+//		final Intent intent = new Intent("android.intent.action.VIEW", uri);
+//		intent.setClassName("com.jokeep.swsmep",
+//				"com.jokeep.swsmep.base.BillPdfShowerActivity");
+//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//		intent.putExtra("sUrl",
+//				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
+//		// 用户id
+//		intent.putExtra("userName", "admin");
+//		intent.putExtra("signatureField1", "Signature1");
+//		intent.putExtra("signatureField2", "Signature2");
+//		intent.putExtra("copyRight", sureCopyRight());
+//		intent.putExtra("path", filepath);
+//		/*
+//		 * intent.putExtra("usedKinggridSign",
+//		 * chv_usedKinggridSign.isChecked());
+//		 */
+//		intent.putExtra("loadPDFReaderCache", false);
+//		intent.putExtra("onlySaveAnnots", false);
+//		intent.putExtra("isCanField_edit", false);
+//		intent.putExtra("isSupportEbenT7Mode", false);
+//		intent.putExtra("annotType", 1);
+//		Bundle bundle = new Bundle();
+//		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
+//		intent.putExtras(bundle);
+//		intent.putExtra("local_flag", 1);
+//		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
+//		intent.putExtra("bookRotation",
+//				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//		intent.putExtras(bundle);
+//
+//		/* startActivityForResult(intent, 1); */
+//		intent.putExtra("showFile", showFile);
+//		return intent;
+//	}
 
-		intent.putExtra("sUrl",
-				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
-		// 用户id
-		intent.putExtra("userName", "admin");
-		intent.putExtra("signatureField1", "Signature1");
-		intent.putExtra("signatureField2", "Signature2");
-		intent.putExtra("copyRight", sureCopyRight());
-		intent.putExtra("path", filepath);
-		/*
-		 * intent.putExtra("usedKinggridSign",
-		 * chv_usedKinggridSign.isChecked());
-		 */
-		intent.putExtra("loadPDFReaderCache", false);
-		intent.putExtra("onlySaveAnnots", false);
-		intent.putExtra("isCanField_edit", false);
-		intent.putExtra("isSupportEbenT7Mode", false);
-		intent.putExtra("annotType", 1);
-		Bundle bundle = new Bundle();
-		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
-		intent.putExtras(bundle);
-		intent.putExtra("local_flag", 1);
-		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
-		intent.putExtra("bookRotation",
-				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		intent.putExtras(bundle);
-
-		/* startActivityForResult(intent, 1); */
-		intent.putExtra("showFile", showFile);
-		return intent;
-	}
-
-	public static Intent getJointPdfIntent(int id, String filepath,
-			boolean showFile) {
-		File file = new File(filepath);
-		final Uri uri = Uri.fromFile(file);
-		/*
-		 * final Intent intent = new Intent(this,BookShower.class);
-		 * intent.setData(uri);
-		 */
-		final Intent intent = new Intent("android.intent.action.VIEW", uri);
-		if (id == 1) {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.portal.activity.joint.JointZhengWenPdfShowerActivity");
-		} else if (id == 2) {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.portal.activity.joint.JointZhengWenPdfShowerActivity");
-
-		}
-
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		// if (userName.getText().toString() == null || sureCopyRight() == null)
-		// {
-		// return;
-		// }
-
-		intent.putExtra("sUrl",
-				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
-		intent.putExtra("userName", "admin");
-		intent.putExtra("signatureField1", "Signature1");
-		intent.putExtra("signatureField2", "Signature2");
-		intent.putExtra("copyRight", MyTools.sureCopyRight());
-		intent.putExtra("path", filepath);
-		intent.putExtra("bookRotation",
-				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-		intent.putExtra("onlySaveAnnots", false);
-		intent.putExtra("isCanField_edit", false);
-		intent.putExtra("isVectorSign", false);
-		intent.putExtra("isSupportEbenT7Mode", false);
-		intent.putExtra("annotType", 1);
-		Bundle bundle = new Bundle();
-		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
-		intent.putExtras(bundle);
-		intent.putExtra("local_flag", 1);
-		// if (chv_fillTemplate.isChecked()) {
-		// intent.putExtra("template", sureFillTemplate());
-		// }
-		// if (chv_gaininfo.isChecked()) {
-		// intent.putExtra("annotType", sureAnnotType());
-		// }
-		intent.putExtras(bundle);
-
-		/* startActivityForResult(intent, 1); */
-		intent.putExtra("showFile", showFile);
-		return intent;
-	}
+//	public static Intent getJointPdfIntent(int id, String filepath,
+//			boolean showFile) {
+//		File file = new File(filepath);
+//		final Uri uri = Uri.fromFile(file);
+//		/*
+//		 * final Intent intent = new Intent(this,BookShower.class);
+//		 * intent.setData(uri);
+//		 */
+//		final Intent intent = new Intent("android.intent.action.VIEW", uri);
+//		if (id == 1) {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.portal.activity.joint.JointZhengWenPdfShowerActivity");
+//		} else if (id == 2) {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.portal.activity.joint.JointZhengWenPdfShowerActivity");
+//
+//		}
+//
+//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//		// if (userName.getText().toString() == null || sureCopyRight() == null)
+//		// {
+//		// return;
+//		// }
+//
+//		intent.putExtra("sUrl",
+//				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
+//		intent.putExtra("userName", "admin");
+//		intent.putExtra("signatureField1", "Signature1");
+//		intent.putExtra("signatureField2", "Signature2");
+//		intent.putExtra("copyRight", MyTools.sureCopyRight());
+//		intent.putExtra("path", filepath);
+//		intent.putExtra("bookRotation",
+//				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//
+//		intent.putExtra("onlySaveAnnots", false);
+//		intent.putExtra("isCanField_edit", false);
+//		intent.putExtra("isVectorSign", false);
+//		intent.putExtra("isSupportEbenT7Mode", false);
+//		intent.putExtra("annotType", 1);
+//		Bundle bundle = new Bundle();
+//		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
+//		intent.putExtras(bundle);
+//		intent.putExtra("local_flag", 1);
+//		// if (chv_fillTemplate.isChecked()) {
+//		// intent.putExtra("template", sureFillTemplate());
+//		// }
+//		// if (chv_gaininfo.isChecked()) {
+//		// intent.putExtra("annotType", sureAnnotType());
+//		// }
+//		intent.putExtras(bundle);
+//
+//		/* startActivityForResult(intent, 1); */
+//		intent.putExtra("showFile", showFile);
+//		return intent;
+//	}
 
 	/**
 	 * 初始化话获取pdf文件的intent
@@ -974,46 +973,46 @@ public class MyTools {
 	 * @param
 	 * @return
 	 */
-	public static Intent getBillPdfIntent(int id, String filepath,
-			boolean showFile) {
-		File file = new File(filepath);
-		final Uri uri = Uri.fromFile(file);
-		final Intent intent = new Intent("android.intent.action.VIEW", uri);
-		if (id == 1) {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.swsmep.base.BillPdfShowerActivity");
-		} else {
-			intent.setClassName("com.jokeep.swsmep",
-					"com.jokeep.portal.custom.BillPdfShowerActivity2");
-		}
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-		intent.putExtra("sUrl",
-				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
-		// 用户id
-		intent.putExtra("userName", "admin");
-		intent.putExtra("signatureField1", "Signature1");
-		intent.putExtra("signatureField2", "Signature2");
-		intent.putExtra("copyRight", sureCopyRight());
-		intent.putExtra("path", filepath);
-		intent.putExtra("loadPDFReaderCache", false);
-		intent.putExtra("onlySaveAnnots", false);
-		intent.putExtra("isCanField_edit", false);
-		intent.putExtra("isSupportEbenT7Mode", false);
-		intent.putExtra("annotType", 1);
-		Bundle bundle = new Bundle();
-		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
-		intent.putExtras(bundle);
-		intent.putExtra("local_flag", 1);
-		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
-		intent.putExtra("bookRotation",
-				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		intent.putExtras(bundle);
-
-		/* startActivityForResult(intent, 1); */
-		intent.putExtra("showFile", showFile);
-		return intent;
-	}
+//	public static Intent getBillPdfIntent(int id, String filepath,
+//			boolean showFile) {
+//		File file = new File(filepath);
+//		final Uri uri = Uri.fromFile(file);
+//		final Intent intent = new Intent("android.intent.action.VIEW", uri);
+//		if (id == 1) {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.swsmep.base.BillPdfShowerActivity");
+//		} else {
+//			intent.setClassName("com.jokeep.swsmep",
+//					"com.jokeep.portal.custom.BillPdfShowerActivity2");
+//		}
+//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//		intent.putExtra("sUrl",
+//				"http://192.168.1.111:8888/iSignaturePDF/DefaulServlet");
+//		// 用户id
+//		intent.putExtra("userName", "admin");
+//		intent.putExtra("signatureField1", "Signature1");
+//		intent.putExtra("signatureField2", "Signature2");
+//		intent.putExtra("copyRight", sureCopyRight());
+//		intent.putExtra("path", filepath);
+//		intent.putExtra("loadPDFReaderCache", false);
+//		intent.putExtra("onlySaveAnnots", false);
+//		intent.putExtra("isCanField_edit", false);
+//		intent.putExtra("isSupportEbenT7Mode", false);
+//		intent.putExtra("annotType", 1);
+//		Bundle bundle = new Bundle();
+//		bundle.putParcelable("pageViewMode", PageViewMode.VSCROLL);
+//		intent.putExtras(bundle);
+//		intent.putExtra("local_flag", 1);
+//		intent.putExtra("isVectorSign", true);// 手写签批是否矢量化
+//		intent.putExtra("bookRotation",
+//				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//		intent.putExtras(bundle);
+//
+//		/* startActivityForResult(intent, 1); */
+//		intent.putExtra("showFile", showFile);
+//		return intent;
+//	}
 
 	// 金格的验证码
 	public static String sureCopyRight() {

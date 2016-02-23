@@ -9,4 +9,3 @@
         android:textColor="@android:color/black"
         android:background="@xml/edit_text_bg"
         android:textAlignment="center"/>
-<!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/layout/adjustablesize_edittext_layout.xml -->

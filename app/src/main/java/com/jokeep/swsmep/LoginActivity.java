@@ -8,14 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-import android.os.Parcelable;
-import android.util.Log;
-import android.util.Xml;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -33,44 +26,15 @@ import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.MyTools;
-import com.jokeep.swsmep.base.PDFTools;
 import com.jokeep.swsmep.base.SaveMsg;
-import com.jokeep.swsmep.base.SwsApplication;
-import com.jokeep.swsmep.base.ToastMSG;
 import com.jokeep.swsmep.db.RequestDb;
 import com.jokeep.swsmep.model.UserInfo;
-import com.jokeep.swsmep.utls.OkHttpUtils;
 import com.jokeep.swsmep.utls.Utils;
-import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xutils.DbManager;
-import org.xutils.config.DbConfigs;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Random;
 import java.util.UUID;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by wbq501 on 2016-1-7 09:59.

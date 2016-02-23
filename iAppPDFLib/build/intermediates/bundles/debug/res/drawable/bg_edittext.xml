@@ -8,4 +8,3 @@
     <item android:state_focused="true" android:drawable="@drawable/textfield_disabled_focused_holo_light" />
     <item android:drawable="@drawable/textfield_disabled_holo_light" />
 </selector>
-<!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/drawable/bg_edittext.xml -->

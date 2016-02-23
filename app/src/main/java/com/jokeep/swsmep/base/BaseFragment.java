@@ -12,13 +12,11 @@ public abstract class BaseFragment extends Fragment {
 
     public Activity context;
     public View fragment;
-//    public FinalDb db;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         context = activity;
-//        db = FinalDb.create(activity);
         init();
     }
 

@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/bg_btn_focus" android:state_enabled="true" android:state_selected="true"/>
     <item android:drawable="@drawable/bg_btn" android:state_enabled="true"/>
 
-</selector><!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/drawable/bg_btn_state.xml -->
+</selector>

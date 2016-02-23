@@ -9,4 +9,4 @@
         android:layout_height="32dp"
         android:layout_gravity="center" />
 
-</FrameLayout><!-- From: file:/D:/DEMO/trunk/iAppPDFLib/res/layout/actionbar_indeterminate_progress.xml -->
+</FrameLayout>

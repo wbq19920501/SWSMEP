@@ -203,7 +203,7 @@
     <string name="outline_title">大纲</string>
     <string name="outline_missed">大纲不可用</string>
     <string name="error_page_out_of_rande">页码超出范围。有效的范围是：1-%1$d</string>
-    <string name="msg_loading">正在加载&#8230; 请稍后</string>
+    <string name="msg_loading">正在加载&#8230; 请稍候</string>
     <string name="msg_getting_page_size">正在评估页面大小 %1$d/%2$d</string>
     <string name="tap_zones_single_tap">单击</string>
     <string name="tap_zones_double_tap">双击</string>
@@ -232,7 +232,7 @@
     <string name="soft_update_title">软件更新</string>
     <string name="soft_update_info">检测到新版本，立即更新吗</string>
     <string name="soft_update_updatebtn">更新</string>
-    <string name="soft_update_later">稍后更新</string>
+    <string name="soft_update_later">稍候更新</string>
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
     <string name="neterror">网络不通，请检查网络情况！</string>
@@ -247,7 +247,7 @@
     <string name="crop_rotate_text">旋转</string>
     <string name="crop_discard_text" msgid="5303657888280340603">"舍弃"</string>
     <string name="no_way_to_share_image" msgid="5011985309980187927">"没有可用于分享照片的应用程序。"</string>
-    <string name="runningFaceDetection">请稍后 &#8230;</string>
+    <string name="runningFaceDetection">请稍候 &#8230;</string>
     <string name="no_signature1">该文档没有盖章域，无法做盖章操作</string>
     <string name="no_signature2">该文档没有签名域，无法做签名操作</string>
 
@@ -308,7 +308,7 @@
     <string name="username_different_edit">你无权编辑其他用户添加的批注信息!</string>
     <!-- add at 2013.12.18 -->
     <string name="unknown_error">未知异常！</string>
-    <string name="auth_company:">授权给:</string>
+    <string name="auth_company">授权给:</string>
     <string name="error_fileformat_wrong">该文件不是标准PDF文件,iAppPDF即将关闭！</string>
     <!-- add at 2013.12.20 -->
     <string name="auth_info">授权信息</string>
@@ -326,12 +326,11 @@
     <string name="title_activity_annot_commen">常用签批管理</string>
     <string name="hello_world">你好，世界!</string>
 	<string name="password_authentication">密码验证</string>
-	<string name="input">请输入密码</string>
 	<string name="dialog_verify">文档受到保护，请输入"文档打开密码"。</string>
 	<string name="dialog_wrong_password">密码错误，请重新输入！</string>
 	<string name="tip_title">提示</string>
-	<string name="dialog_open_document">正在打开，请稍后&#8230;</string>
-    <string name="dialog_save">正在保存，请稍后&#8230;</string>
+	<string name="dialog_open_document">正在打开，请稍候&#8230;</string>
+    <string name="dialog_save">正在保存，请稍候&#8230;</string>
     <string name="dialog_bad_file">文件已损坏</string>
     <string name="dialog_repair_file">文件结构异常，修复后可正常浏览。</string>
     
@@ -364,7 +363,7 @@
     <string name="noData">没有数据</string>
 	<string name="deleteAllCustomComment">确认删除所有常用签批吗？</string>
 	<string name="warmPrompt">温馨提示：</string>
-	<string name="signForAWhile">签名需要一会儿，请稍后！</string>
+	<string name="signForAWhile">签名需要一会儿，请稍候！</string>
     <string name="pictureRegion">该文档没有图片域，无法做插入图片操作</string>  
     <string name="addCustomSign">添加常用签名</string>
     <string name="insertHandwrittenFailed">插入手写批注失败！</string>
@@ -381,13 +380,6 @@
 	<string name="interchangeCertificate">交换证书：</string>
 	<string name="hasSignCertificate">有</string>
     <string name="freeSignCertificate">无</string>
-    
-    <!-- 文字附注及录音界面 -->
-    <string name="word_annot_save">保存</string>
-    <string name="word_annot_title">文字附注</string>
-    <string name="sound_annot_title">点击左侧按钮开始录音</string>
-    <string name="sound_annot_read">正在读取，请稍候…</string>
-    <string name="sound_annot_write">正在嵌入，请稍候…</string>
 	
 	<!-- <string name="page">页</string>
     <string name="di">第</string>
