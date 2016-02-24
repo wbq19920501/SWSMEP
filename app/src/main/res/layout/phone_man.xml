@@ -54,6 +54,16 @@
             android:fastScrollEnabled="false"
             android:scrollbars="none"></ListView>
         <TextView
+            android:id="@+id/phone_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/show_head_toast_bg"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+        <TextView
             android:id="@+id/sidebar_dialog"
             android:layout_width="80dp"
             android:layout_height="80dp"

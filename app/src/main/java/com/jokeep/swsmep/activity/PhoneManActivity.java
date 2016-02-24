@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.adapter.SortAdapter;
@@ -20,8 +18,8 @@ import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.model.CharacterParser;
 import com.jokeep.swsmep.model.PinyinComparator;
 import com.jokeep.swsmep.model.SortModel;
-import com.jokeep.swsmep.model.UnitBook;
 import com.jokeep.swsmep.model.UserBook;
+import com.jokeep.swsmep.view.DialogMsg;
 import com.jokeep.swsmep.view.SideBar;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ import java.util.List;
  * SWSMEP
  */
 public class PhoneManActivity extends BaseActivity{
-    private TextView phone_name;
+    private TextView phone_name,phone_num;
     private ListView sidebarlist;
     private TextView sidebar_dialog;
     private SideBar sidebar;
@@ -66,6 +64,7 @@ public class PhoneManActivity extends BaseActivity{
 
     private void init() {
         phone_name = (TextView) findViewById(R.id.phone_name);
+        phone_num = (TextView) findViewById(R.id.phone_num);
         intent = getIntent();
         listuserbook = new ArrayList<UserBook>();
         phone_name.setText(intent.getExtras().getString("textname"));
@@ -108,7 +107,13 @@ public class PhoneManActivity extends BaseActivity{
 
             }
         });
-
+        sidebarlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogMsg dialog = new DialogMsg(PhoneManActivity.this,R.style.dialog_no_border,SourceDateList.get(position).getCallphone().toString());
+                dialog.show();
+            }
+        });
         sidebarlist.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

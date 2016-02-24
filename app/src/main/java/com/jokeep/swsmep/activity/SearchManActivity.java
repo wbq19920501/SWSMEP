@@ -80,7 +80,7 @@ public class SearchManActivity extends BaseActivity{
                     int length = search.length();
                     if (length == 1) {
                         searchname1(search);
-                    }else {
+                    } else {
                         String namestring = search.substring(0, 1).toString();
                         Pattern p = Pattern.compile("[a-zA-Z]");
                         Matcher m = p.matcher(namestring);
@@ -93,7 +93,7 @@ public class SearchManActivity extends BaseActivity{
                                     listsearch.add(sortmodel);
                                 }
                             }
-                        }else {
+                        } else {
                             for (int i = 0; i < SourceDateList.size(); i++) {
                                 if (SourceDateList.get(i).getName().equals(search)) {
                                     SortModel sortmodel = SourceDateList.get(i);
@@ -115,7 +115,17 @@ public class SearchManActivity extends BaseActivity{
             }
         });
     }
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            exitAnim();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    private void exitAnim() {
+        finish();
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
     private void searchname1(String search) {
         Pattern p = Pattern.compile("[0-9]*");
         Matcher m = p.matcher(search);
@@ -162,6 +172,12 @@ public class SearchManActivity extends BaseActivity{
             e.printStackTrace();
         }
         back = (LinearLayout) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitAnim();
+            }
+        });
         btn_search = (EditText) findViewById(R.id.btn_search);
         list_msg = (ListView) findViewById(R.id.list_msg);
         nomsg = (LinearLayout) findViewById(R.id.nomsg);

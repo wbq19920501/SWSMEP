@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.model.SortModel;
+import com.jokeep.swsmep.view.DialogMsg;
 
 import java.util.List;
 
@@ -60,8 +62,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.img_head = (ImageView) view.findViewById(R.id.link_img);
             viewHolder.name = (TextView) view.findViewById(R.id.link_name);
             viewHolder.nametype = (TextView) view.findViewById(R.id.link_type);
-            viewHolder.link_msg = (ImageView) view.findViewById(R.id.link_msg);
-            viewHolder.call_img = (ImageView) view.findViewById(R.id.link_call);
+            viewHolder.link_msg = (ImageButton) view.findViewById(R.id.link_msg);
+            viewHolder.call_img = (ImageButton) view.findViewById(R.id.link_call);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -83,6 +85,13 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 //                Toast.makeText(mContext,list.get(position).getName(),Toast.LENGTH_SHORT).show();
 //            }
 //        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMsg dialog = new DialogMsg(mContext,R.style.dialog_no_border,list.get(position).getCallphone().toString());
+                dialog.show();
+            }
+        });
         viewHolder.name.setText(this.list.get(position).getName());
         viewHolder.nametype.setText(this.list.get(position).getNametype());
         viewHolder.link_msg.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +132,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         ImageView img_head;
         TextView name;
         TextView nametype;
-        ImageView link_msg,call_img;
+        ImageButton link_msg,call_img;
     }
 
 

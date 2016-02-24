@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="60dp"
+    android:background="@color/white">
     <ImageView
         android:id="@+id/link_img"
         android:layout_width="18dp"
@@ -33,21 +34,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
-        <ImageView
+        <ImageButton
             android:id="@+id/link_call"
             android:layout_marginRight="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/call"/>
-        <ImageView
-            android:layout_marginRight="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/call"
+            android:background="@drawable/btn_menu"/>
+        <ImageButton
             android:id="@+id/link_msg"
             android:layout_toLeftOf="@id/link_call"
             android:layout_centerVertical="true"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/link_msg"/>
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/link_msg"
+            android:background="@drawable/btn_menu"/>
     </RelativeLayout>
 </LinearLayout>

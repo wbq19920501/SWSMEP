@@ -81,4 +81,15 @@
         <item name="android:activityCloseEnterAnimation">@anim/zoom_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/zoom_exit</item>
     </style>
+
+    <style name="dialog_no_border" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>  <!-- 无标题 -->
+        <item name="android:windowBackground">@color/white</item><!-- 背景图片 -->
+        <item name="android:backgroundDimEnabled">false</item>  <!-- 模糊 -->
+        <!-- 对话框弹出后，父窗体是否为全黑，需要跟backgroundDimEnabled配合使用 -->
+        <!--<item name="android:backgroundDimAmount">0.6</item>-->
+    </style>
 </resources>
