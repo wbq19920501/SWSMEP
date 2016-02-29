@@ -33,6 +33,7 @@ import com.jokeep.swsmep.activity.SearchManActivity;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.fragment.NewsFragment;
 import com.jokeep.swsmep.fragment.Phone3Fragment;
 import com.jokeep.swsmep.fragment.ScheduleFragment;
@@ -89,12 +90,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private File mTempDir;
     private static final int REQUEST_CODE_CAPTURE_CAMEIA = 1458;
     private String mCurrentPhotoPath;
+    private SwsApplication application;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = MainActivity.this;
         ActivityList.getInstance().addActivity(this);
+        application = (SwsApplication) getApplication();
         init();
         initdata();
     }
@@ -200,7 +203,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         use_name.setText(userInfoEntity.getF_USERNAME() + "(" + userInfoEntity.getF_POSITIONNAME() + ")");
         use_text.setText(userInfoEntity.getF_DEPARTMENTNAME());
         FUSERID = userInfoEntity.getF_USERID();
-
+        application.setFUSERID(FUSERID);
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)

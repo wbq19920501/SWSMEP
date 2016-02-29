@@ -223,9 +223,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 client.callKey();
                 res = client.getResponseString();
                 if (res.equals("1")||res=="1"){
-                    Toast.makeText(LoginActivity.this,"登录错误",Toast.LENGTH_SHORT).show();
-                    randomx = random.nextInt(9999 - 1000 + 1) + 1000;
-                    yzm_img.setText(randomx + "");
+//                    randomx = random.nextInt(9999 - 1000 + 1) + 1000;
+//                    yzm_img.setText(randomx + "");
+                    Toast.makeText(LoginActivity.this,"当前无网络",Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }else {
                     AES.key = res;

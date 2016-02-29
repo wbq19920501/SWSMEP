@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +18,6 @@ import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
-import com.jokeep.swsmep.base.XutlsBase;
 import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONException;
@@ -27,8 +25,6 @@ import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
-
-import java.util.List;
 
 /**
  * Created by wbq501 on 2016-1-28 11:32.
@@ -153,7 +149,6 @@ public class ChangePassdActivity extends BaseActivity{
                 }
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
-
                     Log.i("Throwable", "Throwable--->" + ex.getMessage());
                 }
 

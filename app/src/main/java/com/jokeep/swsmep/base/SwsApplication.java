@@ -2,19 +2,8 @@ package com.jokeep.swsmep.base;
 
 import android.app.Application;
 
-import com.jokeep.swsmep.utls.OkHttpUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-
 import org.xutils.DbManager;
 import org.xutils.x;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okio.Buffer;
 
 /**
  * Created by wbq501 on 2016-1-7 11:22.
@@ -39,6 +28,15 @@ public class SwsApplication extends Application{
     public DbManager.DaoConfig getDaoConfig(){
         return daoConfig;
     };
+    private  String FUSERID;
+
+    public String getFUSERID() {
+        return FUSERID;
+    }
+
+    public void setFUSERID(String FUSERID) {
+        this.FUSERID = FUSERID;
+    }
 
     @Override
     public void onCreate() {

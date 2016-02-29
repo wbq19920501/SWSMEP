@@ -6,12 +6,13 @@
         android:id="@+id/list_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <Button
+    <ImageButton
         android:id="@+id/work_btn"
         android:layout_margin="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="点击"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/work_round1"
+        android:src="@mipmap/work_img1"/>
 </RelativeLayout>

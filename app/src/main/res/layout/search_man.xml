@@ -23,8 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
+            android:paddingLeft="5dp"
             android:background="@drawable/search_edittext"
-            android:drawableLeft="@mipmap/btn_search_normal"
+            android:drawableLeft="@mipmap/edit_search"
             android:imeOptions="actionSearch"
             android:singleLine="true"/>
     </LinearLayout>

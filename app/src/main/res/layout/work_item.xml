@@ -49,5 +49,5 @@
         android:layout_alignParentBottom="true"
         android:paddingBottom="20dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/abc_ab_share_pack_mtrl_alpha"/>
+        android:src="@mipmap/work_img"/>
 </RelativeLayout>

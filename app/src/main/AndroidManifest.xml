@@ -39,8 +39,8 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".base.PdfShowerActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".base.BillPdfShowerActivity" android:screenOrientation="portrait"/>
+        <!--<activity android:name=".base.PdfShowerActivity" android:screenOrientation="portrait"/>-->
+        <!--<activity android:name=".base.BillPdfShowerActivity" android:screenOrientation="portrait"/>-->
         <activity android:name=".activity.ChangePassdActivity"
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:screenOrientation="portrait"/>
@@ -51,6 +51,13 @@
         <activity android:name=".activity.PhoneManMsgActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SearchManActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.WorkActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AddWorkActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.WorkChooseManActivity1"
             android:screenOrientation="portrait"/>
     </application>
 
