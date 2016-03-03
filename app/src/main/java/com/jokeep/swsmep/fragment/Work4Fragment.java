@@ -155,7 +155,7 @@ public class Work4Fragment extends Fragment{
         work1Infos = new ArrayList<Work1Info>();
         work4_list = (PullToRefreshListView) fragment.findViewById(R.id.work4_list);
         work4_list.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new WorkTabAdapter(getActivity(), work1Infos);
+        adapter = new WorkTabAdapter(getActivity(), work1Infos,4);
         work4_list.setAdapter(adapter);
     }
 }

@@ -36,5 +36,4 @@ dependencies {
     //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'//沉浸式标题栏
     compile files('src/main/jniLibs/ksoap2-android-assembly-2.5.2-jar-with-dependencies.jar')
     compile project(':library')
-//    compile project(':iAppPDFLib')
 }

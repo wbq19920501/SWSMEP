@@ -204,6 +204,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         use_text.setText(userInfoEntity.getF_DEPARTMENTNAME());
         FUSERID = userInfoEntity.getF_USERID();
         application.setFUSERID(FUSERID);
+        application.setF_MAINDEPARTID(userInfoEntity.getF_MAINDEPARTID());
+        application.setF_MAINUNITID(userInfoEntity.getF_MAINUNITID());
+        application.setF_POSITIONNAME(userInfoEntity.getF_POSITIONNAME());
+        application.setF_USERNAME(userInfoEntity.getF_USERNAME());
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)

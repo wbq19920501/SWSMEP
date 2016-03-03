@@ -1,5 +1,6 @@
 package com.jokeep.swsmep.view;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class DialogMsg extends Dialog{
 
     public DialogMsg(Context context, int themeResId,String msg) {
         super(context, themeResId);
+        setOwnerActivity((Activity)context);
         this.msg = msg;
     }
 
@@ -30,6 +32,6 @@ public class DialogMsg extends Dialog{
         TextView phone_num = (TextView) findViewById(R.id.phone_num);
         if (msg.equals("")||msg==null)
             msg = "暂无手机号码";
-        phone_num.setText("电话号码:"+msg);
+        phone_num.setText("手机："+msg);
     }
 }

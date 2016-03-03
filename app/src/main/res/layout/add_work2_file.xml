@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:gravity="center"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:layout_height="50dp">
     <TextView
         android:id="@+id/file_name"
@@ -9,13 +11,13 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="18sp"
-        android:textColor="@color/work_textcolor"
+        android:textColor="@color/file_color"
         android:text="附件添加"/>
     <ImageView
-        android:id="@+id/add_file"
+        android:id="@+id/del_file"
         android:layout_centerInParent="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/add_wrok3_file"/>
+        android:background="@mipmap/del_file"/>
 </RelativeLayout>

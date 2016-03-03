@@ -153,7 +153,7 @@ public class Work3Fragment extends Fragment{
         work1Infos = new ArrayList<Work1Info>();
         work3_list = (PullToRefreshListView) fragment.findViewById(R.id.work3_list);
         work3_list.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new WorkTabAdapter(getActivity(), work1Infos);
+        adapter = new WorkTabAdapter(getActivity(), work1Infos,3);
         work3_list.setAdapter(adapter);
     }
 }

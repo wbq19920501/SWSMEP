@@ -29,6 +29,15 @@ public class SwsApplication extends Application{
         return daoConfig;
     };
     private  String FUSERID;
+    private  String F_USERNAME;
+
+    public String getF_USERNAME() {
+        return F_USERNAME;
+    }
+
+    public void setF_USERNAME(String f_USERNAME) {
+        F_USERNAME = f_USERNAME;
+    }
 
     public String getFUSERID() {
         return FUSERID;
@@ -36,6 +45,33 @@ public class SwsApplication extends Application{
 
     public void setFUSERID(String FUSERID) {
         this.FUSERID = FUSERID;
+    }
+    private String F_MAINDEPARTID;
+    private String F_MAINUNITID;
+    private String F_POSITIONNAME;
+
+    public String getF_MAINDEPARTID() {
+        return F_MAINDEPARTID;
+    }
+
+    public void setF_MAINDEPARTID(String f_MAINDEPARTID) {
+        F_MAINDEPARTID = f_MAINDEPARTID;
+    }
+
+    public String getF_MAINUNITID() {
+        return F_MAINUNITID;
+    }
+
+    public void setF_MAINUNITID(String f_MAINUNITID) {
+        F_MAINUNITID = f_MAINUNITID;
+    }
+
+    public String getF_POSITIONNAME() {
+        return F_POSITIONNAME;
+    }
+
+    public void setF_POSITIONNAME(String f_POSITIONNAME) {
+        F_POSITIONNAME = f_POSITIONNAME;
     }
 
     @Override

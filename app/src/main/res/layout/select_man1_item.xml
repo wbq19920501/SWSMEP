@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
+        android:id="@+id/onclick"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"

@@ -79,6 +79,14 @@ public class Work1Fragment extends Fragment{
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        page = 1;
+        work1Infos.clear();
+        requestmsg();
+    }
+
     private void requestmsg() {
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
         JSONObject object = new JSONObject();
@@ -156,7 +164,7 @@ public class Work1Fragment extends Fragment{
         work1Infos = new ArrayList<Work1Info>();
         work1_list = (PullToRefreshListView) fragment.findViewById(R.id.work1_list);
         work1_list.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new WorkTabAdapter(getActivity(),work1Infos);
+        adapter = new WorkTabAdapter(getActivity(),work1Infos,1);
         work1_list.setAdapter(adapter);
     }
 }

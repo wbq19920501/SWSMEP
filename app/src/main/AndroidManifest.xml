@@ -58,6 +58,9 @@
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.WorkChooseManActivity1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateVisible"/>
+        <activity android:name=".activity.LookWorkActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -1,6 +1,7 @@
 package com.jokeep.swsmep.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.activity.AddWorkActivity;
+import com.jokeep.swsmep.activity.LookWorkActivity;
 import com.jokeep.swsmep.model.Work1Info;
 
 import java.util.List;
@@ -22,10 +25,13 @@ public class WorkTabAdapter extends BaseAdapter{
     private Context context;
     private LayoutInflater inflater;
     private List<Work1Info> work1Infos;
-    public WorkTabAdapter(Context context, List<Work1Info> work1Infos) {
+    private int typeopen;
+    Intent intent;
+    public WorkTabAdapter(Context context, List<Work1Info> work1Infos,int typeopen) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.work1Infos = work1Infos;
+        this.typeopen = typeopen;
     }
 
     @Override
@@ -58,6 +64,26 @@ public class WorkTabAdapter extends BaseAdapter{
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (typeopen){
+                    case 1:
+                        intent = new Intent(context, AddWorkActivity.class);
+                        break;
+                    case 2:
+                        intent = new Intent(context,LookWorkActivity.class);
+                        break;
+                    case 3:
+                        intent = new Intent(context,LookWorkActivity.class);
+                        break;
+                    case 4:
+                        intent = new Intent(context,LookWorkActivity.class);
+                        break;
+                }
+                context.startActivity(intent);
+            }
+        });
         Work1Info work1Info = work1Infos.get(position);
         holder.worktab_title.setText(work1Info.getF_TITLE());
         int typename = work1Info.getTypename();

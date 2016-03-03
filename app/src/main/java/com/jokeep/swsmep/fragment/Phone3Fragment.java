@@ -21,7 +21,6 @@ import com.jokeep.swsmep.activity.PhoneManMsgActivity;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
-import com.jokeep.swsmep.db.DataHelper;
 import com.jokeep.swsmep.db.MsgDb;
 import com.jokeep.swsmep.model.UnitBook;
 import com.jokeep.swsmep.model.UnitInfo;
@@ -118,7 +117,6 @@ public class Phone3Fragment extends Fragment{
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.d("ex", ex.getMessage());
                 no_msg.setVisibility(View.VISIBLE);
                 list.setVisibility(View.GONE);
             }
