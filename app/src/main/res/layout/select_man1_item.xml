@@ -48,6 +48,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:clickable="false"
+                android:focusable="false"
                 style="@style/CustomCheckboxTheme"/>
         </RelativeLayout>
     </LinearLayout>

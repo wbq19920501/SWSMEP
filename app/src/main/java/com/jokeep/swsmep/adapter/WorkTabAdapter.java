@@ -1,5 +1,6 @@
 package com.jokeep.swsmep.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -82,6 +83,7 @@ public class WorkTabAdapter extends BaseAdapter{
                         break;
                 }
                 context.startActivity(intent);
+                ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
             }
         });
         Work1Info work1Info = work1Infos.get(position);

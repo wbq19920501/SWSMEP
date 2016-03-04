@@ -207,7 +207,6 @@ public class WorkChooseManActivity1 extends BaseActivity{
                 objectfile.put("F_FILETYPE",listfile.get(i).getFileType());
                 arrayfile.put(objectfile);
             }
-            arrayfile.put(objectfile);
             object.put("SaveType",SaveType);
             object.put("JointID","");
             object.put("Title",title);

@@ -69,6 +69,16 @@ public class Work2Info implements Serializable{
     private String F_USERNAME;
     @Column(name = "F_USERORDER")
     private double F_USERORDER;
+    @Column(name = "check")
+    private Boolean check;
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
+    }
 
     public void setF_COMMONGROUPID(String F_COMMONGROUPID) {
         this.F_COMMONGROUPID = F_COMMONGROUPID;

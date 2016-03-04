@@ -32,8 +32,8 @@
             <ImageButton
                 android:id="@+id/work_flow"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_width="50dp"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:layout_height="match_parent"
@@ -43,8 +43,8 @@
                 android:id="@+id/work_idea"
                 android:background="@null"
                 android:layout_toLeftOf="@id/work_flow"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_width="50dp"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:layout_height="match_parent"
@@ -68,17 +68,97 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@drawable/line_background2"/>
-        <fragment
-            android:id="@+id/fragment_flow"
-            android:name="com.jokeep.swsmep.fragment.WorkFlowFragmet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
         <LinearLayout
-            android:layout_above="@id/btn_next"
+            android:id="@+id/flow_linear"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btn_next"
+            android:visibility="gone"
+            android:layout_marginBottom="3dp">
+            <fragment
+                android:id="@+id/fragment_flow"
+                android:name="com.jokeep.swsmep.fragment.WorkFlowFragmet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/idea_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btn_next"
+            android:visibility="gone"
+            android:layout_marginBottom="3dp">
+            <fragment
+                android:id="@+id/fragment_idea"
+                android:name="com.jokeep.swsmep.fragment.WorkIdeaFragmet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/look_workmsg"
+            android:layout_above="@id/btn_next"
             android:layout_marginBottom="3dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/look_tab1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="20dp"
+                        android:textColor="@color/status_bar"
+                        android:text="正文"/>
+                    <View
+                        android:id="@+id/look_tabview1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/status_bar"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/look_tab2"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="20dp"
+                        android:text="附件"/>
+                    <View
+                        android:id="@+id/look_tabview2"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:visibility="gone"
+                        android:background="@color/status_bar"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/line_background"/>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/look_page"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+            </android.support.v4.view.ViewPager>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.jokeep.swsmep.view;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -13,18 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.adapter.SelectMan1Adapter;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
@@ -38,7 +36,6 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,7 +48,8 @@ public class SelectMan1Window extends PopupWindow{
     private ImageView selectman_sx;
     private EditText selectman_search;
     private ListView selectman_list1;
-    PhoneAdapter adapter;
+//    PhoneAdapter adapter;
+    SelectMan1Adapter adapter;
     Activity context;
     private ShowDialog dialog;
     Button btn_sub;
@@ -75,8 +73,21 @@ public class SelectMan1Window extends PopupWindow{
         selectman_search = (EditText) mMenuView.findViewById(R.id.selectman_search);
         btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
-        adapter = new PhoneAdapter();
+//        adapter = new PhoneAdapter();
+        adapter = new SelectMan1Adapter(context,list);
         selectman_list1.setAdapter(adapter);
+        selectman_list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean checked = list.get(position).getCheck();
+                if (!checked) {
+                    list.get(position).setCheck(true);
+                } else {
+                    list.get(position).setCheck(false);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
         selectman_list1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -111,8 +122,8 @@ public class SelectMan1Window extends PopupWindow{
             @Override
             public void onClick(View v) {
                 listItemID.clear();// 清空listItemID
-                for (int i = 0; i < adapter.mChecked.size(); i++) {
-                    if (adapter.mChecked.get(i)) {
+                for (int i = 0;i<list.size();i++){
+                    if (list.get(i).getCheck()){
                         listItemID.add(i);
                     }
                 }
@@ -196,6 +207,7 @@ public class SelectMan1Window extends PopupWindow{
                                 work2Info.setF_DEPARTMENTNAME(object3.getString("F_DEPARTMENTNAME"));
                                 work2Info.setF_POSITIONNAME(object3.getString("F_POSITIONNAME"));
                                 work2Info.setF_USERID(object3.getString("F_USERID"));
+                                work2Info.setCheck(false);
                                 list.add(work2Info);
                             }
                         }
@@ -259,6 +271,7 @@ public class SelectMan1Window extends PopupWindow{
                                 work2Info.setF_DEPARTMENTNAME(object3.getString("F_DEPARTMENTNAME"));
                                 work2Info.setF_POSITIONNAME(object3.getString("F_POSITIONNAME"));
                                 work2Info.setF_USERID(object3.getString("F_USERID"));
+                                work2Info.setCheck(false);
                                 list.add(work2Info);
                             }
                         }
@@ -289,78 +302,70 @@ public class SelectMan1Window extends PopupWindow{
             e.printStackTrace();
         }
     }
-    class PhoneAdapter extends BaseAdapter {
-        /** 标记CheckBox是否被选中 **/
-        List<Boolean> mChecked = new ArrayList<Boolean>();
-        /** 存放要显示的Item数据 **/
-        /** 一个HashMap对象 **/
-        @SuppressLint("UseSparseArrays")
-        HashMap<Integer, View> map = new HashMap<Integer, View>();
-
-        public PhoneAdapter() {
-            mChecked = new ArrayList<Boolean>();
-            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
-                mChecked.add(false);
-            }
-        }
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (map.get(position) == null) {// 根据position判断View是否为空
-                convertView = LayoutInflater.from(context).inflate(R.layout.select_man1_item,null);
-                holder = new ViewHolder();
-                holder.onclick = (LinearLayout) convertView.findViewById(R.id.onclick);
-                holder.link_name = (TextView) convertView.findViewById(R.id.link_name);
-                holder.link_type = (TextView) convertView.findViewById(R.id.link_type);
-                holder.checkbox = (CheckBox) convertView.findViewById(R.id.checkbox);
-                map.put(position, convertView);// 存储视图信息
-                convertView.setTag(holder);
-            } else {
-                convertView = map.get(position);
-                holder = (ViewHolder) convertView.getTag();
-            }
-            final int p = position;
-            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
-                mChecked.add(false);
-            }
-//            final ViewHolder finalHolder = holder;
-//            holder.onclick.setOnClickListener(new View.OnClickListener() {
+//    class PhoneAdapter extends BaseAdapter {
+//        /** 标记CheckBox是否被选中 **/
+//        List<Boolean> mChecked = new ArrayList<Boolean>();
+//        /** 存放要显示的Item数据 **/
+//        /** 一个HashMap对象 **/
+//        @SuppressLint("UseSparseArrays")
+//        HashMap<Integer, View> map = new HashMap<Integer, View>();
+//
+//        public PhoneAdapter() {
+//            mChecked = new ArrayList<Boolean>();
+//            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
+//                mChecked.add(false);
+//            }
+//        }
+//        @Override
+//        public int getCount() {
+//            return list.size();
+//        }
+//        @Override
+//        public Object getItem(int position) {
+//            return position;
+//        }
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder holder = null;
+//            if (map.get(position) == null) {// 根据position判断View是否为空
+//                convertView = LayoutInflater.from(context).inflate(R.layout.select_man1_item,null);
+//                holder = new ViewHolder();
+//                holder.onclick = (LinearLayout) convertView.findViewById(R.id.onclick);
+//                holder.link_name = (TextView) convertView.findViewById(R.id.link_name);
+//                holder.link_type = (TextView) convertView.findViewById(R.id.link_type);
+//                holder.checkbox = (CheckBox) convertView.findViewById(R.id.checkbox);
+//                map.put(position, convertView);// 存储视图信息
+//                convertView.setTag(holder);
+//            } else {
+//                convertView = map.get(position);
+//                holder = (ViewHolder) convertView.getTag();
+//            }
+//            final int p = position;
+//            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
+//                mChecked.add(false);
+//            }
+//            holder.checkbox.setOnClickListener(new View.OnClickListener() {
+//
 //                @Override
 //                public void onClick(View v) {
-//                    Toast.makeText(context,"??",Toast.LENGTH_SHORT).show();
-//                    mChecked.set(p, finalHolder.checkbox.isChecked());
+//                    CheckBox cb = (CheckBox) v;
+//                    mChecked.set(p, cb.isChecked());// 设置CheckBox为选中状态
 //                }
 //            });
-            holder.checkbox.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    mChecked.set(p, cb.isChecked());// 设置CheckBox为选中状态
-                }
-            });
-            Work2Info work2Info = list.get(position);
-            holder.link_name.setText(work2Info.getF_USERNAME());
-            holder.link_type.setText(work2Info.getF_DEPARTMENTNAME()+"-"+work2Info.getF_POSITIONNAME());
-            holder.checkbox.setChecked(mChecked.get(position));
-            return convertView;
-        }
-    }
-    class ViewHolder{
-        TextView link_name,link_type;
-        CheckBox checkbox;
-        LinearLayout onclick;
-    }
+//            Work2Info work2Info = list.get(position);
+//            holder.link_name.setText(work2Info.getF_USERNAME());
+//            holder.link_type.setText(work2Info.getF_DEPARTMENTNAME()+"-"+work2Info.getF_POSITIONNAME());
+//            holder.checkbox.setChecked(mChecked.get(position));
+//            return convertView;
+//        }
+//    }
+//    class ViewHolder{
+//        TextView link_name,link_type;
+//        CheckBox checkbox;
+//        LinearLayout onclick;
+//    }
 }

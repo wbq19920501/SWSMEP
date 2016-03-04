@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.adapter.SelectMan1Adapter;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
@@ -44,7 +46,8 @@ public class SelectMan2Window extends PopupWindow{
     private LinearLayout back;
     private ListView selectman_list1;
     private Button btn_sub;
-    PhoneAdapter adapter;
+//    PhoneAdapter adapter;
+    SelectMan1Adapter adapter;
     Activity context;
     String userID, TOKENID;
     private ShowDialog dialog;
@@ -68,8 +71,21 @@ public class SelectMan2Window extends PopupWindow{
 
         back = (LinearLayout) mMenuView.findViewById(R.id.back);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
-        adapter = new PhoneAdapter();
+//        adapter = new PhoneAdapter();
+        adapter = new SelectMan1Adapter(context,list);
         selectman_list1.setAdapter(adapter);
+        selectman_list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean checked = list.get(position).getCheck();
+                if (!checked) {
+                    list.get(position).setCheck(true);
+                } else {
+                    list.get(position).setCheck(false);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
         selectman_list1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
 
@@ -83,8 +99,8 @@ public class SelectMan2Window extends PopupWindow{
             @Override
             public void onClick(View v) {
                 listItemID.clear();// 清空listItemID
-                for (int i = 0; i < adapter.mChecked.size(); i++) {
-                    if (adapter.mChecked.get(i)) {
+                for (int i = 0;i<list.size();i++){
+                    if (list.get(i).getCheck()){
                         listItemID.add(i);
                     }
                 }
@@ -160,6 +176,7 @@ public class SelectMan2Window extends PopupWindow{
                                 work2Info.setF_DEPARTMENTNAME(object3.getString("F_DEPARTMENTNAME"));
                                 work2Info.setF_POSITIONNAME(object3.getString("F_POSITIONNAME"));
                                 work2Info.setF_USERID(object3.getString("F_USERID"));
+                                work2Info.setCheck(false);
                                 list.add(work2Info);
                             }
                         }
