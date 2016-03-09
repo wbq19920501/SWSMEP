@@ -16,6 +16,7 @@ import com.jokeep.swsmep.activity.AddWorkActivity;
 import com.jokeep.swsmep.activity.LookWorkActivity;
 import com.jokeep.swsmep.model.Work1Info;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,11 +29,13 @@ public class WorkTabAdapter extends BaseAdapter{
     private List<Work1Info> work1Infos;
     private int typeopen;
     Intent intent;
-    public WorkTabAdapter(Context context, List<Work1Info> work1Infos,int typeopen) {
+    String TOKENID;
+    public WorkTabAdapter(Context context, List<Work1Info> work1Infos,int typeopen,String TOKENID) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.work1Infos = work1Infos;
         this.typeopen = typeopen;
+        this.TOKENID = TOKENID;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class WorkTabAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null){
             convertView = inflater.inflate(R.layout.worktab_item,null);
@@ -70,10 +73,10 @@ public class WorkTabAdapter extends BaseAdapter{
             public void onClick(View v) {
                 switch (typeopen){
                     case 1:
-                        intent = new Intent(context, AddWorkActivity.class);
+                        intent = new Intent(context,LookWorkActivity.class);
                         break;
                     case 2:
-                        intent = new Intent(context,LookWorkActivity.class);
+                        intent = new Intent(context, AddWorkActivity.class);
                         break;
                     case 3:
                         intent = new Intent(context,LookWorkActivity.class);
@@ -82,6 +85,10 @@ public class WorkTabAdapter extends BaseAdapter{
                         intent = new Intent(context,LookWorkActivity.class);
                         break;
                 }
+                intent.putExtra("typeopen",typeopen);
+                intent.putExtra("work1Infos", (Serializable) work1Infos);
+                intent.putExtra("intposition",position);
+                intent.putExtra("TOKENID",TOKENID);
                 context.startActivity(intent);
                 ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
             }

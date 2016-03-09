@@ -1,6 +1,5 @@
 package com.jokeep.swsmep.fragment;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +17,7 @@ import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.model.Work1Info;
+import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +39,7 @@ public class Work3Fragment extends Fragment{
     private PullToRefreshListView work3_list;
     private String TOKENID;
     private String UserID;
-    private Dialog dialog;
+    private ShowDialog dialog;
     private int page = 1;
     List<Work1Info> work1Infos;
     @Override
@@ -110,6 +110,9 @@ public class Work3Fragment extends Fragment{
                                 work1Info.setF_SPONSUSER(object3.getString("F_SPONSUSER"));
                                 work1Info.setF_SPONSTIME(object3.getString("F_SPONSTIME"));
                                 work1Info.setF_ISATT(object3.getInt("F_ISATT"));
+                                work1Info.setF_LINKURL(object3.getString("F_LINKURL"));
+                                work1Info.setF_JOINTID(object3.getString("F_DATAGUID"));
+                                work1Info.setF_EXECUTMAINID(object3.getString("F_EXECUTMAINID"));
                                 work1Info.setType(0);
                                 work1Info.setTypename(0);
                                 work1Infos.add(work1Info);
@@ -144,16 +147,20 @@ public class Work3Fragment extends Fragment{
             e.printStackTrace();
         }
     }
+    public void refreshfragment(){
+        page = 1;
+        work1Infos.clear();
+        requestmsg();
+    };
     private void init() {
         Bundle data = getArguments();
         TOKENID = data.getString("TOKENID");
         UserID = data.getString("UserID");
-        dialog = new Dialog(getActivity(),R.style.MyDialog);
-        dialog.setContentView(R.layout.dialog);
+        dialog = new ShowDialog(getActivity(),R.style.MyDialog,getResources().getString(R.string.dialogmsg));
         work1Infos = new ArrayList<Work1Info>();
         work3_list = (PullToRefreshListView) fragment.findViewById(R.id.work3_list);
         work3_list.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new WorkTabAdapter(getActivity(), work1Infos,3);
+        adapter = new WorkTabAdapter(getActivity(), work1Infos,3,TOKENID);
         work3_list.setAdapter(adapter);
     }
 }

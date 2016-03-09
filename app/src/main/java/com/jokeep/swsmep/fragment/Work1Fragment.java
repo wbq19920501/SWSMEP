@@ -82,14 +82,18 @@ public class Work1Fragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
+//        page = 1;
+//        work1Infos.clear();
+//        requestmsg();
+    }
+    public void refreshfragment(){
         page = 1;
         work1Infos.clear();
         requestmsg();
-    }
-
+    };
     private void requestmsg() {
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
-        JSONObject object = new JSONObject();
+        final JSONObject object = new JSONObject();
         try {
             object.put("UserID",UserID);
             object.put("State","0");
@@ -120,6 +124,9 @@ public class Work1Fragment extends Fragment{
                                 work1Info.setF_SPONSUSER(object3.getString("F_SPONSUSER"));
                                 work1Info.setF_SPONSTIME(object3.getString("F_SPONSTIME"));
                                 work1Info.setF_ISATT(object3.getInt("F_ISATT"));
+                                work1Info.setF_LINKURL(object3.getString("F_LINKURL"));
+                                work1Info.setF_JOINTID(object3.getString("F_DATAGUID"));
+                                work1Info.setF_EXECUTMAINID(object3.getString("F_EXECUTMAINID"));
                                 work1Info.setType(0);
                                 work1Info.setTypename(1);
                                 work1Infos.add(work1Info);
@@ -164,7 +171,7 @@ public class Work1Fragment extends Fragment{
         work1Infos = new ArrayList<Work1Info>();
         work1_list = (PullToRefreshListView) fragment.findViewById(R.id.work1_list);
         work1_list.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new WorkTabAdapter(getActivity(),work1Infos,1);
+        adapter = new WorkTabAdapter(getActivity(),work1Infos,1,TOKENID);
         work1_list.setAdapter(adapter);
     }
 }

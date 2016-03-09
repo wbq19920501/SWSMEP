@@ -1,7 +1,9 @@
 package com.jokeep.swsmep.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,6 +53,8 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.work);
+        IntentFilter filter = new IntentFilter(WorkChooseManActivity1.action);
+        registerReceiver(broadcastReceiver, filter);
         inittab();
         init();
         initdata();
@@ -107,8 +111,23 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            work1Fragment.refreshfragment();
+            work2Fragment.refreshfragment();
+            work3Fragment.refreshfragment();
+            work4Fragment.refreshfragment();
+        }
+    };
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){

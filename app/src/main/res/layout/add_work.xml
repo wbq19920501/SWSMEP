@@ -30,7 +30,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_margin="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_exit"/>
+        <View
+            android:layout_above="@id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/line_background2"/>
         <LinearLayout
+            android:layout_marginBottom="3dp"
+            android:layout_above="@id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -131,19 +147,5 @@
                 android:layout_height="1dp"
                 android:background="@color/line"/>
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_margin="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="下一步"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_exit"/>
-        <View
-            android:layout_above="@id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/line_background2"/>
     </RelativeLayout>
 </LinearLayout>

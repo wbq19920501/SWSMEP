@@ -2,6 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/top_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height"
@@ -55,30 +60,29 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:weightSum="3"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_agree"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="通过"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:drawableRight="@mipmap/dg"
-                    android:paddingLeft="35dp"
-                    android:drawablePadding="5dp"
-                    android:textColor="@drawable/btn_workcolorclick"
-                    android:background="@drawable/btn_workclick"/>
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_wrok1"/>
                 <Button
                     android:id="@id/btn_cancel"
                     android:layout_marginLeft="20dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="退回"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:drawableRight="@mipmap/dg"
-                    android:paddingLeft="35dp"
-                    android:drawablePadding="5dp"
-                    android:textColor="@drawable/btn_workcolor"
-                    android:background="@drawable/btn_work"/>
+                    android:textColor="#fa9928"
+                    android:background="@drawable/btn_wrok2"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_marginTop="10dp"
@@ -111,8 +115,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="常用语"
+                    android:textSize="12dp"
                     android:gravity="center_vertical"
-                    android:padding="5dp"
                     android:drawablePadding="5dp"
                     android:textColor="@color/white"
                     android:drawableLeft="@mipmap/add_useful_expressions"

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
@@ -44,7 +45,7 @@ import java.util.List;
  */
 public class SelectMan1Window extends PopupWindow{
     private View mMenuView;
-    private LinearLayout back;
+    private LinearLayout back,sear_edit;
     private ImageView selectman_sx;
     private EditText selectman_search;
     private ListView selectman_list1;
@@ -56,6 +57,7 @@ public class SelectMan1Window extends PopupWindow{
     List<Integer> listItemID = new ArrayList<Integer>();
     List<Work2Info> list;
     List<Work2Info> getlist;
+    TextView phone_name;
     // 数据接口
     OnGetData ongetdata;
     public SelectMan1Window(final Activity context, View.OnClickListener itemclick,String UserID, final String TOKENID){
@@ -69,10 +71,12 @@ public class SelectMan1Window extends PopupWindow{
         dialog = new ShowDialog(context,R.style.MyDialog,context.getResources().getString(R.string.dialogmsg));
 
         back = (LinearLayout) mMenuView.findViewById(R.id.back);
+        phone_name = (TextView) mMenuView.findViewById(R.id.phone_name);
         selectman_sx = (ImageView) mMenuView.findViewById(R.id.selectman_sx);
         selectman_search = (EditText) mMenuView.findViewById(R.id.selectman_search);
         btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
+        sear_edit = (LinearLayout) mMenuView.findViewById(R.id.sear_edit);
 //        adapter = new PhoneAdapter();
         adapter = new SelectMan1Adapter(context,list);
         selectman_list1.setAdapter(adapter);
@@ -117,7 +121,17 @@ public class SelectMan1Window extends PopupWindow{
                 return false;
             }
         });
-        selectman_sx.setOnClickListener(itemclick);
+//        selectman_sx.setOnClickListener(itemclick);
+        selectman_sx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sear_edit.setVisibility(View.GONE);
+                phone_name.setText("筛选");
+                selectman_sx.setVisibility(View.GONE);
+                list.clear();
+                initdataMan(TOKENID);
+            }
+        });
         btn_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +253,68 @@ public class SelectMan1Window extends PopupWindow{
             e.printStackTrace();
         }
     }
+    private void initdataMan(String TOKENID) {
+        dialog.show();
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.User_Filter);
+        final JSONObject object = new JSONObject();
+        try {
+            object.put("UserName", "");
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String s = AES.desEncrypt(result.toString());
+                    Log.d("s", s);
+                    try {
+                        JSONObject object2 = new JSONObject(s);
+                        int code = object2.getInt("ErrorCode");
+                        if (code==1){
+                            Toast.makeText(context, object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
+                        }else if (code==0){
+                            String Result = object2.getString("Result");
+                            JSONArray array0 = new JSONArray(Result);
+                            JSONArray array = new JSONArray(((JSONObject)array0.get(0)).getString("Table"));
+                            for (int i=0;i<array.length();i++){
+                                JSONObject object3 = (JSONObject) array.get(i);
+                                Work2Info work2Info = new Work2Info();
+                                work2Info.setF_USERNAME(object3.getString("F_USERNAME"));
+                                work2Info.setF_DEPARTMENTNAME(object3.getString("F_DEPARTMENTNAME"));
+                                work2Info.setF_POSITIONNAME(object3.getString("F_POSITIONNAME"));
+                                work2Info.setF_USERID(object3.getString("F_USERID"));
+                                work2Info.setCheck(false);
+                                list.add(work2Info);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    adapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
 
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
+                    Toast.makeText(context, "数据错误", Toast.LENGTH_SHORT).show();
+                    Log.d("ex",ex.getMessage());
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     private void initdata(String userID,String TOKENID) {
         dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.CommonGroupPersonnel_Filter);

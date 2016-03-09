@@ -8,16 +8,25 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="10dp"
         android:button="@drawable/checkbox"
         android:clickable="false"
         android:focusable="false" />
+    <ImageButton
+        android:id="@+id/delmsg"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/del_file"/>
     <TextView
         android:id="@+id/msg_name"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
+        android:textSize="18sp"
         android:text="我是文字说明"/>
     <View
         android:layout_gravity="bottom"

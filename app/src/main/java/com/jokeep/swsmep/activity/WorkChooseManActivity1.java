@@ -21,15 +21,12 @@ import android.widget.Toast;
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
-import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.SwsApplication;
-import com.jokeep.swsmep.model.FileMsg;
 import com.jokeep.swsmep.model.Work2Info;
-import com.jokeep.swsmep.utls.FileUtils;
+import com.jokeep.swsmep.model.WorkTable;
 import com.jokeep.swsmep.view.SelectMan1Window;
-import com.jokeep.swsmep.view.SelectMan2Window;
 import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONArray;
@@ -40,8 +37,6 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,26 +45,25 @@ import java.util.List;
  * SWSMEP
  */
 public class WorkChooseManActivity1 extends BaseActivity{
+    public static final String action = "com.swsmep.work";
     private LinearLayout back;
     private TextView choose_man;
     private ListView man_list;
     SelectMan1Window popw1;
-    SelectMan2Window popw2;
     BaseAdapter adapter;
     Intent intent;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     String UserID,TOKENID;
     List<Work2Info> list ;
-    List<FileMsg> listfile;
-    List<String> filespath;
     String title,context;
     Button btn_sub;
     private ShowDialog dialog;
-    List<byte[]> listbyte;
     String SaveType,JointID;
     private SwsApplication application;
-    List<String> resultpath;
+    int typeopen;
+    List<WorkTable> workTables;
+    List<Integer> listchange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +74,14 @@ public class WorkChooseManActivity1 extends BaseActivity{
     }
 
     private void initdata() {
-        listbyte = new ArrayList<byte[]>();
-        listfile = new ArrayList<FileMsg>();
-        filespath = new ArrayList<String>();
-        resultpath = new ArrayList<String>();
-        filespath = getIntent().getStringArrayListExtra("filespath");
+        workTables = (List<WorkTable>) getIntent().getSerializableExtra("worktable");
+        if (typeopen == 0){
+            SaveType = "Add";
+            JointID = "";
+        }else {
+            SaveType = "Edit";
+            JointID = getIntent().getStringExtra("f_jointid");
+        }
 
         title = getIntent().getStringExtra("title");
         context = getIntent().getStringExtra("context");
@@ -92,123 +89,99 @@ public class WorkChooseManActivity1 extends BaseActivity{
         btn_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                upfile();
+                requesthttp();
             }
         });
     }
 
-    private void upfile() {
+    private void requesthttp() {
         dialog.show();
-        byte[] bytes = null;
-        InputStream is;
-        try {
-            for (int i=0;i<filespath.size();i++){
-                String path = filespath.get(i);
-                File myfile = new File(path);
-                FileMsg fileMsg = new FileMsg();
-                String filetype = myfile.getName().substring(myfile.getName().lastIndexOf(".") + 1);
-                String filename = FileUtils.getFileName(path);
-                JSONObject object = new JSONObject();
-                is = new FileInputStream(path);
-                bytes = new byte[(int) myfile.length()];
-                int filesize = is.available();
-                int len = 0;
-                int curLen = 0;
-                while ((len = is.read(bytes)) != -1) {
-                    curLen += len;
-                    is.read(bytes);
-                }
-                is.close();
-                object.put("FileType", filetype);
-                byte[] updata = Client.getPacket(object.toString(), bytes);// 参数与文件封装成单个数据
-                listbyte.add(updata);
-                fileMsg.setFileName(filename);
-                fileMsg.setFilePath(path);
-                fileMsg.setFileSize(filesize);
-                fileMsg.setFileType(filetype);
-                listfile.add(fileMsg);
-            }
-            requesthttp(listbyte);
-        } catch (Exception e) {
-            dialog.dismiss();
-            Toast.makeText(WorkChooseManActivity1.this, "上传文件失败", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-    }
-
-    private void requesthttp(List<byte[]> updata) {
         RequestParams params = new RequestParams(HttpIP.UploadFiles);
-        for (int i=0;i<filespath.size();i++){
-            params.addBodyParameter("FileContext"+i,new File(filespath.get(i)));
-//            params.addBodyParameter("FileContext"+i, updata.get(i), null);
+        for (int i=0;i<workTables.size();i++){
+            boolean isup = workTables.get(i).isUp();
+            if (isup){
+
+            }else {
+                listchange.add(i);
+                params.addBodyParameter("FileContext"+i,new File(workTables.get(i).getF_STORAGEPATH()));
+            }
         }
-        params.addBodyParameter("SavaPath","UploadFiles");
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject object2 = new JSONObject(result.toString());
-                    int code = object2.getInt("ErrorCode");
-                    if (code == 1){
-                        dialog.dismiss();
-                        Toast.makeText(WorkChooseManActivity1.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
-                    }else if (code == 0){
-                        JSONArray array = new JSONArray(object2.getString("Result").toString());
-                        for (int i=0;i<array.length();i++){
-                            JSONObject object = (JSONObject) array.get(i);
-                            resultpath.add(object.getString("SaveFilePath"));
+        if (listchange.size()>0){
+            params.addBodyParameter("SavaDir","UploadFiles");
+            params.setAsJsonContent(true);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject object2 = new JSONObject(result.toString());
+                        int code = object2.getInt("ErrorCode");
+                        if (code == 1){
+                            dialog.dismiss();
+                            Toast.makeText(WorkChooseManActivity1.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
+                        }else if (code == 0){
+                            JSONArray array = new JSONArray(object2.getString("Result").toString());
+                            for (int i=0;i<array.length();i++){
+                                JSONObject object = (JSONObject) array.get(i);
+    //                            resultpath.add(object.getString("SaveFilePath"));
+                                workTables.get(Integer.valueOf(listchange.get(i))).setIsUp(true);
+                                workTables.get(Integer.valueOf(listchange.get(i))).setF_STORAGEPATH(object.getString("SaveFilePath"));
+                            }
+                            upmsg();
                         }
-                        upmsg();
+                    } catch (JSONException e) {
+                        dialog.dismiss();
+                        Toast.makeText(WorkChooseManActivity1.this,"上传文件失败",Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    dialog.dismiss();
-                    Toast.makeText(WorkChooseManActivity1.this,"上传文件失败",Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
                 }
-            }
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                dialog.dismiss();
-                Log.i("Throwable", ex.getMessage());
-            }
-            @Override
-            public void onCancelled(CancelledException cex) {
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
+                    Log.i("Throwable", ex.getMessage());
+                }
+                @Override
+                public void onCancelled(CancelledException cex) {
 
-            }
-            @Override
-            public void onFinished() {
+                }
+                @Override
+                public void onFinished() {
 
-            }
-        });
+                }
+            });
+        }else {
+            upmsg();
+        }
     }
 
     private void upmsg() {
+        dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Save);
         JSONArray arrayman = new JSONArray();
         JSONArray arrayfile = new JSONArray();
         JSONObject object = new JSONObject();
-        JSONObject objectman = new JSONObject();
-        JSONObject objectfile = new JSONObject();
         if (list.size()==0){
             Toast.makeText(WorkChooseManActivity1.this,"请选择办理人",Toast.LENGTH_SHORT).show();
             return;
         }
         try {
             for (int i=0;i<list.size();i++){
+                JSONObject objectman = new JSONObject();
                 objectman.put("F_DATAID",list.get(i).getF_USERID());
                 objectman.put("F_NAME",list.get(i).getF_USERNAME());
                 arrayman.put(objectman);
             }
-            for (int i=0;i<listfile.size();i++){
-                objectfile.put("F_FILENAME",listfile.get(i).getFileName());
-                objectfile.put("F_FILESIZE",listfile.get(i).getFileSize());
-                objectfile.put("F_STORAGEPATH",resultpath.get(i));
-                objectfile.put("F_FILETYPE",listfile.get(i).getFileType());
+            for (int i=0;i<workTables.size();i++){
+                JSONObject objectfile = new JSONObject();
+                WorkTable table = workTables.get(i);
+                objectfile.put("F_FILENAME",table.getF_FILENAME());
+                objectfile.put("F_FILESIZE",table.getF_FILESIZE());
+                objectfile.put("F_STORAGEPATH",table.getF_STORAGEPATH());
+                objectfile.put("F_FILETYPE",table.getF_FILETYPE());
                 arrayfile.put(objectfile);
             }
+            Log.d("workTables--------->",arrayfile.toString());
             object.put("SaveType",SaveType);
-            object.put("JointID","");
+            object.put("JointID",JointID);
             object.put("Title",title);
             object.put("Content",context);
             object.put("Attachment",arrayfile);//附件集合
@@ -231,8 +204,9 @@ public class WorkChooseManActivity1 extends BaseActivity{
                         if (code == 1){
                             Toast.makeText(WorkChooseManActivity1.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
                         }else {
-                            intent = new Intent();
+                            intent = new Intent(action);
                             setResult(RESULT_OK);
+                            sendBroadcast(intent);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -268,8 +242,10 @@ public class WorkChooseManActivity1 extends BaseActivity{
         sp = WorkChooseManActivity1.this.getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         editor = sp.edit();
         TOKENID = sp.getString(SaveMsg.TOKENID, "");
-        SaveType = "Add";
+        typeopen = getIntent().getIntExtra("typeopen", 0);
         list = new ArrayList<Work2Info>();
+        workTables = new ArrayList<WorkTable>();
+        listchange = new ArrayList<Integer>();
         dialog = new ShowDialog(WorkChooseManActivity1.this,R.style.MyDialog,getResources().getString(R.string.upmsg));
         back = (LinearLayout) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -349,33 +325,12 @@ public class WorkChooseManActivity1 extends BaseActivity{
             }
         });
     }
-    private void geimsg2() {
-        if (popw2 == null)
-            return;
-        popw2.setOnData(new SelectMan2Window.OnGetData() {
-            @Override
-            public void onDataCallBack(List<Work2Info> getlist) {
-                Log.i("-------------", getlist.toString());
-                list.clear();
-                list = getlist;
-                adapter.notifyDataSetChanged();
-            }
-        });
-    }
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener(){
 
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.selectman_sx:
-                    LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View view=inflater.inflate(R.layout.work_man1, null);
-                    popw2 = new SelectMan2Window(WorkChooseManActivity1.this,itemsOnClick2,UserID,TOKENID);
-                    //显示窗口
-                    popw2.showAtLocation(view, Gravity.RIGHT, 0, 0);
-                    //设置layout在PopupWindow中显示的位置
-                    popw1.dismiss();
-                    geimsg2();
                     break;
                 case R.id.selectman_search:
                     break;

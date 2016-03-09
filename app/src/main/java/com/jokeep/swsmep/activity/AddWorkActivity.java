@@ -3,6 +3,7 @@ package com.jokeep.swsmep.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
+import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.model.Work1Info;
+import com.jokeep.swsmep.model.WorkTable;
 import com.jokeep.swsmep.utls.FileUtils;
+import com.jokeep.swsmep.view.ShowDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,59 +57,97 @@ public class AddWorkActivity extends BaseActivity{
     View view;
     Button btn_next;
     ListView files_list;
-    List<String> listpath;
     BaseAdapter adapter;
     EditText add_work_title,add_context;
     String title,context;
+    List<Work1Info> work1Infos;
+    String f_jointid;
+    private ShowDialog dialog;
+    String TOKENID;
+    int typeopen;
+    List<WorkTable> workTables;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_work);
         init();
-        initdata();
+        if (typeopen == 0){
+            f_jointid = "";
+        }else {
+            work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
+            int position = getIntent().getIntExtra("intposition", 0);
+            TOKENID = getIntent().getStringExtra("TOKENID");
+            Work1Info work1Info = work1Infos.get(position);
+            f_jointid = work1Info.getF_JOINTID();
+            initdata();
+        }
     }
 
     private void initdata() {
-        adapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return listpath.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return position;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                ViewHolder holder = null;
-                if (convertView == null){
-                    convertView = LayoutInflater.from(AddWorkActivity.this).inflate(R.layout.add_work2_file,null);
-                    holder = new ViewHolder();
-                    holder.file_name = (TextView) convertView.findViewById(R.id.file_name);
-                    holder.del_file = (ImageView) convertView.findViewById(R.id.del_file);
-                    convertView.setTag(holder);
-                }else {
-                    holder = (ViewHolder) convertView.getTag();
-                }
-                holder.file_name.setText(FileUtils.getFileName(listpath.get(position)));
-                holder.del_file.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listpath.remove(position);
-                        adapter.notifyDataSetChanged();
+        dialog.show();
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointAttByID);
+        JSONObject object = new JSONObject();
+        try {
+            object.put("JointID", f_jointid);
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String s = AES.desEncrypt(result.toString());
+                    Log.d("s", s);
+                    dialog.dismiss();
+                    try {
+                        JSONObject object2 = new JSONObject(s);
+                        int code = object2.getInt("ErrorCode");
+                        if (code==1){
+                            Toast.makeText(AddWorkActivity.this,object2.getString("ErrorMsg").toString(),Toast.LENGTH_SHORT).show();
+                        }else if (code==0){
+                            String Result = object2.getString("Result");
+                            JSONArray array0 = new JSONArray(Result);
+                            JSONArray arrayTable = new JSONArray(((JSONObject)array0.get(0)).getString("Table"));
+                            JSONArray arrayTable1 = new JSONArray(((JSONObject)array0.get(0)).getString("Table1"));
+                            JSONObject object3 = (JSONObject) arrayTable.get(0);
+                            add_work_title.setText(object3.getString("F_TITLE"));
+                            add_context.setText(object3.getString("F_CONTENT"));
+                            f_jointid = object3.getString("F_JOINTID");
+                            for (int i=0;i<arrayTable1.length();i++){
+                                JSONObject jsonObject = (JSONObject) arrayTable1.get(i);
+                                WorkTable workTable = new WorkTable();
+                                workTable.setF_FILENAME(jsonObject.getString("F_FILENAME"));
+                                workTable.setF_FILETYPE(jsonObject.getString("F_FILETYPE"));
+                                workTable.setF_FILESIZE(jsonObject.getInt("F_FILESIZE"));
+                                workTable.setF_STORAGEPATH(jsonObject.getString("F_STORAGEPATH"));
+                                workTable.setIsUp(true);
+                                workTables.add(workTable);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-                return convertView;
-            }
-        };
-        files_list.setAdapter(adapter);
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
+                    Log.d("ex", ex.getMessage());
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     class ViewHolder{
         TextView file_name;
@@ -99,7 +155,10 @@ public class AddWorkActivity extends BaseActivity{
     }
 
     private void init() {
-        listpath = new ArrayList<String>();
+        work1Infos = new ArrayList<Work1Info>();
+        workTables = new ArrayList<WorkTable>();
+        typeopen = getIntent().getIntExtra("typeopen", 0);
+        dialog = new ShowDialog(AddWorkActivity.this,R.style.MyDialog,getResources().getString(R.string.dialogmsg));
         back = (LinearLayout) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +193,60 @@ public class AddWorkActivity extends BaseActivity{
                     intent = new Intent(AddWorkActivity.this,WorkChooseManActivity1.class);
                     intent.putExtra("title",title);
                     intent.putExtra("context",context);
-                    intent.putStringArrayListExtra("filespath", (ArrayList<String>) listpath);
+                    intent.putExtra("typeopen", typeopen);
+                    intent.putExtra("worktable", (Serializable) workTables);
+                    intent.putExtra("f_jointid", f_jointid);
                     startActivityForResult(intent,2);
                     overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 }
             }
         });
+
+        adapter = new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return workTables.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return position;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(final int position, View convertView, ViewGroup parent) {
+                ViewHolder holder = null;
+                if (convertView == null){
+                    convertView = LayoutInflater.from(AddWorkActivity.this).inflate(R.layout.add_work2_file,null);
+                    holder = new ViewHolder();
+                    holder.file_name = (TextView) convertView.findViewById(R.id.file_name);
+                    holder.del_file = (ImageView) convertView.findViewById(R.id.del_file);
+                    convertView.setTag(holder);
+                }else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                boolean isup = workTables.get(position).isUp();
+                if (isup){
+                    holder.file_name.setText(workTables.get(position).getF_FILENAME());
+                }else {
+                    holder.file_name.setText(FileUtils.getFileName(workTables.get(position).getF_STORAGEPATH()));
+                }
+                holder.del_file.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        workTables.remove(position);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                return convertView;
+            }
+        };
+        files_list.setAdapter(adapter);
     }
     private void showFileChooser() {
         intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -158,8 +265,7 @@ public class AddWorkActivity extends BaseActivity{
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     filepath = FileUtils.getPath(this, uri);
-//                    filename = FileUtils.getFileName(filepath);
-                    listpath.add(filepath);
+                    upfile(filepath);
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -169,6 +275,25 @@ public class AddWorkActivity extends BaseActivity{
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void upfile(String listpath) {
+        InputStream is;
+        try {
+            File myfile = new File(listpath);
+            String filetype = myfile.getName().substring(myfile.getName().lastIndexOf(".") + 1);
+            String filename = FileUtils.getFileName(listpath);
+            is = new FileInputStream(listpath);
+            int filesize = is.available();
+            WorkTable workTable = new WorkTable();
+            workTable.setF_FILENAME(filename);
+            workTable.setF_STORAGEPATH(listpath);
+            workTable.setF_FILESIZE(filesize);
+            workTable.setF_FILETYPE(filetype);
+            workTable.setIsUp(false);
+            workTables.add(workTable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

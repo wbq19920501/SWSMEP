@@ -64,10 +64,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.WorkReturnIdeaActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateVisible"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".activity.WorkReturnIdea2Activity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateVisible"/>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

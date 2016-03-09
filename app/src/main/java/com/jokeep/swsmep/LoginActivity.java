@@ -168,8 +168,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 psd = usepsd.getText().toString().trim();
                 String yzm = login_yzm.getText().toString().toString().trim();
 
-                if (name.equals("")||psd.equals("")||name==null||psd==null){
-                    Toast.makeText(LoginActivity.this,"用户或密码不能为空",Toast.LENGTH_SHORT).show();
+                if (name.equals("")||name==null){
+                    Toast.makeText(LoginActivity.this,"用户不能为空",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (psd.equals("")||psd==null){
+                    Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!yzm_img.getText().toString().trim().equals(yzm) || yzm.equals("")) {
