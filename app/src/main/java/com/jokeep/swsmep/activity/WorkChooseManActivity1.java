@@ -154,15 +154,15 @@ public class WorkChooseManActivity1 extends BaseActivity{
     }
 
     private void upmsg() {
+        if (list.size()==0){
+            Toast.makeText(WorkChooseManActivity1.this,"请选择办理人",Toast.LENGTH_SHORT).show();
+            return;
+        }
         dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Save);
         JSONArray arrayman = new JSONArray();
         JSONArray arrayfile = new JSONArray();
         JSONObject object = new JSONObject();
-        if (list.size()==0){
-            Toast.makeText(WorkChooseManActivity1.this,"请选择办理人",Toast.LENGTH_SHORT).show();
-            return;
-        }
         try {
             for (int i=0;i<list.size();i++){
                 JSONObject objectman = new JSONObject();

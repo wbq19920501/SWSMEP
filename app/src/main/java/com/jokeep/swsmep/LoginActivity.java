@@ -169,7 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 String yzm = login_yzm.getText().toString().toString().trim();
 
                 if (name.equals("")||name==null){
-                    Toast.makeText(LoginActivity.this,"用户不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"用户名不能为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (psd.equals("")||psd==null){

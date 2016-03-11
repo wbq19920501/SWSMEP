@@ -1,6 +1,7 @@
 package com.jokeep.swsmep.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,9 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,19 +20,18 @@ import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
-import com.jokeep.swsmep.base.WebSeting;
 import com.jokeep.swsmep.fragment.WorkAnnexFragment;
 import com.jokeep.swsmep.fragment.WorkMainBodyFragment;
 import com.jokeep.swsmep.model.Work1Info;
 import com.jokeep.swsmep.view.ShowDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +48,7 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     WorkAnnexFragment workAnnexFragment;
     Button btn_next;
     ImageButton work_idea,work_flow;
+    TextView work_title;
     private LinearLayout flow_linear,idea_linear,look_workmsg;
     private LinearLayout back;
     private Boolean look1 = true;
@@ -60,23 +58,27 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     List<Work1Info> work1Infos;
     String f_jointid;
     private ShowDialog dialog;
-    String TOKENID;
-    WebView webview;
+    String TOKENID,F_LINKURL;
+    String ExecutMainID,NodeID,NodeHandlerID,OriginalID,DataGuid,ToDoID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.look_work);
         initpage();
         init();
-//        initdata();
+        initdata();
     }
 
     private void initdata() {
         dialog.show();
-        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointAttByID);
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDoInfo);
         JSONObject object = new JSONObject();
         try {
             object.put("JointID",f_jointid);
+            object.put("ExecutMainID",ExecutMainID);
+            object.put("NodeID",NodeID);
+            object.put("ToDoID",ToDoID);
+            object.put("NodeHandlerID",NodeHandlerID);
             params.addBodyParameter("parameter", AES.encrypt(object.toString()));
             params.setAsJsonContent(true);
             params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
@@ -92,7 +94,18 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
                         if (code==1){
                             Toast.makeText(LookWorkActivity.this, object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
                         }else if (code==0){
-
+                            String Result = object2.getString("Result");
+                            JSONArray array0 = new JSONArray(Result);
+                            JSONArray arrayTable = new JSONArray(((JSONObject)array0.get(0)).getString("Table"));
+                            JSONObject object3 = (JSONObject) arrayTable.get(0);
+                            int F_STATE = object3.getInt("F_STATE");
+                            String F_TITLE = object3.getString("F_TITLE");
+                            work_title.setText(F_TITLE);
+                            if (F_STATE==0){
+                                btn_next.setVisibility(View.VISIBLE);
+                            }else {
+                                btn_next.setVisibility(View.GONE);
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -124,7 +137,7 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
         typeopen = getIntent().getIntExtra("typeopen", 1);
         work1Infos = new ArrayList<Work1Info>();
         work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
-        int position = getIntent().getIntExtra("intposition", 0);
+        final int position = getIntent().getIntExtra("intposition", 0);
         TOKENID = getIntent().getStringExtra("TOKENID");
         Work1Info work1Info = work1Infos.get(position);
         f_jointid = work1Info.getF_JOINTID();
@@ -132,13 +145,22 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
         Bundle data = new Bundle();
         data.putString("TOKENID", TOKENID);
         data.putString("JointID", f_jointid);
-        data.putString("F_LINKURL", work1Infos.get(position).getF_LINKURL());
+        F_LINKURL = work1Infos.get(position).getF_LINKURL();
+
+
+        ExecutMainID = Uri.parse(F_LINKURL).getQueryParameter("ExecutMainID");
+        NodeID = Uri.parse(F_LINKURL).getQueryParameter("NodeID");
+        NodeHandlerID = Uri.parse(F_LINKURL).getQueryParameter("NodeHandlerID");
+        OriginalID = Uri.parse(F_LINKURL).getQueryParameter("OriginalID");
+        DataGuid = Uri.parse(F_LINKURL).getQueryParameter("DataGuid");
+        ToDoID = Uri.parse(F_LINKURL).getQueryParameter("ToDoID");
+
+
+        data.putString("F_LINKURL", F_LINKURL);
         data.putString("F_EXECUTMAINID", work1Infos.get(position).getF_EXECUTMAINID());
         workMainBodyFragment.setArguments(data);
         workAnnexFragment.setArguments(data);
 
-        webview = (WebView) findViewById(R.id.webview);
-        openwebview(work1Infos.get(position).getF_EXECUTMAINID());
 
         dialog = new ShowDialog(LookWorkActivity.this,R.style.MyDialog,getResources().getString(R.string.dialogmsg));
         back = (LinearLayout) findViewById(R.id.back);
@@ -153,16 +175,23 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 intent = new Intent(LookWorkActivity.this,WorkReturnIdeaActivity.class);
-                intent.putExtra("work1Infos", (Serializable) work1Infos);
-                startActivity(intent);
+                intent.putExtra("JonintID", f_jointid);
+                intent.putExtra("ExecutMainID",ExecutMainID);
+                intent.putExtra("NodeID",NodeID);
+                intent.putExtra("NodeHandlerID",NodeHandlerID);
+                intent.putExtra("OriginalID",OriginalID);
+                intent.putExtra("DataGuid",DataGuid);
+                intent.putExtra("ToDoID",ToDoID);
+                startActivityForResult(intent,2);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         if (typeopen == 1){
-
+            btn_next.setVisibility(View.VISIBLE);
         }else if (typeopen == 3 || typeopen==4){
             btn_next.setVisibility(View.GONE);
         }
+        work_title = (TextView) findViewById(R.id.work_title);
         work_idea = (ImageButton) findViewById(R.id.work_idea);
         work_flow = (ImageButton) findViewById(R.id.work_flow);
         flow_linear = (LinearLayout) findViewById(R.id.flow_linear);
@@ -218,31 +247,15 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
             }
         });
     }
-
-    private void openwebview(String f_executmainid) {
-        String url = HttpIP.FlowPreview+"?F_ExecutMainID="+f_executmainid+"&TokenID="+TOKENID+"&Ismobile=1";
-        WebSeting.openweb(webview);
-        //WebView加载web资源
-        webview.loadUrl(url);
-        //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                view.loadUrl(url);
-                return true;
-            }
-        });
-        webview.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
-                    // 网页加载完成
-                } else {
-                    // 加载中
-                }
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 2:
+                if (resultCode == RESULT_OK)
+                    finish();
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

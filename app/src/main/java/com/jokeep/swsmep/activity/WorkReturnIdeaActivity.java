@@ -1,6 +1,8 @@
 package com.jokeep.swsmep.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +24,8 @@ import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.base.HttpIP;
-import com.jokeep.swsmep.model.Work1Info;
-import com.jokeep.swsmep.model.Work2Info;
+import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.model.WorkTable;
 import com.jokeep.swsmep.utls.FileUtils;
 import com.jokeep.swsmep.view.IdeaMsg1Window;
@@ -47,7 +49,7 @@ import java.util.List;
  * SWSMEP
  */
 public class WorkReturnIdeaActivity extends BaseActivity{
-    public static final String action = "com.swsmep.workidea";
+    public static final String action = "com.swsmep.work";
     private LinearLayout back;
     private Button btn_agree,btn_cancel,me_msg;
     private EditText add_context;
@@ -58,12 +60,16 @@ public class WorkReturnIdeaActivity extends BaseActivity{
     BaseAdapter adapter;
     Intent intent;
     List<WorkTable> workTables;
-    List<Work2Info> list;
     List<Integer> listchange;
     private Button btn_sub;
     private ShowDialog dialog;
-    List<Work1Info> work1Infos;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+    String TOKENID;
+    String ExecutMainID,NodeID,NodeHandlerID,OriginalID,DataGuid,ToDoID;
+    private SwsApplication application;
+    String UnitID,DepartmentID,UserID,UserName,JonintID,suggestions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +84,21 @@ public class WorkReturnIdeaActivity extends BaseActivity{
 
     private void init() {
         workTables = new ArrayList<WorkTable>();
-        list = new ArrayList<Work2Info>();
         listchange = new ArrayList<Integer>();
-        work1Infos = new ArrayList<Work1Info>();
-        work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
+        application = (SwsApplication) getApplication();
+
+        sp = WorkReturnIdeaActivity.this.getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
+        editor = sp.edit();
+        TOKENID = sp.getString(SaveMsg.TOKENID, "");
+
+        ExecutMainID = getIntent().getStringExtra("ExecutMainID");
+        NodeID = getIntent().getStringExtra("NodeID");
+        NodeHandlerID = getIntent().getStringExtra("NodeHandlerID");
+        OriginalID = getIntent().getStringExtra("OriginalID");
+        DataGuid = getIntent().getStringExtra("DataGuid");
+        ToDoID = getIntent().getStringExtra("ToDoID");
+        JonintID = getIntent().getStringExtra("JonintID");
+
         dialog = new ShowDialog(WorkReturnIdeaActivity.this,R.style.MyDialog,getResources().getString(R.string.upmsg));
         btn_agree = (Button) findViewById(R.id.btn_agree);
         btn_cancel = (Button) findViewById(R.id.btn_cancel);
@@ -138,6 +155,7 @@ public class WorkReturnIdeaActivity extends BaseActivity{
         btn_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                suggestions = add_context.getText().toString();
                 requesthttp();
             }
         });
@@ -231,9 +249,9 @@ public class WorkReturnIdeaActivity extends BaseActivity{
                                 workTables.get(Integer.valueOf(listchange.get(i))).setF_STORAGEPATH(object.getString("SaveFilePath"));
                             }
                             if (checkbtn){
-                                upmsgagree();
+                                upmsg(HttpIP.Joint_Deal);
                             }else {
-                                upmsgcacle();
+                                upmsg(HttpIP.Joint_RollBack);
                             }
                         }
                     } catch (JSONException e) {
@@ -258,34 +276,19 @@ public class WorkReturnIdeaActivity extends BaseActivity{
             });
         }else {
             if (checkbtn){
-                upmsgagree();
+                upmsg(HttpIP.Joint_Deal);
             }else {
-                upmsgcacle();
+                upmsg(HttpIP.Joint_RollBack);
             }
         }
     }
 
-    private void upmsgcacle() {
-
-    }
-
-    private void upmsgagree() {
+    private void upmsg(String upmsg) {
         dialog.show();
-        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Save);
-        JSONArray arrayman = new JSONArray();
+        RequestParams params = new RequestParams(HttpIP.MainService+upmsg);
         JSONArray arrayfile = new JSONArray();
         JSONObject object = new JSONObject();
-        if (list.size()==0){
-            Toast.makeText(WorkReturnIdeaActivity.this,"请选择办理人",Toast.LENGTH_SHORT).show();
-            return;
-        }
         try {
-            for (int i=0;i<list.size();i++){
-                JSONObject objectman = new JSONObject();
-                objectman.put("F_DATAID",list.get(i).getF_USERID());
-                objectman.put("F_NAME",list.get(i).getF_USERNAME());
-                arrayman.put(objectman);
-            }
             for (int i=0;i<workTables.size();i++){
                 JSONObject objectfile = new JSONObject();
                 WorkTable table = workTables.get(i);
@@ -295,7 +298,20 @@ public class WorkReturnIdeaActivity extends BaseActivity{
                 objectfile.put("F_FILETYPE",table.getF_FILETYPE());
                 arrayfile.put(objectfile);
             }
-            Log.d("workTables--------->",arrayfile.toString());
+            object.put("ExcutMainID",ExecutMainID);
+            object.put("ExcuteNodeID",NodeID);
+            object.put("NodeHandlerID",NodeHandlerID);
+            object.put("UnitID",application.getF_MAINUNITID());
+            object.put("DepartmentID",application.getF_MAINDEPARTID());
+            object.put("UserID",application.getFUSERID());
+            object.put("UserName",application.getF_USERNAME());
+            object.put("Opinion",suggestions);
+            object.put("Attachment",arrayfile);
+            object.put("JonintID",JonintID);
+            object.put("ToDoID",ToDoID);
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
 
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override

@@ -1,5 +1,6 @@
 package com.jokeep.swsmep.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -31,6 +32,7 @@ import org.xutils.x;
 public class WorkMainBodyFragment extends Fragment{
     View fragment;
     private WebView webview;
+    String ExecutMainID,NodeID,NodeHandlerID,OriginalID,DataGuid,ToDoID;
     String F_LINKURL,JointID,TOKENID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,10 +52,14 @@ public class WorkMainBodyFragment extends Fragment{
     }
 
     private void initdata() {
-        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointAttByID);
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDoInfo);
         JSONObject object = new JSONObject();
         try {
             object.put("JointID",JointID);
+            object.put("ExecutMainID",ExecutMainID);
+            object.put("NodeID",NodeID);
+            object.put("ToDoID",ToDoID);
+            object.put("NodeHandlerID",NodeHandlerID);
             params.addBodyParameter("parameter", AES.encrypt(object.toString()));
             params.setAsJsonContent(true);
             params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
@@ -130,6 +136,13 @@ public class WorkMainBodyFragment extends Fragment{
         F_LINKURL = data.getString("F_LINKURL");
         JointID = data.getString("JointID");
         TOKENID = data.getString("TOKENID");
+
+        ExecutMainID = Uri.parse(F_LINKURL).getQueryParameter("ExecutMainID");
+        NodeID = Uri.parse(F_LINKURL).getQueryParameter("NodeID");
+        NodeHandlerID = Uri.parse(F_LINKURL).getQueryParameter("NodeHandlerID");
+        OriginalID = Uri.parse(F_LINKURL).getQueryParameter("OriginalID");
+        DataGuid = Uri.parse(F_LINKURL).getQueryParameter("DataGuid");
+        ToDoID = Uri.parse(F_LINKURL).getQueryParameter("ToDoID");
 
         webview = (WebView) fragment.findViewById(R.id.webview);
 

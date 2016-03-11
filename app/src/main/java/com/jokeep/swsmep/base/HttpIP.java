@@ -33,6 +33,8 @@ public class HttpIP {
     public static final String UserPhrasebook_Filter = "/UserPhrasebook_Filter";//常用语
     public static final String UserPhrasebook_Insert = "/UserPhrasebook_Insert";//常用语添加
     public static final String UserPhrasebook_Delete = "/UserPhrasebook_Delete";//常用语删除
-
+    public static final String workIp = Base+"AndroidService/MainService.svc/RefreshToDo";
+    public static final String mainNumber = Base+"AndroidService/MainService.svc/RefreshToDoCount";
+    public static final String ToDo_Opinion_Filter = "/ToDo_Opinion_Filter";//办理意见
 
 }

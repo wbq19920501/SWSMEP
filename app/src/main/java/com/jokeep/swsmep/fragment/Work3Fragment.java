@@ -60,7 +60,6 @@ public class Work3Fragment extends Fragment{
     }
 
     private void initdata() {
-        dialog.show();
         requestmsg();
         work3_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -78,6 +77,7 @@ public class Work3Fragment extends Fragment{
         });
     }
     private void requestmsg() {
+        dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
         JSONObject object = new JSONObject();
         try {

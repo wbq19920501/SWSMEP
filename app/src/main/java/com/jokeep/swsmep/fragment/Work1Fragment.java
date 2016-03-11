@@ -60,14 +60,12 @@ public class Work1Fragment extends Fragment{
     }
 
     private void initdata() {
-        dialog.show();
         requestmsg();
         work1_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page = 1;
                 work1Infos.clear();
-//                work1Infos = new ArrayList<Work1Info>();
                 requestmsg();
             }
 
@@ -78,22 +76,15 @@ public class Work1Fragment extends Fragment{
             }
         });
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        page = 1;
-//        work1Infos.clear();
-//        requestmsg();
-    }
     public void refreshfragment(){
         page = 1;
         work1Infos.clear();
         requestmsg();
-    };
+    }
     private void requestmsg() {
+        dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
-        final JSONObject object = new JSONObject();
+        JSONObject object = new JSONObject();
         try {
             object.put("UserID",UserID);
             object.put("State","0");
@@ -135,9 +126,8 @@ public class Work1Fragment extends Fragment{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    adapter.notifyDataSetChanged();
                     work1_list.onRefreshComplete();
-
+                    adapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -162,7 +152,6 @@ public class Work1Fragment extends Fragment{
             e.printStackTrace();
         }
     }
-
     private void init() {
         Bundle data = getArguments();
         TOKENID = data.getString("TOKENID");

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -31,20 +32,24 @@ import com.jokeep.swsmep.activity.ActivityList;
 import com.jokeep.swsmep.activity.ChangePassdActivity;
 import com.jokeep.swsmep.activity.SearchManActivity;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
+import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.fragment.NewsFragment;
 import com.jokeep.swsmep.fragment.Phone3Fragment;
 import com.jokeep.swsmep.fragment.ScheduleFragment;
 import com.jokeep.swsmep.fragment.WorkFragment;
 import com.jokeep.swsmep.model.UserInfo;
+import com.jokeep.swsmep.model.WorkNumber;
 import com.jokeep.swsmep.photo.Crop;
 import com.jokeep.swsmep.photo.FileUtils;
 import com.jokeep.swsmep.view.RoundImageView;
 import com.jokeep.swsmep.view.SelectPicPopupWindow;
 import com.jokeep.swsmep.view.ShowDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -57,6 +62,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
@@ -83,6 +89,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SelectPicPopupWindow menuWindow;
     private Intent intent;
     private Context context;
+    private List<WorkNumber> NumberList;
+
     UserInfo.ResultEntity.UserInfoEntity userInfoEntity;
     String FUSERID = null;
 
@@ -91,6 +99,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static final int REQUEST_CODE_CAPTURE_CAMEIA = 1458;
     private String mCurrentPhotoPath;
     private SwsApplication application;
+    private SharedPreferences sp;
+    private String TOKENID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +110,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         application = (SwsApplication) getApplication();
         init();
         initdata();
+        connectToServerByPost();
     }
 
     private void init() {
+        NumberList = new ArrayList<>();
+        sp = getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
+        TOKENID = sp.getString(SaveMsg.TOKENID, "");
+
         dialog = new ShowDialog(MainActivity.this,R.style.MyDialog,"正在加载...");
         dialog.setCancelable(false);
         mTempDir = new File( Environment.getExternalStorageDirectory(),"Temp");
@@ -195,6 +210,80 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         use_exit = (Button) findViewById(R.id.use_exit);
         initmenudata();
     }
+    //dengJ 工作获取数据；
+    private void connectToServerByPost() {
+        RequestParams params = new RequestParams(HttpIP.mainNumber);
+        JSONObject object = new JSONObject();
+        try {
+            object.put("UserID", FUSERID);
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String s = AES.desEncrypt(result.toString());
+                    Log.d("json2", s);
+                    try {
+                        JSONObject object2 = new JSONObject(s);
+                        int code = object2.getInt("ErrorCode");
+                        if (code==1){
+                        }else if (code==0){
+                            Log.i("json2", object2.getString("Result").toString());
+                            JSONArray mArray = new JSONArray(object2.getString("Result").toString());
+                            JSONObject mObject = (JSONObject) mArray.get(0);
+                            JSONArray mArrayOne = new JSONArray(mObject.getString("Table"));
+                            for (int i=0;i<mArrayOne.length();i++){
+                                JSONObject mObjectTwo = (JSONObject) mArrayOne.get(i);
+                                WorkNumber workNumber = new WorkNumber();
+                                workNumber.setF_TODOCOUNT(mObjectTwo.getInt("F_TODOCOUNT"));
+                                workNumber.setF_MENUCODE(mObjectTwo.getString("F_MENUCODE"));
+                                NumberList.add(workNumber);
+                            }
+                            //判断工作是否加number
+                            if(NumberList.get(0).getF_MENUCODE().equals("0001")&&NumberList.get(0).getF_TODOCOUNT()>=1){
+                                main_tabnum1.setText(NumberList.get(0).getF_TODOCOUNT()+"");
+                            }else {
+                                main_tabnum1.setVisibility(View.GONE);
+                            }
+                            //判断日程是否加number
+                            if(NumberList.get(1).getF_MENUCODE().equals("0002")&&NumberList.get(1).getF_TODOCOUNT()>=1){
+                                main_tabnum3.setText(NumberList.get(1).getF_TODOCOUNT()+"");
+                            }else {
+                                main_tabnum3.setVisibility(View.GONE);
+                            }
+                            //传值到第一个Fragment
+                            if(NumberList.get(2).getF_MENUCODE().equals("0003")){
+                                Bundle data = new Bundle();
+                                data.putString("GENZONG",NumberList.get(2).getF_TODOCOUNT()+"");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    Log.i("json2","onError");
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
     private void initdata() {
         dialog.show();
         userInfoEntity = new UserInfo.ResultEntity.UserInfoEntity();
@@ -204,10 +293,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         use_text.setText(userInfoEntity.getF_DEPARTMENTNAME());
         FUSERID = userInfoEntity.getF_USERID();
         application.setFUSERID(FUSERID);
+        application.setF_USERNAME(userInfoEntity.getF_USERNAME());
         application.setF_MAINDEPARTID(userInfoEntity.getF_MAINDEPARTID());
         application.setF_MAINUNITID(userInfoEntity.getF_MAINUNITID());
         application.setF_POSITIONNAME(userInfoEntity.getF_POSITIONNAME());
-        application.setF_USERNAME(userInfoEntity.getF_USERNAME());
+        application.setF_DEPARTMENTNAME(userInfoEntity.getF_DEPARTMENTNAME());
+
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)

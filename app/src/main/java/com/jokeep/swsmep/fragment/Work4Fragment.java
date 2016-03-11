@@ -61,7 +61,6 @@ public class Work4Fragment extends Fragment{
     }
 
     private void initdata() {
-        dialog.show();
         requestmsg();
         work4_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -79,6 +78,7 @@ public class Work4Fragment extends Fragment{
         });
     }
     private void requestmsg() {
+        dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Filter);
         final JSONObject object = new JSONObject();
         try {

@@ -19,4 +19,5 @@
     <color name="phone_textcolor">#333333</color>
     <color name="work_textcolor">#999999</color>
     <color name="file_color">#21ac69</color>
+    <color name="cal_days_title">#F5F5f0</color>
 </resources>

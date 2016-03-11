@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.androidone.scheduledmeo.OfficialActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height"
+        android:orientation="horizontal"
+        android:background="@color/status_bar">
+        <LinearLayout
+            android:id="@+id/iv_official"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/back"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_official"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:text="公文办理"/>
+    </LinearLayout>
+        <ListView
+            android:id="@+id/lv_official"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+</LinearLayout>

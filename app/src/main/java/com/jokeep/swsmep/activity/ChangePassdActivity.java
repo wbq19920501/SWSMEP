@@ -89,15 +89,15 @@ public class ChangePassdActivity extends BaseActivity{
                 passd3 = agree_passd.getText().toString().trim();
                 String psd = sp.getString("UserPsd", "");
                 if (!psd.equals(passd1) || passd1==null || passd1.equals("")) {
-                    Toast.makeText(ChangePassdActivity.this, "您输入的旧密码不正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassdActivity.this, "请输入旧密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (passd2.length() < 6 || passd2.equals("") || passd2 == null) {
-                    Toast.makeText(ChangePassdActivity.this, "请输入6位数以上的新密码", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassdActivity.this, "请输入新密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (passd3.length() < 6 || passd3.equals("") || passd3 == null) {
-                    Toast.makeText(ChangePassdActivity.this, "请输入6位数以上的新密码", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassdActivity.this, "请输入确认密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!passd2.equals(passd3)) {

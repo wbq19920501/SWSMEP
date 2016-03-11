@@ -76,12 +76,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <!--<TextView
                 android:id="@+id/man_files"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/file_color"
-                android:text="最近在做Android市场的应用"/>
+                android:text="最近在做Android市场的应用"/>-->
         </LinearLayout>
     </LinearLayout>
     <RelativeLayout

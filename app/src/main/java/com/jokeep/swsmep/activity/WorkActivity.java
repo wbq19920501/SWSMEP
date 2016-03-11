@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * SWSMEP
  */
 public class WorkActivity extends FragmentActivity implements View.OnClickListener{
+    public static final String action = "com.swsmep.work";
     private LinearLayout back;
     private ImageView add_work;
     private RelativeLayout worktab1,worktab2,worktab3,worktab4;
@@ -53,7 +54,7 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.work);
-        IntentFilter filter = new IntentFilter(WorkChooseManActivity1.action);
+        IntentFilter filter = new IntentFilter(action);
         registerReceiver(broadcastReceiver, filter);
         inittab();
         init();

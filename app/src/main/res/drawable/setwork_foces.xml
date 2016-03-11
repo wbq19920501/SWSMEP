@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:state_focused="true" android:drawable="@drawable/oval_button_two_one"/>
+    <item android:state_pressed="true" android:state_focused="false" android:drawable="@drawable/oval_button_two_one"/>
+    <item android:state_enabled="true">
+        <layer-list>
+            <!-- Shadow -->
+            <item android:top="1dp" android:right="1dp" android:left="1dp">
+                <layer-list>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#08000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#09000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#10000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#11000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#12000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#13000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#14000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+                                android:bottom="1px"
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#15000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+
+                                />
+                        </shape>
+                    </item>
+                    <item>
+                        <shape android:shape="oval">
+                            <solid android:color="#16000000"/>
+                            <corners android:radius="360dp"/>
+                            <padding
+
+                                />
+                        </shape>
+                    </item>
+                </layer-list>
+            </item>
+            <item android:state_pressed="false" android:state_focused="false" android:drawable="@drawable/oval_button_two"/>
+            <item android:state_pressed="false" android:state_focused="true" android:drawable="@drawable/oval_button_two"/>
+        </layer-list>
+    </item>
+</selector>

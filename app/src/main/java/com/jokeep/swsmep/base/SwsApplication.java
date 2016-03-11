@@ -28,8 +28,20 @@ public class SwsApplication extends Application{
     public DbManager.DaoConfig getDaoConfig(){
         return daoConfig;
     };
-    private  String FUSERID;
-    private  String F_USERNAME;
+    private String FUSERID;//登录人id
+    private String F_USERNAME;//登录人名称
+    private String F_MAINDEPARTID;//登录人部门id
+    private String F_MAINUNITID;//登录人单位id
+    private String F_POSITIONNAME;//登录人岗位名称
+    private String F_DEPARTMENTNAME;//登录人部门名称
+
+    public String getF_DEPARTMENTNAME() {
+        return F_DEPARTMENTNAME;
+    }
+
+    public void setF_DEPARTMENTNAME(String f_DEPARTMENTNAME) {
+        F_DEPARTMENTNAME = f_DEPARTMENTNAME;
+    }
 
     public String getF_USERNAME() {
         return F_USERNAME;
@@ -46,9 +58,6 @@ public class SwsApplication extends Application{
     public void setFUSERID(String FUSERID) {
         this.FUSERID = FUSERID;
     }
-    private String F_MAINDEPARTID;
-    private String F_MAINUNITID;
-    private String F_POSITIONNAME;
 
     public String getF_MAINDEPARTID() {
         return F_MAINDEPARTID;

@@ -61,7 +61,6 @@ public class Work2Fragment extends Fragment{
     }
 
     private void initdata() {
-        dialog.show();
         requestmsg();
         work2_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -79,6 +78,7 @@ public class Work2Fragment extends Fragment{
         });
     }
     private void requestmsg() {
+        dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Filter);
         JSONObject object = new JSONObject();
         try {
@@ -123,7 +123,6 @@ public class Work2Fragment extends Fragment{
                     }
                     adapter.notifyDataSetChanged();
                     work2_list.onRefreshComplete();
-
                 }
 
                 @Override

@@ -67,6 +67,10 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".activity.WorkReturnIdea2Activity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TrackActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.OfficialActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
