@@ -11,8 +11,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,7 +33,7 @@ import java.util.ArrayList;
  */
 public class WorkActivity extends FragmentActivity implements View.OnClickListener{
     public static final String action = "com.swsmep.work";
-    private LinearLayout back;
+    private ImageButton back;
     private ImageView add_work;
     private RelativeLayout worktab1,worktab2,worktab3,worktab4;
     private TextView worktab_text1,worktab_text2,worktab_text3,worktab_text4;
@@ -70,7 +70,7 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
         sp = WorkActivity.this.getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         editor = sp.edit();
         application = (SwsApplication) getApplication();
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

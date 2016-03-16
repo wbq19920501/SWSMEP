@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,7 +32,8 @@ import org.xutils.x;
  * SWSMEP
  */
 public class ChangePassdActivity extends BaseActivity{
-    private LinearLayout passd_back,passd_edittext;
+    ImageButton passd_back;
+    private LinearLayout passd_edittext;
     private EditText old_passd,new_passd,agree_passd;
     private Button agree;
     private String passd1,passd2,passd3;
@@ -54,7 +56,7 @@ public class ChangePassdActivity extends BaseActivity{
     private void init() {
         dialog = new ShowDialog(ChangePassdActivity.this,R.style.MyDialog,"修改密码中...");
         passd_edittext = (LinearLayout) findViewById(R.id.passd_edittext);
-        passd_back = (LinearLayout) findViewById(R.id.passd_back);
+        passd_back = (ImageButton) findViewById(R.id.passd_back);
         old_passd = (EditText) findViewById(R.id.old_passd);
         new_passd = (EditText) findViewById(R.id.new_passd);
         agree_passd = (EditText) findViewById(R.id.agree_passd);

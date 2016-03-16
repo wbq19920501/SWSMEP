@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class IdeaMsg1Window extends PopupWindow{
     private View mMenuView;
-    private LinearLayout back;
+    private ImageButton back;
     Button btn_sub;
     TextView add_memsg;
     RelativeLayout choose_addmsg;
@@ -89,7 +89,7 @@ public class IdeaMsg1Window extends PopupWindow{
         dataList = new ArrayList<MeMsg>();
         listid = new ArrayList<String>();
 
-        back = (LinearLayout) mMenuView.findViewById(R.id.back);
+        back = (ImageButton) mMenuView.findViewById(R.id.back);
         btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
         add_memsg = (TextView) mMenuView.findViewById(R.id.add_memsg);
         add_context = (EditText) mMenuView.findViewById(R.id.add_context);

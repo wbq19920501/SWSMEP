@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,7 +48,7 @@ import java.util.List;
  * SWSMEP
  */
 public class AddWorkActivity extends BaseActivity{
-    LinearLayout back;
+    ImageButton back;
     private LinearLayout file_list;
     private RelativeLayout choose_file;
     private TextView file_name;
@@ -159,7 +160,7 @@ public class AddWorkActivity extends BaseActivity{
         workTables = new ArrayList<WorkTable>();
         typeopen = getIntent().getIntExtra("typeopen", 0);
         dialog = new ShowDialog(AddWorkActivity.this,R.style.MyDialog,getResources().getString(R.string.dialogmsg));
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

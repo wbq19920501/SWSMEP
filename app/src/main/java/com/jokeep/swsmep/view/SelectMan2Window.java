@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -43,7 +44,7 @@ import java.util.List;
  */
 public class SelectMan2Window extends PopupWindow{
     private View mMenuView;
-    private LinearLayout back;
+    private ImageButton back;
     private ListView selectman_list1;
     private Button btn_sub;
 //    PhoneAdapter adapter;
@@ -69,7 +70,7 @@ public class SelectMan2Window extends PopupWindow{
         getlist = new ArrayList<Work2Info>();
         dialog = new ShowDialog(context,R.style.MyDialog,context.getResources().getString(R.string.dialogmsg));
 
-        back = (LinearLayout) mMenuView.findViewById(R.id.back);
+        back = (ImageButton) mMenuView.findViewById(R.id.back);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
 //        adapter = new PhoneAdapter();
         adapter = new SelectMan1Adapter(context,list);

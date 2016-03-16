@@ -7,7 +7,13 @@
         android:layout_height="@dimen/height"
         android:orientation="horizontal"
         android:background="@color/status_bar">
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/back"
+            android:background="@drawable/btn_back"/>
+        <!--<LinearLayout
             android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="match_parent">
@@ -17,7 +23,7 @@
                 android:background="@mipmap/back"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
-        </LinearLayout>
+        </LinearLayout>-->
         <TextView
             android:id="@+id/phone_name"
             android:layout_width="wrap_content"

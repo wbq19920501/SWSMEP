@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class PhoneManActivity extends BaseActivity{
     private SortAdapter adapter;
 
     String PingYin;
-    LinearLayout back;
+    ImageButton back;
     FrameLayout manmsg;
     LinearLayout no_msg;
 
@@ -73,7 +74,7 @@ public class PhoneManActivity extends BaseActivity{
         sidebarlist = (ListView) findViewById(R.id.sidebarlist);
         sidebar_dialog = (TextView) findViewById(R.id.sidebar_dialog);
         sidebar = (SideBar) findViewById(R.id.sidebar);
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         manmsg = (FrameLayout) findViewById(R.id.manmsg);
         no_msg = (LinearLayout) findViewById(R.id.no_msg);
         if (listuserbook.size()==0){

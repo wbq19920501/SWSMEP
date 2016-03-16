@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class IdeaMsg2Window extends PopupWindow{
     private View mMenuView;
-    private LinearLayout back;
+    private ImageButton back;
     private ListView selectman_list1;
     Activity context;
     private ShowDialog dialog;
@@ -36,7 +36,7 @@ public class IdeaMsg2Window extends PopupWindow{
         mMenuView = inflater.inflate(R.layout.idea_msg2, null);
         dialog = new ShowDialog(context,R.style.MyDialog,context.getResources().getString(R.string.dialogmsg));
 
-        back = (LinearLayout) mMenuView.findViewById(R.id.back);
+        back = (ImageButton) mMenuView.findViewById(R.id.back);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
 
         back.setOnClickListener(new View.OnClickListener() {

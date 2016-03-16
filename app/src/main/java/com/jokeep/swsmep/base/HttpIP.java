@@ -5,9 +5,9 @@ package com.jokeep.swsmep.base;
  * SWSMEP
  */
 public class HttpIP {
-//    public static String Base = "171.221.173.66:20083/SWSMEP/";
+    public static String Base = "http://171.221.173.66:20083/SWSMEP/";
 //    public static String Base = "http://192.168.2.103/SWSMEP/";
-    public static String Base = "http://192.168.1.212/SWSMEP/";
+//    public static String Base = "http://192.168.1.212/SWSMEP/";
 //    public static String Base = "http://192.168.2.114/SWSMEP/";
     public static final String FlowPreview = "http://192.168.1.212/SWSMEP/WorkFlow/WorkFlow/Preview/FlowPreview.aspx";//查看流程
     public static String IP = Base+"SSO/Service.asmx";

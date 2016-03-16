@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,7 +46,8 @@ import java.util.List;
  */
 public class SelectMan1Window extends PopupWindow{
     private View mMenuView;
-    private LinearLayout back,sear_edit;
+    ImageButton back;
+    private LinearLayout sear_edit;
     private ImageView selectman_sx;
     private EditText selectman_search;
     private ListView selectman_list1;
@@ -70,7 +72,7 @@ public class SelectMan1Window extends PopupWindow{
         getlist = new ArrayList<Work2Info>();
         dialog = new ShowDialog(context,R.style.MyDialog,context.getResources().getString(R.string.dialogmsg));
 
-        back = (LinearLayout) mMenuView.findViewById(R.id.back);
+        back = (ImageButton) mMenuView.findViewById(R.id.back);
         phone_name = (TextView) mMenuView.findViewById(R.id.phone_name);
         selectman_sx = (ImageView) mMenuView.findViewById(R.id.selectman_sx);
         selectman_search = (EditText) mMenuView.findViewById(R.id.selectman_search);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -23,7 +24,7 @@ import java.util.List;
  * SWSMEP
  */
 public class PhoneManMsgActivity extends BaseActivity{
-    LinearLayout back;
+    ImageButton back;
 
     LinearLayout phone1_call1,phone1_call2;
     TextView area_code1_1,area_code2_1;
@@ -362,7 +363,7 @@ public class PhoneManMsgActivity extends BaseActivity{
         callphone2_2 = (ImageView) findViewById(R.id.callphone2_2);
         callphone2_4 = (ImageView) findViewById(R.id.callphone2_4);
 
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -50,7 +50,7 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     ImageButton work_idea,work_flow;
     TextView work_title;
     private LinearLayout flow_linear,idea_linear,look_workmsg;
-    private LinearLayout back;
+    private ImageButton back;
     private Boolean look1 = true;
     private Boolean look2 = true;
     Intent intent;
@@ -163,7 +163,7 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
 
 
         dialog = new ShowDialog(LookWorkActivity.this,R.style.MyDialog,getResources().getString(R.string.dialogmsg));
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

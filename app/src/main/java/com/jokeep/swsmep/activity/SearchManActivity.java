@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.BaseActivity;
-import com.jokeep.swsmep.db.DataHelper;
 import com.jokeep.swsmep.db.MsgDb;
 import com.jokeep.swsmep.model.CharacterParser;
 import com.jokeep.swsmep.model.SortModel;
@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  * SWSMEP
  */
 public class SearchManActivity extends BaseActivity{
-    private LinearLayout back;
+    private ImageButton back;
     private EditText btn_search;
     private ListView list_msg;
     LinearLayout nomsg;
@@ -171,7 +171,7 @@ public class SearchManActivity extends BaseActivity{
         } catch (DbException e) {
             e.printStackTrace();
         }
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +46,7 @@ import java.util.List;
  */
 public class WorkChooseManActivity1 extends BaseActivity{
     public static final String action = "com.swsmep.work";
-    private LinearLayout back;
+    private ImageButton back;
     private TextView choose_man;
     private ListView man_list;
     SelectMan1Window popw1;
@@ -247,7 +247,7 @@ public class WorkChooseManActivity1 extends BaseActivity{
         workTables = new ArrayList<WorkTable>();
         listchange = new ArrayList<Integer>();
         dialog = new ShowDialog(WorkChooseManActivity1.this,R.style.MyDialog,getResources().getString(R.string.upmsg));
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

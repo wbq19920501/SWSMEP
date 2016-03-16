@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +50,7 @@ import java.util.List;
  */
 public class WorkReturnIdeaActivity extends BaseActivity{
     public static final String action = "com.swsmep.work";
-    private LinearLayout back;
+    private ImageButton back;
     private Button btn_agree,btn_cancel,me_msg;
     private EditText add_context;
     private ImageView add_file;
@@ -144,7 +144,7 @@ public class WorkReturnIdeaActivity extends BaseActivity{
                 getmsg();
             }
         });
-        back = (LinearLayout) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
