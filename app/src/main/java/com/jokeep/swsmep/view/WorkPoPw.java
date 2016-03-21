@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.jokeep.swsmep.R;
+import com.jokeep.swsmep.base.MyData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class WorkPoPw extends PopupWindow{
     private int h;
     private View mView;
     private Context context;
+    private MyData mMyData = MyData.getInstance();
+    private Button bt_genzong_num,bt_gongwen_num,bt_xitong_num;
     ImageButton bt_genzong,bt_gongwen,bt_xitong;
     public WorkPoPw(final Activity context,View.OnClickListener itemclick){
         this.context = context;
@@ -38,12 +42,16 @@ public class WorkPoPw extends PopupWindow{
             LinearLayout ll = (LinearLayout) mView.findViewById(res[i]);
             mLinearLayout.add(ll);
         }
+        bt_genzong_num = (Button) mView.findViewById(R.id.bt_genzong_num);
+        bt_gongwen_num = (Button) mView.findViewById(R.id.bt_gongwen_num);
+        bt_xitong_num = (Button) mView.findViewById(R.id.bt_xitong_num);
         bt_genzong = (ImageButton) mView.findViewById(R.id.bt_genzong);
         bt_gongwen = (ImageButton) mView.findViewById(R.id.bt_gongwen);
         bt_xitong = (ImageButton) mView.findViewById(R.id.bt_xitong);
         bt_genzong.setOnClickListener(itemclick);
         bt_gongwen.setOnClickListener(itemclick);
         bt_xitong.setOnClickListener(itemclick);
+        setNumber();
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +69,21 @@ public class WorkPoPw extends PopupWindow{
         this.update();
         ColorDrawable dw = new ColorDrawable(0x9fffffff);
         this.setBackgroundDrawable(dw);
+    }
+    //设置待办个数
+    private void setNumber(){
+        if(mMyData.getmGenZongNum().equals("0")){
+            bt_genzong_num.setVisibility(View.GONE);
+        }
+        if(mMyData.getmGongWenNum().equals("0")){
+            bt_gongwen_num.setVisibility(View.GONE);
+        }
+        if(mMyData.getmXieTongNum().equals("0")){
+            bt_xitong_num.setVisibility(View.GONE);
+        }
+        bt_genzong_num.setText(mMyData.getmGenZongNum());
+        bt_gongwen_num.setText(mMyData.getmGongWenNum());
+        bt_xitong_num.setText(mMyData.getmXieTongNum());
     }
     private void closeAnim() {
         for (int i = 1; i < res.length; i++) {

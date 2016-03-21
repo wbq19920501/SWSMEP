@@ -34,6 +34,7 @@ public class WorkMainBodyFragment extends Fragment{
     private WebView webview;
     String ExecutMainID,NodeID,NodeHandlerID,OriginalID,DataGuid,ToDoID;
     String F_LINKURL,JointID,TOKENID;
+    int typeopen;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment == null){
@@ -47,7 +48,11 @@ public class WorkMainBodyFragment extends Fragment{
             }
         }
         init();
-        initdata();
+        if (typeopen == 4){
+            openwebview(F_LINKURL);
+        }else {
+            initdata();
+        }
         return fragment;
     }
 
@@ -131,7 +136,7 @@ public class WorkMainBodyFragment extends Fragment{
     }
 
     private void init() {
-
+        typeopen = getActivity().getIntent().getIntExtra("typeopen", 4);
         Bundle data = getArguments();
         F_LINKURL = data.getString("F_LINKURL");
         JointID = data.getString("JointID");

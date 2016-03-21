@@ -4,7 +4,7 @@
     <string name="crop__saving" translatable="false">处理图片中…</string>
     <string name="crop__wait" translatable="false">请等待…</string>
     <string name="crop__pick_error" translatable="false">No image sources available</string>
-    <string name="dialogmsg">正在加载...</string>
+    <string name="dialogmsg">数据加载中,请稍候...</string>
     <string name="phonetext">55522233</string>
     <string name="upmsg">正在上传...</string>
     <string name="crop__done" translatable="false">确认</string>

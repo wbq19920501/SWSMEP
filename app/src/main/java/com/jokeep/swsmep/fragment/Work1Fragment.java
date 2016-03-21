@@ -76,11 +76,6 @@ public class Work1Fragment extends Fragment{
             }
         });
     }
-    public void refreshfragment(){
-        page = 1;
-        work1Infos.clear();
-        requestmsg();
-    }
     private void requestmsg() {
         dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
@@ -118,6 +113,8 @@ public class Work1Fragment extends Fragment{
                                 work1Info.setF_LINKURL(object3.getString("F_LINKURL"));
                                 work1Info.setF_JOINTID(object3.getString("F_DATAGUID"));
                                 work1Info.setF_EXECUTMAINID(object3.getString("F_EXECUTMAINID"));
+                                work1Info.setF_BUSINESSCODE(object3.getString("F_BUSINESSCODE"));
+                                work1Info.setF_isView(object3.getInt("F_ISVIEW"));
                                 work1Info.setType(0);
                                 work1Info.setTypename(1);
                                 work1Infos.add(work1Info);
@@ -127,11 +124,11 @@ public class Work1Fragment extends Fragment{
                         e.printStackTrace();
                     }
                     work1_list.onRefreshComplete();
-                    adapter.notifyDataSetChanged();
                 }
 
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
+                    work1_list.onRefreshComplete();
                     dialog.dismiss();
                     Toast.makeText(getActivity(), "数据错误", Toast.LENGTH_SHORT).show();
                     Log.d("ex",ex.getMessage());
@@ -151,6 +148,12 @@ public class Work1Fragment extends Fragment{
             dialog.dismiss();
             e.printStackTrace();
         }
+        adapter.notifyDataSetChanged();
+    }
+    public void refreshfragment(){
+        page = 1;
+        work1Infos.clear();
+        requestmsg();
     }
     private void init() {
         Bundle data = getArguments();

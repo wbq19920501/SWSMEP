@@ -35,6 +35,7 @@ import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.MyData;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.fragment.NewsFragment;
@@ -101,6 +102,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SwsApplication application;
     private SharedPreferences sp;
     private String TOKENID;
+    private MyData mMyData = MyData.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +112,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         application = (SwsApplication) getApplication();
         init();
         initdata();
-        connectToServerByPost();
+        //connectToServerByPostMain();
     }
 
     private void init() {
@@ -159,7 +161,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, SearchManActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         initmenu();
@@ -178,6 +180,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         main_tab4 = (TextView) findViewById(R.id.main_tab4);
         main_tabnum1 = (TextView) findViewById(R.id.main_tabnum1);
         main_tabnum3 = (TextView) findViewById(R.id.main_tabnum3);
+        mMyData.setmTabnum1(main_tabnum1);
         tab_view1 = findViewById(R.id.tab_view1);
         tab_view2 = findViewById(R.id.tab_view2);
         tab_view3 = findViewById(R.id.tab_view3);
@@ -210,8 +213,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         use_exit = (Button) findViewById(R.id.use_exit);
         initmenudata();
     }
-    //dengJ 工作获取数据；
-    private void connectToServerByPost() {
+    //dengJ 工作获取个数数据；
+    private void connectToServerByPostMain() {
         RequestParams params = new RequestParams(HttpIP.mainNumber);
         JSONObject object = new JSONObject();
         try {
@@ -252,10 +255,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             }else {
                                 main_tabnum3.setVisibility(View.GONE);
                             }
-                            //传值到第一个Fragment
+                            //传值到PopWindow跟踪
                             if(NumberList.get(2).getF_MENUCODE().equals("0003")){
-                                Bundle data = new Bundle();
-                                data.putString("GENZONG",NumberList.get(2).getF_TODOCOUNT()+"");
+                                mMyData.setmGenZongNum(NumberList.get(2).getF_TODOCOUNT()+"");
+                            }
+                            //传值到PopWindow公文
+                            if(NumberList.get(3).getF_MENUCODE().equals("0004")){
+                                mMyData.setmGongWenNum(NumberList.get(3).getF_TODOCOUNT()+"");
+                            }
+                            //传值到PopWindow协同
+                            if(NumberList.get(4).getF_MENUCODE().equals("0005")){
+                                mMyData.setmXieTongNum(NumberList.get(4).getF_TODOCOUNT()+"");
                             }
                         }
                     } catch (JSONException e) {

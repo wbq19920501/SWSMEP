@@ -157,82 +157,83 @@ public class WorkChooseManActivity1 extends BaseActivity{
         if (list.size()==0){
             Toast.makeText(WorkChooseManActivity1.this,"请选择办理人",Toast.LENGTH_SHORT).show();
             return;
-        }
-        dialog.show();
-        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Save);
-        JSONArray arrayman = new JSONArray();
-        JSONArray arrayfile = new JSONArray();
-        JSONObject object = new JSONObject();
-        try {
-            for (int i=0;i<list.size();i++){
-                JSONObject objectman = new JSONObject();
-                objectman.put("F_DATAID",list.get(i).getF_USERID());
-                objectman.put("F_NAME",list.get(i).getF_USERNAME());
-                arrayman.put(objectman);
-            }
-            for (int i=0;i<workTables.size();i++){
-                JSONObject objectfile = new JSONObject();
-                WorkTable table = workTables.get(i);
-                objectfile.put("F_FILENAME",table.getF_FILENAME());
-                objectfile.put("F_FILESIZE",table.getF_FILESIZE());
-                objectfile.put("F_STORAGEPATH",table.getF_STORAGEPATH());
-                objectfile.put("F_FILETYPE",table.getF_FILETYPE());
-                arrayfile.put(objectfile);
-            }
-            Log.d("workTables--------->",arrayfile.toString());
-            object.put("SaveType",SaveType);
-            object.put("JointID",JointID);
-            object.put("Title",title);
-            object.put("Content",context);
-            object.put("Attachment",arrayfile);//附件集合
-            object.put("JonintScope",arrayman);//协同人员范围集合
-            object.put("UserID",application.getFUSERID());
-            object.put("UserName",application.getF_USERNAME());
-            object.put("UnitID",application.getF_MAINUNITID());
-            object.put("DepartmentID",application.getF_MAINDEPARTID());
-            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
-            params.setAsJsonContent(true);
-            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
-            x.http().post(params, new Callback.CommonCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    String s = AES.desEncrypt(result.toString());
-                    Log.d("s", s);
-                    try {
-                        JSONObject object2 = new JSONObject(s.toString());
-                        int code = object2.getInt("ErrorCode");
-                        if (code == 1){
-                            Toast.makeText(WorkChooseManActivity1.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
-                        }else {
-                            intent = new Intent(action);
-                            setResult(RESULT_OK);
-                            sendBroadcast(intent);
-                            finish();
+        }else {
+            dialog.show();
+            RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.Joint_Save);
+            JSONArray arrayman = new JSONArray();
+            JSONArray arrayfile = new JSONArray();
+            JSONObject object = new JSONObject();
+            try {
+                for (int i=0;i<list.size();i++){
+                    JSONObject objectman = new JSONObject();
+                    objectman.put("F_DATAID",list.get(i).getF_USERID());
+                    objectman.put("F_NAME",list.get(i).getF_USERNAME());
+                    arrayman.put(objectman);
+                }
+                for (int i=0;i<workTables.size();i++){
+                    JSONObject objectfile = new JSONObject();
+                    WorkTable table = workTables.get(i);
+                    objectfile.put("F_FILENAME",table.getF_FILENAME());
+                    objectfile.put("F_FILESIZE",table.getF_FILESIZE());
+                    objectfile.put("F_STORAGEPATH",table.getF_STORAGEPATH());
+                    objectfile.put("F_FILETYPE",table.getF_FILETYPE());
+                    arrayfile.put(objectfile);
+                }
+                Log.d("workTables--------->",arrayfile.toString());
+                object.put("SaveType",SaveType);
+                object.put("JointID",JointID);
+                object.put("Title",title);
+                object.put("Content",context);
+                object.put("Attachment",arrayfile);//附件集合
+                object.put("JonintScope",arrayman);//协同人员范围集合
+                object.put("UserID",application.getFUSERID());
+                object.put("UserName",application.getF_USERNAME());
+                object.put("UnitID",application.getF_MAINUNITID());
+                object.put("DepartmentID",application.getF_MAINDEPARTID());
+                params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+                params.setAsJsonContent(true);
+                params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
+                x.http().post(params, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        String s = AES.desEncrypt(result.toString());
+                        Log.d("s", s);
+                        try {
+                            JSONObject object2 = new JSONObject(s.toString());
+                            int code = object2.getInt("ErrorCode");
+                            if (code == 1){
+                                Toast.makeText(WorkChooseManActivity1.this,object2.getString("ErrorMsg")+"",Toast.LENGTH_SHORT).show();
+                            }else {
+                                intent = new Intent(action);
+                                setResult(RESULT_OK);
+                                sendBroadcast(intent);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        dialog.dismiss();
                     }
-                    dialog.dismiss();
-                }
 
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-                    dialog.dismiss();
-                    Log.d("ex", ex.getMessage());
-                }
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        dialog.dismiss();
+                        Log.d("ex", ex.getMessage());
+                    }
 
-                @Override
-                public void onCancelled(CancelledException cex) {
+                    @Override
+                    public void onCancelled(CancelledException cex) {
 
-                }
+                    }
 
-                @Override
-                public void onFinished() {
+                    @Override
+                    public void onFinished() {
 
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

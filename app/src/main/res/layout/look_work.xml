@@ -26,10 +26,12 @@
         </LinearLayout>-->
         <TextView
             android:id="@+id/work_title"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:layout_gravity="center"
             android:text="关于什么什么的报告"/>
         <RelativeLayout
@@ -96,7 +98,7 @@
             android:layout_marginBottom="3dp">
             <fragment
                 android:id="@+id/fragment_idea"
-                android:name="com.jokeep.swsmep.fragment.WorkIdeaFragmet"
+                android:name="com.jokeep.swsmep.fragment.WorkIdea2Fragmet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

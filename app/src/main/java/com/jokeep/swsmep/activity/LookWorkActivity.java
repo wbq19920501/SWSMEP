@@ -40,6 +40,7 @@ import java.util.List;
  * SWSMEP
  */
 public class LookWorkActivity extends FragmentActivity implements View.OnClickListener{
+    public static final String action = "com.swsmep.work";
     private TextView look_tab1,look_tab2;
     private View look_tabview1,look_tabview2;
     private ViewPager pager;
@@ -66,7 +67,11 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
         setContentView(R.layout.look_work);
         initpage();
         init();
-        initdata();
+        if (typeopen==4){
+
+        }else {
+            initdata();
+        }
     }
 
     private void initdata() {
@@ -251,8 +256,11 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 2:
-                if (resultCode == RESULT_OK)
+                if (resultCode == RESULT_OK){
+//                    intent = new Intent(action);
+//                    sendBroadcast(intent);
                     finish();
+                }
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

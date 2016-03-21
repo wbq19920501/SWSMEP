@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.androidone.scheduledmeo.OfficialActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height"
@@ -14,6 +12,7 @@
         <LinearLayout
             android:id="@+id/iv_official"
             android:layout_width="50dp"
+            android:background="@drawable/btn_back"
             android:layout_height="match_parent">
             <ImageView
                 android:layout_width="wrap_content"
@@ -30,12 +29,140 @@
             android:textSize="20dp"
             android:layout_gravity="center"
             android:text="公文办理"/>
-    </LinearLayout>
-        <ListView
-            android:id="@+id/lv_official"
+        <RelativeLayout android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        </ListView>
-
+            <ImageView
+                android:id="@+id/seek_official"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_search_normal"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/official_one"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/official_text_one"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="发文"
+                android:gravity="center"
+                android:textSize="@dimen/main_tab"
+                android:layout_centerInParent="true"
+                android:textColor="@color/status_bar"/>
+            <TextView
+                android:id="@+id/official_num_one"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:text="0"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/official_text_one"
+                android:background="@drawable/work_tabtext"/>
+            <View
+                android:id="@+id/official_view_one"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/status_bar"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/official_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/official_text_two"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="签报"
+                android:gravity="center"
+                android:textSize="@dimen/main_tab"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/worktab_textcolor"/>
+            <TextView
+                android:id="@+id/official_num_two"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:text="0"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/official_text_two"
+                android:background="@drawable/work_tabtext"/>
+            <View
+                android:id="@+id/official_view_two"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/status_bar"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/official_three"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/official_text_three"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="收文"
+                android:gravity="center"
+                android:textSize="@dimen/main_tab"
+                android:layout_centerInParent="true"
+                android:textColor="@color/worktab_textcolor"/>
+            <TextView
+                android:id="@+id/official_num_three"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:text="0"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/official_text_three"
+                android:background="@drawable/work_tabtext"/>
+            <View
+                android:id="@+id/official_view_three"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/status_bar"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/line_background"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/official_viewpager"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </LinearLayout>

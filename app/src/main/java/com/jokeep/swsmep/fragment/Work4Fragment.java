@@ -112,9 +112,11 @@ public class Work4Fragment extends Fragment{
                                 work1Info.setF_ISATT(object3.getInt("F_ISATT"));
                                 work1Info.setF_STATENAME(object3.getString("F_STATENAME"));
                                 work1Info.setF_COLOR(object3.getString("F_COLOR"));
-                                work1Info.setF_LINKURL(object3.getString("F_FILEPATH").substring(1));
+                                work1Info.setF_LINKURL(object3.getString("F_FILEPATH"));
                                 work1Info.setF_JOINTID(object3.getString("F_JOINTID"));
                                 work1Info.setF_EXECUTMAINID(object3.getString("F_EXECUTMAINID"));
+                                work1Info.setF_STATE(object3.getInt("F_STATE"));
+                                work1Info.setF_BUSINESSCODE(object3.getString("F_BUSINESSCODE"));
                                 work1Info.setType(1);
                                 work1Info.setTypename(0);
                                 work1Infos.add(work1Info);

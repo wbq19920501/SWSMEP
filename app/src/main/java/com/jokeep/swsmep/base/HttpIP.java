@@ -5,14 +5,18 @@ package com.jokeep.swsmep.base;
  * SWSMEP
  */
 public class HttpIP {
-    public static String Base = "http://171.221.173.66:20083/SWSMEP/";
+//    public static String Base = "http://171.221.173.66:20083/SWSMEP/";//外网调试
 //    public static String Base = "http://192.168.2.103/SWSMEP/";
-//    public static String Base = "http://192.168.1.212/SWSMEP/";
+    public static String Base = "http://192.168.1.212/SWSMEP/";
 //    public static String Base = "http://192.168.2.114/SWSMEP/";
-    public static final String FlowPreview = "http://192.168.1.212/SWSMEP/WorkFlow/WorkFlow/Preview/FlowPreview.aspx";//查看流程
+    public static final String FlowPreview = Base+"WorkFlow/WorkFlow/Preview/FlowPreview.aspx";//查看流程
     public static String IP = Base+"SSO/Service.asmx";
     public static String MainService = Base+"AndroidService/MainService.svc";
     public static String Web = Base+"Web";
+
+    // Html文本编辑器
+    public static final String PATH_EDITOR = Web + "/Office/CooperativeWork/JointShow.html";
+
     // 获取加密key,同步tokenId
     public static final String ACTION_KEY = "getEncryptKey";
     public static final String Login = "AndroidLoginCheck";
@@ -36,5 +40,12 @@ public class HttpIP {
     public static final String workIp = Base+"AndroidService/MainService.svc/RefreshToDo";
     public static final String mainNumber = Base+"AndroidService/MainService.svc/RefreshToDoCount";
     public static final String ToDo_Opinion_Filter = "/ToDo_Opinion_Filter";//办理意见
+    public static final String OpinionReply_Insert = "/OpinionReply_Insert";//意见回复
+    public static final String NewsIp = Base+"AndroidService/MainService.svc/Section_Content_Filter";
+    public static final String WebViewIp = Base+"AndroidService/MainService.svc/Section_ContentByID_Filter";
+    public static final String InComing = Base +"AndroidService/MainService.svc/OfficialDocument_Filter";
+    public static final String Outgoing = Base +"AndroidService/MainService.svc/OfficialDocument_Filter";
+    public static final String JointToDoCount = "/JointToDoCount";
+    public static final String Inside = Base + "AndroidService/MainService.svc/OfficialDocumentByTodoID_Filter";
 
 }

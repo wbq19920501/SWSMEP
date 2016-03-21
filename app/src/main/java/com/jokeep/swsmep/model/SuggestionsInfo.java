@@ -1,6 +1,7 @@
 package com.jokeep.swsmep.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wbq501 on 2016-3-11 09:25.
@@ -27,6 +28,16 @@ public class SuggestionsInfo implements Serializable{
     private String F_REPLYTIMEFULL;
     private String F_DEPARTMENTNAME;
     private String F_POSITIONNAME;
+
+    private List<SuggestionFilesInfo> suggestionFilesInfos;
+
+    public List<SuggestionFilesInfo> getSuggestionFilesInfos() {
+        return suggestionFilesInfos;
+    }
+
+    public void setSuggestionFilesInfos(List<SuggestionFilesInfo> suggestionFilesInfos) {
+        this.suggestionFilesInfos = suggestionFilesInfos;
+    }
 
     public String getF_DEPARTMENTNAME() {
         return F_DEPARTMENTNAME;

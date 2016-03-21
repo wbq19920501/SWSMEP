@@ -37,7 +37,6 @@ public class Work2Fragment extends Fragment{
     View fragment;
     private WorkTabAdapter adapter;
     private PullToRefreshListView work2_list;
-
     private String TOKENID;
     private String UserID;
     private ShowDialog dialog;

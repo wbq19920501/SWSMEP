@@ -136,6 +136,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:text="3"
+                            android:visibility="gone"
                             android:textColor="@color/status_bar"
                             android:background="@drawable/num_background"/>
                         <View
@@ -191,6 +192,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:text="3"
+                            android:visibility="gone"
                             android:textColor="@color/status_bar"
                             android:background="@drawable/num_background"/>
                         <View

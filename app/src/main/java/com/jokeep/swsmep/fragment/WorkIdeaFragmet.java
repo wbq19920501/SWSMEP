@@ -1,16 +1,23 @@
 package com.jokeep.swsmep.fragment;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
-import com.jokeep.swsmep.adapter.WorkIdeaAdapter;
+import com.jokeep.swsmep.activity.WorkReturnIdea2Activity;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
@@ -18,15 +25,19 @@ import com.jokeep.swsmep.model.SuggestionFilesInfo;
 import com.jokeep.swsmep.model.SuggestionInfo;
 import com.jokeep.swsmep.model.SuggestionsInfo;
 import com.jokeep.swsmep.model.Work1Info;
+import com.jokeep.swsmep.view.RoundImageView;
 import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
+import org.xutils.common.util.DensityUtil;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +48,16 @@ import java.util.List;
 public class WorkIdeaFragmet extends Fragment{
     View fragment;
     private ExpandableListView idea_list;
-    WorkIdeaAdapter adapter;
-
+//    WorkIdeaAdapter adapter;
+    BaseExpandableListAdapter adapter;
     List<SuggestionInfo> suggestionInfos;
     List<Work1Info> work1Infos;
     List<SuggestionsInfo> suggestionsInfos;
     List<SuggestionFilesInfo> suggestionFilesInfos;
     String F_EXECUTMAINID,TOKENID;
     private ShowDialog dialog;
+    Intent intent;
+    String Title,BusinessCode,MainID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment == null){
@@ -115,7 +128,7 @@ public class WorkIdeaFragmet extends Fragment{
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
                     dialog.dismiss();
-                    Log.d("ex", ex.getMessage());
+//                    Log.d("ex", ex.getMessage());
                 }
 
                 @Override
@@ -175,12 +188,138 @@ public class WorkIdeaFragmet extends Fragment{
         work1Infos = (List<Work1Info>) getActivity().getIntent().getSerializableExtra("work1Infos");
         int position = getActivity().getIntent().getIntExtra("intposition", 0);
         F_EXECUTMAINID = work1Infos.get(position).getF_EXECUTMAINID();
+        Title = work1Infos.get(position).getF_TITLE();
+        BusinessCode = work1Infos.get(position).getF_BUSINESSCODE();
+        MainID = work1Infos.get(position).getF_JOINTID();
         TOKENID = getActivity().getIntent().getStringExtra("TOKENID");
 
-        adapter = new WorkIdeaAdapter(getActivity(),suggestionInfos);
+//        adapter = new WorkIdeaAdapter(getActivity(),suggestionInfos);
 
         idea_list = (ExpandableListView) fragment.findViewById(R.id.idea_list);
         idea_list.setGroupIndicator(null);
+        adapter = new BaseExpandableListAdapter() {
+            @Override
+            public int getGroupCount() {
+                return suggestionInfos.size();
+            }
+
+            @Override
+            public int getChildrenCount(int groupPosition) {
+//                return suggestionInfos.get(groupPosition).getSuggestionsInfos().size();
+                return suggestionInfos.size();
+            }
+
+            @Override
+            public Object getGroup(int groupPosition) {
+                return getGroup(groupPosition);
+            }
+
+            @Override
+            public Object getChild(int groupPosition, int childPosition) {
+                return suggestionInfos.get(childPosition);
+//                return suggestionInfos.get(groupPosition).getSuggestionsInfos().get(childPosition);
+            }
+
+            @Override
+            public long getGroupId(int groupPosition) {
+                return groupPosition;
+            }
+
+            @Override
+            public long getChildId(int groupPosition, int childPosition) {
+                return childPosition;
+            }
+
+            @Override
+            public boolean hasStableIds() {
+                return false;
+            }
+
+            @Override
+            public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+                ViewGroipHolder holder = null;
+                if (convertView == null){
+                    convertView = LayoutInflater.from(getActivity()).inflate(R.layout.wrok_idea_item1, null);
+                    holder = new ViewGroipHolder();
+                    holder.man_name = (TextView) convertView.findViewById(R.id.man_name);
+                    holder.man_type = (TextView) convertView.findViewById(R.id.man_type);
+                    holder.man_time = (TextView) convertView.findViewById(R.id.man_time);
+                    holder.man_img = (RoundImageView) convertView.findViewById(R.id.man_img);
+                    holder.man_context = (TextView) convertView.findViewById(R.id.man_context);
+                    holder.files = (LinearLayout) convertView.findViewById(R.id.files);
+                    holder.man_imgs = (ImageView) convertView.findViewById(R.id.man_imgs);
+                    holder.addview = (LinearLayout) convertView.findViewById(R.id.addview);
+                    holder.return_msg = (Button) convertView.findViewById(R.id.return_msg);
+                    convertView.setTag(holder);
+                }else {
+                    holder = (ViewGroipHolder) convertView.getTag();
+                }
+                final SuggestionInfo suggestionInfo = suggestionInfos.get(groupPosition);
+                List<SuggestionFilesInfo> suggestionFilesInfos = suggestionInfo.getSuggestionFilesInfos();
+                holder.man_name.setText(suggestionInfo.getF_HANDLENAME());
+                holder.man_type.setText(suggestionInfo.getF_DEPARTMENTNAME()+"-"+suggestionInfo.getF_POSITIONNAME());
+                holder.man_time.setText(suggestionInfo.getF_HANDLETIME());
+                holder.man_context.setText(suggestionInfo.getF_OPINION());
+                for (int i=0;i<suggestionFilesInfos.size();i++){
+                    TextView textView = new TextView(getActivity());
+                    textView.setText(suggestionFilesInfos.get(i).getF_FILENAME());
+                    textView.setTextColor(Color.parseColor("#21ac69"));
+                    holder.addview.addView(textView);
+                }
+                ImageOptions imageOptions = new ImageOptions.Builder()
+                        .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
+                        .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                        .setLoadingDrawableId(R.mipmap.ic_launcher)
+                        .setFailureDrawableId(R.mipmap.ic_launcher)
+                        .build();
+                x.image().bind(holder.man_img, suggestionInfo.getF_USERHEADURI(), imageOptions);
+                holder.return_msg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intent = new Intent(getActivity(), WorkReturnIdea2Activity.class);
+                        List<SuggestionInfo> listsuggestionInfo = new ArrayList<SuggestionInfo>();
+                        listsuggestionInfo.add(suggestionInfo);
+                        intent.putExtra("suggestionInfo", (Serializable) listsuggestionInfo);
+                        intent.putExtra("MainID",MainID);
+                        intent.putExtra("Title",Title);
+                        intent.putExtra("BusinessCode",BusinessCode);
+                        startActivityForResult(intent, 2);
+                        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    }
+                });
+                return convertView;
+            }
+
+            @Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                ViewChildHolder holder = null;
+                if (convertView == null){
+                    convertView = LayoutInflater.from(getActivity()).inflate(R.layout.wrok_idea_item2,null);
+                    holder = new ViewChildHolder();
+                    holder.man_name = (TextView) convertView.findViewById(R.id.man_name);
+                    holder.man_type = (TextView) convertView.findViewById(R.id.man_type);
+                    holder.man_context = (TextView) convertView.findViewById(R.id.man_context);
+                    holder.files = (LinearLayout) convertView.findViewById(R.id.files);
+                    holder.man_imgs = (ImageView) convertView.findViewById(R.id.man_imgs);
+                    holder.man_time = (TextView) convertView.findViewById(R.id.man_time);
+                    convertView.setTag(holder);
+                }else {
+                    holder = (ViewChildHolder) convertView.getTag();
+                }
+                SuggestionsInfo suggestionsInfo = suggestionInfos.get(groupPosition).getSuggestionsInfos().get(childPosition);
+                holder.man_name.setText(suggestionsInfo.getF_USERNAME());
+                holder.man_type.setText(suggestionsInfo.getF_DEPARTMENTNAME()+"-"+suggestionsInfo.getF_POSITIONNAME());
+                holder.man_context.setText(suggestionsInfo.getF_OPINION());
+                holder.man_time.setText(suggestionsInfo.getF_REPLYTIME());
+                return convertView;
+            }
+
+            @Override
+            public boolean isChildSelectable(int groupPosition, int childPosition) {
+                return true;
+            }
+        };
+
         idea_list.setAdapter(adapter);
         int groupCount = idea_list.getCount();
         for (int i = 0; i < groupCount; i++) {
@@ -194,5 +333,20 @@ public class WorkIdeaFragmet extends Fragment{
                 return true;
             }
         });
+    }
+    class ViewGroipHolder{
+        RoundImageView man_img;
+        TextView man_name,man_type,man_time;
+        TextView man_context;
+        ImageView man_imgs;
+        LinearLayout files;
+        Button return_msg;
+        LinearLayout addview;
+    }
+    class ViewChildHolder{
+        TextView man_name,man_type,man_time;
+        TextView man_context;
+        ImageView man_imgs;
+        LinearLayout files;
     }
 }

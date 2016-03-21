@@ -45,12 +45,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/work_img"/>
-       <!-- <TextView
-            android:id="@+id/man_files"
+        <LinearLayout
+            android:id="@+id/addview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/file_color"
-            android:text="最近在做Android市场的应用"/>-->
+            android:orientation="vertical">
+            <!--<TextView
+                android:id="@+id/man_files"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/file_color"
+                android:text="最近在做Android市场的应用"/>-->
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/man_time"

@@ -94,6 +94,14 @@ public class WorkTabAdapter extends BaseAdapter{
             }
         });
         Work1Info work1Info = work1Infos.get(position);
+        if (typeopen==1){
+            int f_isView = work1Info.getF_isView();
+            if (f_isView==1){
+                holder.worktab_title.setTextColor(Color.parseColor("#666666"));
+            }else {
+
+            }
+        }
         holder.worktab_title.setText(work1Info.getF_TITLE());
         int typename = work1Info.getTypename();
         if (typename==0){

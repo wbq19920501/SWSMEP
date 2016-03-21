@@ -56,6 +56,16 @@ public class Work1Info implements Serializable{
 
     private String F_COLOR;
 
+    private int F_isView;
+
+    public int getF_isView() {
+        return F_isView;
+    }
+
+    public void setF_isView(int f_isView) {
+        F_isView = f_isView;
+    }
+
     public String getF_COLOR() {
         return F_COLOR;
     }

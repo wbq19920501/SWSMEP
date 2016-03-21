@@ -9,21 +9,33 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
+import com.jokeep.swsmep.base.AES;
+import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.fragment.Work1Fragment;
 import com.jokeep.swsmep.fragment.Work2Fragment;
 import com.jokeep.swsmep.fragment.Work3Fragment;
 import com.jokeep.swsmep.fragment.Work4Fragment;
+import com.jokeep.swsmep.view.ShowDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 
@@ -50,6 +62,7 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     private SharedPreferences.Editor editor;
     private SwsApplication application;
     Intent intent;
+    private ShowDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +75,75 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initdata() {
+        request();
+    }
 
+    public void request() {
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDoCount);
+        JSONObject object = new JSONObject();
+        try {
+            object.put("UserID", application.getFUSERID());
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, sp.getString(SaveMsg.TOKENID, ""));
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String s = AES.desEncrypt(result.toString());
+                    Log.d("s", s);
+                    dialog.dismiss();
+                    try {
+                        JSONObject object2 = new JSONObject(s);
+                        int code = object2.getInt("ErrorCode");
+                        if (code == 1) {
+                            Toast.makeText(WorkActivity.this, object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
+                        } else if (code == 0) {
+                            String Result = object2.getString("Result");
+                            JSONArray array = new JSONArray(Result);
+                            JSONObject jsonObject = (JSONObject) array.get(0);
+                            JSONArray jsonArray = new JSONArray(jsonObject.getString("Table"));
+                            int f_count1 = new Double(((JSONObject) jsonArray.get(0)).getString("F_COUNT")).intValue();
+                            int f_count2 = new Double(((JSONObject) jsonArray.get(1)).getString("F_COUNT")).intValue();
+                            if (f_count1==0){
+                                worktab_num1.setVisibility(View.GONE);
+                            }else {
+                                worktab_num1.setText(f_count1+"");
+                            }
+                            if (f_count2==0){
+                                worktab_num2.setVisibility(View.GONE);
+                            }else {
+                                worktab_num2.setText(f_count2+"");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
+                    Log.d("ex", ex.getMessage());
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
     private void init() {
+        dialog = new ShowDialog(WorkActivity.this, R.style.MyDialog, getResources().getString(R.string.dialogmsg));
         sp = WorkActivity.this.getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         editor = sp.edit();
         application = (SwsApplication) getApplication();
@@ -119,6 +196,13 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        request();
+    }
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override

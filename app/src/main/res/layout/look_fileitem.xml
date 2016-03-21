@@ -21,6 +21,7 @@
             android:layout_height="match_parent"
             android:textSize="18sp"
             android:textColor="@color/file_color"
+            android:singleLine="true"
             android:text="我是文档.doc"/>
     </LinearLayout>
     <View

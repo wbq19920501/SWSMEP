@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jokeep.filechooser.FileChooserList;
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
@@ -324,9 +325,9 @@ public class WorkReturnIdeaActivity extends BaseActivity{
                         if (code == 1) {
                             Toast.makeText(WorkReturnIdeaActivity.this, object2.getString("ErrorMsg") + "", Toast.LENGTH_SHORT).show();
                         } else {
-                            intent = new Intent(action);
+//                            intent = new Intent(action);
                             setResult(RESULT_OK);
-                            sendBroadcast(intent);
+//                            sendBroadcast(intent);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -356,14 +357,16 @@ public class WorkReturnIdeaActivity extends BaseActivity{
         }
     }
     private void showFileChooser() {
-        intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        try {
-            startActivityForResult( Intent.createChooser(intent, "Select a File to Upload"), 1);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
-        }
+        intent = new Intent(this, FileChooserList.class);
+        startActivityForResult(intent, 100);
+//        intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("*/*");
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        try {
+//            startActivityForResult( Intent.createChooser(intent, "Select a File to Upload"), 1);
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
+//        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -379,6 +382,15 @@ public class WorkReturnIdeaActivity extends BaseActivity{
             case 2:
                 if (resultCode == RESULT_OK)
                     finish();
+                break;
+            case 100:
+                if (resultCode == RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    Uri uri = data.getData();
+                    String filepath = bundle.getString("FileURI", "");
+                    upfile(filepath);
+                    adapter.notifyDataSetChanged();
+                }
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

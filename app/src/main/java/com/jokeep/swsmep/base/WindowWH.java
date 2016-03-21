@@ -14,4 +14,12 @@ public class WindowWH {
         int height = wm.getDefaultDisplay().getHeight();
         return height;
     }
+
+    public static int WindowWidth(Context context){
+        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+
+        int width = wm.getDefaultDisplay().getWidth();
+        return width;
+    }
+
 }

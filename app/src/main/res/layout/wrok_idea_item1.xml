@@ -103,4 +103,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line"/>
+    <LinearLayout
+        android:id="@+id/add_ideamsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>
