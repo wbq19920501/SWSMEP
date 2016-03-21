@@ -1,2 +1,4 @@
-include ':app', ':iAppPDFLib'
+include ':app', ':filechooser'
 include ':library'
+include ':app', ':library'
+include ':app', ':library', ':filechooser'
