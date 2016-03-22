@@ -2,6 +2,7 @@ package com.jokeep.swsmep.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -82,6 +83,10 @@ public class AddWorkActivity extends BaseActivity {
         init();
         if (typeopen == 0) {
             f_jointid = "";
+//            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
+//            add_context.getSettings().setJavaScriptEnabled(true);
+//            add_context.loadUrl(HttpIP.PATH_EDITOR);
+//            add_context.setWebViewClient(new EditorClient(null));
         } else {
             work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
             int position = getIntent().getIntExtra("intposition", 0);
@@ -123,6 +128,8 @@ public class AddWorkActivity extends BaseActivity {
 //                            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
 //                            add_context.getSettings().setJavaScriptEnabled(true);
 //                            add_context.loadUrl(HttpIP.PATH_EDITOR);
+//                            add_context.getSettings().setDefaultTextEncodingName("UTF-8") ;
+//                            add_context.loadData(object3.getString("F_CONTENT"),"text/html","UTF-8");
 //                            add_context.setWebViewClient(new EditorClient(object3.getString("F_CONTENT")));
 //                            add_context.setText(object3.getString("F_CONTENT"));
                             add_context.setText(Html.fromHtml(object3.getString("F_CONTENT")));
@@ -184,11 +191,6 @@ public class AddWorkActivity extends BaseActivity {
         });
         add_work_title = (EditText) findViewById(R.id.add_work_title);
         add_context = (EditText) findViewById(R.id.add_context);
-
-//        add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
-//        add_context.getSettings().setJavaScriptEnabled(true);
-//        add_context.loadUrl(HttpIP.PATH_EDITOR);
-//        add_context.setWebViewClient(new EditorClient(null));
 
         file_list = (LinearLayout) findViewById(R.id.file_list);
         files_list = (ListView) findViewById(R.id.files_list);
@@ -276,13 +278,20 @@ public class AddWorkActivity extends BaseActivity {
         public EditorClient(String f_content) {
             this.f_content = f_content;
         }
-
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             if (f_content==null||f_content.equals("")){
 
             }else {
+//                view.loadUrl("javascript:SetHtml('" + f_content + "')");
                 add_context.setText(f_content);
             }
         }
@@ -303,15 +312,6 @@ public class AddWorkActivity extends BaseActivity {
     private void showFileChooser() {
         intent = new Intent(this, FileChooserList.class);
         startActivityForResult(intent, 100);
-//
-//        intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("*/*");
-//        intent.addCategory(Intent.CATEGORY_OPENABLE);
-//        try {
-//            startActivityForResult( Intent.createChooser(intent, "Select a File to Upload"), 1);
-//        } catch (android.content.ActivityNotFoundException ex) {
-//            Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     @Override

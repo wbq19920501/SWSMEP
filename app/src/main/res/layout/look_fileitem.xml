@@ -9,7 +9,7 @@
         <ImageButton
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:src="@mipmap/add_work2"
             android:background="@null"/>

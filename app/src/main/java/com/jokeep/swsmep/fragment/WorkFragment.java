@@ -64,7 +64,6 @@ public class WorkFragment extends Fragment {
 
     //dengJ
     private List<WorkNumber> NumberList;
-    private ProgressBar mProgressBar;
     private MyData mMyData = MyData.getInstance();
     private TextView main_tabnum1,main_tabnum3;
     private String UserID;
@@ -259,6 +258,7 @@ public class WorkFragment extends Fragment {
                 infoList.clear();
                 NumberList.clear();
                 connectToServerByPost();
+                getData();
                 connectToServerByPostMain();
             }
 

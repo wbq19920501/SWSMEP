@@ -5,30 +5,32 @@
                 android:background="@drawable/btn_menu">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/work_name"
-            android:layout_width="0dp"
-            android:layout_weight="0.9"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/work_round"
-            android:text="收文"
-            android:textSize="20dp"
-            android:textColor="#FFFFFF"
-            android:gravity="center"/>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/work_name"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/work_round"
+                android:text="收文"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            <TextView
                 android:id="@+id/work_title"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:text="我是标题啊。。。。。。"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/phone_textcolor"
                 android:textSize="18dp"
+                android:layout_toRightOf="@id/work_name"
                 android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:singleLine="true"/>
@@ -36,9 +38,11 @@
                 android:id="@+id/work_context"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:text="我是"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/work_name"
                 android:textColor="@color/work_textcolor"
                 android:ellipsize="end"
                 android:singleLine="true"/>
@@ -48,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/work_context"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="8dp"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/work_textcolor"
                 android:text="时间"
@@ -78,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginRight="20dp"
                 android:src="@mipmap/work_img"/>
         </RelativeLayout>
@@ -88,6 +92,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/login_yzm"
-        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"/>
 </LinearLayout>
