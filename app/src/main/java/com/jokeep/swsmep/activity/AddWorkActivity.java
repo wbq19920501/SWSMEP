@@ -2,10 +2,8 @@ package com.jokeep.swsmep.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -34,6 +32,7 @@ import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.model.Work1Info;
 import com.jokeep.swsmep.model.WorkTable;
 import com.jokeep.swsmep.utls.FileUtils;
+import com.jokeep.swsmep.view.MyWebView;
 import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONArray;
@@ -67,7 +66,7 @@ public class AddWorkActivity extends BaseActivity {
     ListView files_list;
     BaseAdapter adapter;
     EditText add_work_title;
-    EditText add_context;
+    MyWebView add_context;
     String title, context;
     List<Work1Info> work1Infos;
     String f_jointid;
@@ -83,10 +82,10 @@ public class AddWorkActivity extends BaseActivity {
         init();
         if (typeopen == 0) {
             f_jointid = "";
-//            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
-//            add_context.getSettings().setJavaScriptEnabled(true);
-//            add_context.loadUrl(HttpIP.PATH_EDITOR);
-//            add_context.setWebViewClient(new EditorClient(null));
+            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
+            add_context.getSettings().setJavaScriptEnabled(true);
+            add_context.setWebViewClient(new EditorClient(null));
+            add_context.loadUrl(HttpIP.PATH_EDITOR);
         } else {
             work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
             int position = getIntent().getIntExtra("intposition", 0);
@@ -125,14 +124,10 @@ public class AddWorkActivity extends BaseActivity {
                             JSONObject object3 = (JSONObject) arrayTable.get(0);
                             add_work_title.setText(object3.getString("F_TITLE"));
 
-//                            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
-//                            add_context.getSettings().setJavaScriptEnabled(true);
-//                            add_context.loadUrl(HttpIP.PATH_EDITOR);
-//                            add_context.getSettings().setDefaultTextEncodingName("UTF-8") ;
-//                            add_context.loadData(object3.getString("F_CONTENT"),"text/html","UTF-8");
-//                            add_context.setWebViewClient(new EditorClient(object3.getString("F_CONTENT")));
-//                            add_context.setText(object3.getString("F_CONTENT"));
-                            add_context.setText(Html.fromHtml(object3.getString("F_CONTENT")));
+                            add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
+                            add_context.getSettings().setJavaScriptEnabled(true);
+                            add_context.setWebViewClient(new EditorClient(object3.getString("F_CONTENT")));
+                            add_context.loadUrl(HttpIP.PATH_EDITOR);
                             f_jointid = object3.getString("F_JOINTID");
                             for (int i = 0; i < arrayTable1.length(); i++) {
                                 JSONObject jsonObject = (JSONObject) arrayTable1.get(i);
@@ -190,7 +185,7 @@ public class AddWorkActivity extends BaseActivity {
             }
         });
         add_work_title = (EditText) findViewById(R.id.add_work_title);
-        add_context = (EditText) findViewById(R.id.add_context);
+        add_context = (MyWebView) findViewById(R.id.add_context);
 
         file_list = (LinearLayout) findViewById(R.id.file_list);
         files_list = (ListView) findViewById(R.id.files_list);
@@ -210,7 +205,7 @@ public class AddWorkActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 title = add_work_title.getText().toString().trim();
-                context = add_context.getText().toString().trim();
+                context = editHtmlContent;
                 if (title.equals("") || title == null) {
                     Toast.makeText(AddWorkActivity.this, "请输入标题", Toast.LENGTH_SHORT).show();
                 } else {
@@ -278,24 +273,22 @@ public class AddWorkActivity extends BaseActivity {
         public EditorClient(String f_content) {
             this.f_content = f_content;
         }
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             if (f_content==null||f_content.equals("")){
 
             }else {
+                add_context.loadUrl("javascript:SetKey('" + AES.key + "')");
+                add_context.loadUrl("javascript:EncryptHtmlContext('" + f_content + "')");
+//                view.loadData(f_content, "text/html", "UTF-8");
 //                view.loadUrl("javascript:SetHtml('" + f_content + "')");
-                add_context.setText(f_content);
+//                context = f_content;
             }
         }
     }
+    private  String editHtmlContent;
     public class CoustomJs2Java {
         private Context context;
 
@@ -305,8 +298,8 @@ public class AddWorkActivity extends BaseActivity {
 
         @JavascriptInterface
         public void setHtmlContext(String strHtmlContext) {
-
-//            add_context.strHtmlContext = strHtmlContext;
+            editHtmlContent = strHtmlContext;
+            System.out.println("editHtmlContent--------------"+editHtmlContent);
         }
     }
     private void showFileChooser() {

@@ -276,7 +276,7 @@ public class IdeaMsg1Window extends PopupWindow{
 
     private void delmsg() {
         if (listid.size()==0){
-            Toast.makeText(context,"没有选择删除项目哦...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"没有改变信息哦...",Toast.LENGTH_SHORT).show();
             return;
         }
         dialog.show();

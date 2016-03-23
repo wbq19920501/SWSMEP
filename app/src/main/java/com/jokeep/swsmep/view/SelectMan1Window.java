@@ -6,12 +6,10 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,9 +60,9 @@ public class SelectMan1Window extends PopupWindow{
     TextView phone_name;
     // 数据接口
     OnGetData ongetdata;
-    public SelectMan1Window(final Activity context, View.OnClickListener itemclick,String UserID, final String TOKENID){
+    public SelectMan1Window(final Activity context1, View.OnClickListener itemclick,String UserID, final String TOKENID){
         super();
-        this.context = context;
+        this.context = context1;
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.select_man1, null);
@@ -102,27 +100,27 @@ public class SelectMan1Window extends PopupWindow{
                 dismiss();
             }
         });
-        selectman_search.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {//修改回车键功能
-                    // 先隐藏键盘
-                    ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(context
-                                            .getCurrentFocus()
-                                            .getWindowToken(),
-                                    InputMethodManager.HIDE_NOT_ALWAYS);
-                }
-                String searchman = selectman_search.getText().toString().trim();
-                if (searchman.equals("") || searchman == null) {
-
-                } else {
-                    list.clear();
-                    searchmsg(TOKENID, searchman);
-                }
-                return false;
-            }
-        });
+//        selectman_search.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_ENTER) {//修改回车键功能
+//                    // 先隐藏键盘
+//                    ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+//                            .hideSoftInputFromWindow(context
+//                                            .getCurrentFocus()
+//                                            .getWindowToken(),
+//                                    InputMethodManager.HIDE_NOT_ALWAYS);
+//                }
+//                list.clear();
+//                String searchman = selectman_search.getText().toString().trim();
+//                if (searchman.equals("") || searchman == null) {
+//
+//                } else {
+//                    searchmsg(TOKENID, searchman);
+//                }
+//                return false;
+//            }
+//        });
 //        selectman_sx.setOnClickListener(itemclick);
         selectman_sx.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,26 +136,33 @@ public class SelectMan1Window extends PopupWindow{
             @Override
             public void onClick(View v) {
                 listItemID.clear();// 清空listItemID
-                for (int i = 0;i<list.size();i++){
-                    if (list.get(i).getCheck()){
-                        listItemID.add(i);
+                String searchman = selectman_search.getText().toString().trim();
+                if (searchman.equals("") || searchman == null) {
+                    for (int i = 0;i<list.size();i++){
+                        if (list.get(i).getCheck()){
+                            listItemID.add(i);
+                        }
                     }
-                }
-                if (listItemID.size() == 0) {
-                    Toast.makeText(context, "没有选中任何记录", Toast.LENGTH_SHORT).show();
+                    if (listItemID.size() == 0) {
+                        Toast.makeText(context, "没有选中任何记录", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for (int i=0;i<listItemID.size();i++){
+                            Integer integer = listItemID.get(i);
+                            Work2Info work2Info = new Work2Info();
+                            work2Info.setF_USERID(list.get(integer.intValue()).getF_USERID());
+                            work2Info.setF_USERNAME(list.get(integer.intValue()).getF_USERNAME());
+                            work2Info.setF_DEPARTMENTNAME(list.get(integer.intValue()).getF_DEPARTMENTNAME());
+                            work2Info.setF_POSITIONNAME(list.get(integer.intValue()).getF_POSITIONNAME());
+                            getlist.add(work2Info);
+                        }
+                        ongetdata.onDataCallBack(getlist);
+                    }
+                    dismiss();
                 } else {
-                    for (int i=0;i<listItemID.size();i++){
-                        Integer integer = listItemID.get(i);
-                        Work2Info work2Info = new Work2Info();
-                        work2Info.setF_USERID(list.get(integer.intValue()).getF_USERID());
-                        work2Info.setF_USERNAME(list.get(integer.intValue()).getF_USERNAME());
-                        work2Info.setF_DEPARTMENTNAME(list.get(integer.intValue()).getF_DEPARTMENTNAME());
-                        work2Info.setF_POSITIONNAME(list.get(integer.intValue()).getF_POSITIONNAME());
-                        getlist.add(work2Info);
-                    }
-                    ongetdata.onDataCallBack(getlist);
+                    selectman_search.setText("");
+                    list.clear();
+                    searchmsg(TOKENID, searchman);
                 }
-                dismiss();
             }
         });
         Rect frame = new Rect();

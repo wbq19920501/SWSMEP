@@ -88,9 +88,9 @@
                     android:paddingLeft="5dp"
                     android:background="@drawable/search_edittext"
                     android:drawableLeft="@mipmap/edit_search"
-                    android:imeOptions="actionSearch"
                     android:singleLine="true"/>
             </LinearLayout>
+                    <!--android:imeOptions="actionSearch"-->
             <ListView
                 android:id="@+id/selectman_list1"
                 android:layout_width="match_parent"

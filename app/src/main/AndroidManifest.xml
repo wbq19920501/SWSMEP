@@ -95,12 +95,22 @@
             android:name=".activity.WorkReturnIdeaActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity android:name=".activity.WebViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.OutgoingActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OutgoingActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".activity.SureInActivity"
+        <activity
+            android:name=".activity.SureInActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity android:name=".activity.OutgoingHandleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustPan" >
+        </activity>
+        <activity android:name=".activity.AddScheduleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustPan"/>
     </application>

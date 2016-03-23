@@ -299,6 +299,8 @@ public class WorkIdea2Fragmet extends Fragment{
                     }else {
                         holder.return_msg.setVisibility(View.GONE);
                     }
+                }else if(typeopen == 1){
+                        holder.return_msg.setVisibility(View.VISIBLE);
                 }
                 final SuggestionInfo suggestionInfo = suggestionInfos.get(position);
                 final List<SuggestionFilesInfo> suggestionFilesInfos = suggestionInfo.getSuggestionFilesInfos();

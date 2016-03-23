@@ -26,20 +26,26 @@ public class Work1Info implements Serializable{
      */
 
     private String F_BUSINESSCODE;
-    private String F_DATAGUID;
-    private String F_EXECUTMAINID;
-    private int F_ISATT;
     private int F_JOINTTYPE;
     private String F_LINKURL;
+    private int type;// 1 判读显示状态
+    private String F_TODOUSERID;
+    private String F_HANDLETIME;
     private int F_PAGE_XH;
+    private String F_TODOID;
+    private int F_STATE;
+    private String F_SORTNAME;
+    private String F_CREATEUSERNAME;
+    private String F_NODEHANDLERID;
+    private String F_EXECUTMAINID;
     private String F_SENDDATE;
+    private int F_ISVIEW;
+    private int F_ISATT;
+    private String F_NODEID;
+    private String F_TITLE;
     private String F_SPONSTIME;
     private String F_SPONSUSER;
-    private int F_STATE;
-    private String F_TITLE;
-    private String F_TODOID;
-    private String F_TODOUSERID;
-    private int type;// 1 判读显示状态
+    private String F_DATAGUID;
     /**
      * F_CREATEUSERID : 8D2C041814114790A543EDB103330A97
      * F_FILEPATH :
@@ -241,5 +247,53 @@ public class Work1Info implements Serializable{
 
     public String getF_STATENAME() {
         return F_STATENAME;
+    }
+
+    public String getF_HANDLETIME() {
+        return F_HANDLETIME;
+    }
+
+    public void setF_HANDLETIME(String f_HANDLETIME) {
+        F_HANDLETIME = f_HANDLETIME;
+    }
+
+    public String getF_SORTNAME() {
+        return F_SORTNAME;
+    }
+
+    public void setF_SORTNAME(String f_SORTNAME) {
+        F_SORTNAME = f_SORTNAME;
+    }
+
+    public String getF_CREATEUSERNAME() {
+        return F_CREATEUSERNAME;
+    }
+
+    public void setF_CREATEUSERNAME(String f_CREATEUSERNAME) {
+        F_CREATEUSERNAME = f_CREATEUSERNAME;
+    }
+
+    public String getF_NODEHANDLERID() {
+        return F_NODEHANDLERID;
+    }
+
+    public void setF_NODEHANDLERID(String f_NODEHANDLERID) {
+        F_NODEHANDLERID = f_NODEHANDLERID;
+    }
+
+    public int getF_ISVIEW() {
+        return F_ISVIEW;
+    }
+
+    public void setF_ISVIEW(int f_ISVIEW) {
+        F_ISVIEW = f_ISVIEW;
+    }
+
+    public String getF_NODEID() {
+        return F_NODEID;
+    }
+
+    public void setF_NODEID(String f_NODEID) {
+        F_NODEID = f_NODEID;
     }
 }

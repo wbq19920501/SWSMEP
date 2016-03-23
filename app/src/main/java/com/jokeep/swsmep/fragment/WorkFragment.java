@@ -61,7 +61,7 @@ public class WorkFragment extends Fragment {
     String[] colors = {"#6BC773","#5C6BC0","#F75D8C","#008CEE"};
     private String[] str = {"收文","签报","发文","协同"};
     Intent intent;
-
+    String colorOne = "#E85A4F";
     //dengJ
     private List<WorkNumber> NumberList;
     private MyData mMyData = MyData.getInstance();
@@ -341,27 +341,6 @@ public class WorkFragment extends Fragment {
         sp = getActivity().getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         TOKENID = sp.getString(SaveMsg.TOKENID, "");
         Log.i("json",TOKENID);
-
-
-//        for (int i=0;i<s.length;i++){
-//            switch (i){
-//                case 0:
-//                    colors.add("#6BC773");
-//                    break;
-//                case 1:
-//                    colors.add("#5C6BC0");
-//                    break;
-//                case 3:
-//                    colors.add("#F75D8C");
-//                    break;
-//                case 4:
-//                    colors.add("#008CEE");
-//                    break;
-//                default:
-//                    colors.add("#008CEE");
-//                    break;
-//            }
-//        }
         work_btn = (ImageButton) fragment.findViewById(R.id.work_btn);
         list_refresh = (PullToRefreshListView) fragment.findViewById(R.id.list_refresh);
         adapter = new BaseAdapter() {
@@ -412,18 +391,10 @@ public class WorkFragment extends Fragment {
                 }else {
                     holder.work_num.setVisibility(View.VISIBLE);
                 }
+                GradientDrawable bgshapeone = (GradientDrawable) holder.work_num.getBackground();
+                bgshapeone.setColor(Color.parseColor(colorOne));
                 GradientDrawable bgshape = (GradientDrawable) holder.work_name.getBackground();
                 bgshape.setColor(Color.parseColor(colors[position]));
-//                switch (position){
-//                    case 0:
-////                        holder.work_name.setBackground(getResources().getDrawable(R.drawable.work_round));
-//                        break;
-//                    case 1:
-////                        GradientDrawable bgshape2 = (GradientDrawable) holder.work_name.getBackground();
-//                        bgshape.setColor(Color.parseColor(colors[position]));
-////                        holder.work_name.setBackground(getResources().getDrawable(R.drawable.work_round2));
-//                        break;
-//                }
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

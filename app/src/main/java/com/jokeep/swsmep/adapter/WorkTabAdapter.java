@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +118,8 @@ public class WorkTabAdapter extends BaseAdapter{
         }else {
             holder.worktab_state.setVisibility(View.VISIBLE);
             holder.worktab_state.setText(work1Info.getF_STATENAME());
-            holder.worktab_state.setTextColor(Color.parseColor(work1Info.getF_COLOR()));
+            TextPaint tp = holder.worktab_state.getPaint();
+            tp.setFakeBoldText(true);
         }
         int f_isatt = work1Info.getF_ISATT();
         if (f_isatt == 0){

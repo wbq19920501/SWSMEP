@@ -13,17 +13,6 @@
             android:layout_height="match_parent"
             android:src="@mipmap/back"
             android:background="@drawable/btn_back"/>
-        <!--<LinearLayout
-            android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/back"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"/>
-        </LinearLayout>-->
         <TextView
             android:id="@+id/phone_name"
             android:layout_width="wrap_content"
@@ -80,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/add_work1"/>
-                <!--<com.jokeep.swsmep.view.MyWebView
+                <com.jokeep.swsmep.view.MyWebView
                     android:id="@+id/add_context"
                     android:layout_toRightOf="@id/add_work1"
                     android:paddingLeft="10dp"
@@ -89,9 +78,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/box_rect"
-                    />-->
+                    />
                 <EditText
-                    android:id="@+id/add_context"
+                    android:visibility="gone"
+                    android:id="@+id/add_context2"
                     android:layout_toRightOf="@id/add_work1"
                     android:hint="输入备注详情内容"
                     android:paddingLeft="10dp"

@@ -115,7 +115,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
                 if (i == 0){
                     //0 可以打电话 1号码是空
                     String callnumber = list.get(position).getCallphone().toString();
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + callnumber));
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + callnumber));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }else {
                     Toast.makeText(mContext, "暂无手机号码", Toast.LENGTH_SHORT).show();

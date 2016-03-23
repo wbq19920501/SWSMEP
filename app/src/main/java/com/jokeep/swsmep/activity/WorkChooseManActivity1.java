@@ -76,10 +76,10 @@ public class WorkChooseManActivity1 extends BaseActivity{
     private void initdata() {
         workTables = (List<WorkTable>) getIntent().getSerializableExtra("worktable");
         if (typeopen == 0){
-            SaveType = "Add";
+            SaveType = "Submit";
             JointID = "";
         }else {
-            SaveType = "Edit";
+            SaveType = "Submit";
             JointID = getIntent().getStringExtra("f_jointid");
         }
 
