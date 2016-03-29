@@ -218,6 +218,7 @@ public class WorkChooseManActivity1 extends BaseActivity{
                     @Override
                     public void onError(Throwable ex, boolean isOnCallback) {
                         dialog.dismiss();
+                        Toast.makeText(WorkChooseManActivity1.this,"新建协同失败",Toast.LENGTH_SHORT).show();
                         Log.d("ex", ex.getMessage());
                     }
 
@@ -320,8 +321,16 @@ public class WorkChooseManActivity1 extends BaseActivity{
             @Override
             public void onDataCallBack(List<Work2Info> getlist) {
                 Log.i("-------------", getlist.toString());
-                list.clear();
-                list = getlist;
+//                list.clear();
+//                list = getlist;
+                for (int i=0;i<getlist.size();i++){
+                    Work2Info work2Info = new Work2Info();
+                    work2Info.setF_USERID(getlist.get(i).getF_USERID());
+                    work2Info.setF_USERNAME(getlist.get(i).getF_USERNAME());
+                    work2Info.setF_DEPARTMENTNAME(getlist.get(i).getF_DEPARTMENTNAME());
+                    work2Info.setF_POSITIONNAME(getlist.get(i).getF_POSITIONNAME());
+                    list.add(work2Info);
+                }
                 adapter.notifyDataSetChanged();
             }
         });

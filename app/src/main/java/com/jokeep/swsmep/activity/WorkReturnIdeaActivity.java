@@ -214,6 +214,7 @@ public class WorkReturnIdeaActivity extends BaseActivity{
             @Override
             public void onDataCallBack(List<String> listmsg) {
                 add_context.setText(listmsg.get(0).toString());
+                add_context.setSelection(add_context.getText().toString().length());
             }
         });
     }
@@ -317,6 +318,7 @@ public class WorkReturnIdeaActivity extends BaseActivity{
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
+                    dialog.dismiss();
                     String s = AES.desEncrypt(result.toString());
                     Log.d("s", s);
                     try {
@@ -325,15 +327,13 @@ public class WorkReturnIdeaActivity extends BaseActivity{
                         if (code == 1) {
                             Toast.makeText(WorkReturnIdeaActivity.this, object2.getString("ErrorMsg") + "", Toast.LENGTH_SHORT).show();
                         } else {
-//                            intent = new Intent(action);
-                            setResult(RESULT_OK);
+//                            setResult(RESULT_OK);
 //                            sendBroadcast(intent);
                             finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    dialog.dismiss();
                 }
 
                 @Override

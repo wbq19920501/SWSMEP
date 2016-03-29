@@ -18,6 +18,7 @@ import com.jokeep.swsmep.activity.LookWorkActivity;
 import com.jokeep.swsmep.model.Work1Info;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,26 +73,29 @@ public class WorkTabAdapter extends BaseAdapter{
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (typeopen){
+                switch (typeopen) {
                     case 1:
-                        intent = new Intent(context,LookWorkActivity.class);
+                        intent = new Intent(context, LookWorkActivity.class);
                         break;
                     case 2:
                         intent = new Intent(context, AddWorkActivity.class);
                         break;
                     case 3:
-                        intent = new Intent(context,LookWorkActivity.class);
+                        intent = new Intent(context, LookWorkActivity.class);
                         break;
                     case 4:
-                        intent = new Intent(context,LookWorkActivity.class);
+                        intent = new Intent(context, LookWorkActivity.class);
                         break;
                 }
-                intent.putExtra("typeopen",typeopen);
-                intent.putExtra("work1Infos", (Serializable) work1Infos);
-                intent.putExtra("intposition",position);
-                intent.putExtra("TOKENID",TOKENID);
+                List<Work1Info> work1InfosItem = new ArrayList<Work1Info>();
+                work1InfosItem.add(work1Infos.get(position));
+                intent.putExtra("typeopen", typeopen);
+                intent.putExtra("work1Infos", (Serializable) work1InfosItem);
+                intent.putExtra("intposition", position);
+                intent.putExtra("TOKENID", TOKENID);
                 context.startActivity(intent);
-                ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
+                ((Activity)context).overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         Work1Info work1Info = work1Infos.get(position);
@@ -100,8 +104,11 @@ public class WorkTabAdapter extends BaseAdapter{
             if (f_isView==1){
                 holder.worktab_title.setTextColor(Color.parseColor("#666666"));
             }else {
-
+                TextPaint tp = holder.worktab_title.getPaint();
+                tp.setFakeBoldText(true);
             }
+        }else if (typeopen == 3){
+            holder.worktab_title.setTextColor(Color.parseColor("#999999"));
         }
         holder.worktab_title.setText(work1Info.getF_TITLE());
         int typename = work1Info.getTypename();
@@ -111,15 +118,23 @@ public class WorkTabAdapter extends BaseAdapter{
             holder.worktab_name.setVisibility(View.VISIBLE);
             holder.worktab_name.setText(work1Info.getF_SPONSUSER());
         }
-        holder.worktab_time.setText(work1Info.getF_SPONSTIME());
+        if (typeopen == 1 || typeopen ==3){
+            holder.worktab_time.setText(work1Info.getF_SPONSTIME());
+        }else {
+            holder.worktab_time.setText(work1Info.getF_SENDDATE());
+        }
+        int f_state = work1Info.getF_STATE();
+        if (f_state == 10){
+            holder.worktab_state.setTextColor(Color.parseColor("#21ac68"));
+        }else {
+            holder.worktab_state.setTextColor(Color.parseColor("#008cee"));
+        }
         int type = work1Info.getType();
         if (type == 0){
             holder.worktab_state.setVisibility(View.GONE);
         }else {
             holder.worktab_state.setVisibility(View.VISIBLE);
             holder.worktab_state.setText(work1Info.getF_STATENAME());
-            TextPaint tp = holder.worktab_state.getPaint();
-            tp.setFakeBoldText(true);
         }
         int f_isatt = work1Info.getF_ISATT();
         if (f_isatt == 0){
@@ -129,6 +144,8 @@ public class WorkTabAdapter extends BaseAdapter{
         }
         return convertView;
     }
+
+
 
     class ViewHolder{
         TextView worktab_title,worktab_name,

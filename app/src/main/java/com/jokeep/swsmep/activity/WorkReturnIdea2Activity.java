@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.BaseActivity;
 import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.MyData;
 import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.model.SuggestionInfo;
@@ -69,6 +72,10 @@ public class WorkReturnIdea2Activity extends BaseActivity{
     String TOKENID;
     List<SuggestionInfo> listsuggestionInfo;
     String Title,BusinessCode,MainID;
+    private View view_file;
+    private RelativeLayout mRelativeLayout;
+    private int reply;
+    private MyData mMyData = MyData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +94,19 @@ public class WorkReturnIdea2Activity extends BaseActivity{
         workTables = new ArrayList<WorkTable>();
         listchange = new ArrayList<Integer>();
         application = (SwsApplication) getApplication();
-
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.rl_file);
+        view_file = findViewById(R.id.view_file);
         listsuggestionInfo = (List<SuggestionInfo>) getIntent().getSerializableExtra("suggestionInfo");
-        MainID = getIntent().getStringExtra("MainID");
+        reply = getIntent().getIntExtra("reply", 2);
+        if(reply==1){
+            MainID = getIntent().getStringExtra("MainID");
+            mRelativeLayout.setVisibility(View.GONE);
+        }else {
+            MainID =mMyData.getmRECEIVEDBILLID();
+            view_file.setVisibility(View.VISIBLE);
+            mRelativeLayout.setVisibility(View.VISIBLE);
+        }
+
         Title = getIntent().getStringExtra("Title");
         BusinessCode = getIntent().getStringExtra("BusinessCode");
 

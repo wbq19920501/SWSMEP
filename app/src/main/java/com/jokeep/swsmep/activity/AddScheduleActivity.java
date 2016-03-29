@@ -1,5 +1,7 @@
 package com.jokeep.swsmep.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.base.BaseActivity;
+import com.jokeep.swsmep.utls.DateTimePickDialogUtil;
 
 /**
  * Created by wbq501 on 2016-3-22 17:06.
@@ -26,6 +29,7 @@ public class AddScheduleActivity extends BaseActivity{
     private TextView remind_time,remind_time_start
             ,remind_time2,remind_time_start2;
     private boolean switchopen = false;
+    private String OneTime,TwoTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,10 @@ public class AddScheduleActivity extends BaseActivity{
     }
 
     private void initdata() {
+        request();
+    }
+
+    private void request() {
 
     }
 
@@ -54,11 +62,50 @@ public class AddScheduleActivity extends BaseActivity{
         schedule_context = (EditText) findViewById(R.id.schedule_context);
         schedule_switch = (ImageButton) findViewById(R.id.schedule_switch);
 
+        schedule_timechoose_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosetime(1);
+            }
+        });
+        schedule_timechoose_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosetime(2);
+            }
+        });
+
         schedule_remind = (LinearLayout) findViewById(R.id.schedule_remind);
         remind_time = (TextView) findViewById(R.id.remind_time);
         remind_time_start = (TextView) findViewById(R.id.remind_time_start);
         remind_time2 = (TextView) findViewById(R.id.remind_time2);
         remind_time_start2 = (TextView) findViewById(R.id.remind_time_start2);
+
+        remind_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosetime(3);
+            }
+        });
+        remind_time2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String[] s = {"1分钟", "10分钟", "30分钟" , "1小时"};
+                new  AlertDialog.Builder(AddScheduleActivity.this)
+                        .setTitle("请选择间隔时间")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setSingleChoiceItems(s,  0 ,
+                                new  DialogInterface.OnClickListener() {
+                                    public   void  onClick(DialogInterface dialog,  int  which) {
+                                        remind_time2.setText(s[which]);
+                                        dialog.dismiss();
+                                    }
+                                }
+                        )
+                        .setNegativeButton("取消", null)
+                        .show();
+            }
+        });
 
         schedule_switch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +121,24 @@ public class AddScheduleActivity extends BaseActivity{
                 }
             }
         });
+    }
+
+    private void choosetime(int i) {
+        if (i==1){
+            DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                    AddScheduleActivity.this, null,1);
+            dateTimePicKDialog.dateTimePicKDialog(schedule_timechoose_start);
+            OneTime = DateTimePickDialogUtil.SizeTime();
+        }else if (i==2){
+            DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                    AddScheduleActivity.this, OneTime,2);
+            dateTimePicKDialog.dateTimePicKDialog(schedule_timechoose_end);
+            TwoTime = DateTimePickDialogUtil.SizeTime();
+        }else if(i==3){
+            DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                    AddScheduleActivity.this, null,3);
+            dateTimePicKDialog.dateTimePicKDialog(remind_time);
+        }
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

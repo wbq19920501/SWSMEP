@@ -29,7 +29,9 @@ import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.FileDownloadThread;
 import com.jokeep.swsmep.base.FileType;
 import com.jokeep.swsmep.base.HttpIP;
+import com.jokeep.swsmep.base.MyData;
 import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.base.SwsApplication;
 import com.jokeep.swsmep.model.SuggestionFilesInfo;
 import com.jokeep.swsmep.model.SuggestionInfo;
 import com.jokeep.swsmep.model.SuggestionsInfo;
@@ -68,10 +70,11 @@ public class WorkIdea2Fragmet extends Fragment{
     List<Work1Info> work1Infos;
     List<SuggestionsInfo> suggestionsInfos;
     List<SuggestionFilesInfo> suggestionFilesInfos;
-    String F_EXECUTMAINID,TOKENID;
+    String F_EXECUTMAINID,TOKENID,UserID;
     private ShowDialog dialog;
     Intent intent;
     String Title,BusinessCode,MainID;
+    private MyData mMyData = MyData.getInstance();
     DownloadProgressDialog mProgressbar;
     int typeopen,state;
     @Override
@@ -150,6 +153,8 @@ public class WorkIdea2Fragmet extends Fragment{
                                 suggestionInfo.setOPINIONREPLY(jsonObject.getString("OPINIONREPLY"));
                                 suggestionInfos.add(suggestionInfo);
                             }
+                            Log.d("suggestionsInfos",suggestionInfos.toString());
+                            Log.d("suggestionsInfos",suggestionInfos.toString());
                             if (array.length()==0){
                                 no_msg.setVisibility(View.VISIBLE);
                                 idea_list.setVisibility(View.GONE);
@@ -185,8 +190,8 @@ public class WorkIdea2Fragmet extends Fragment{
             e.printStackTrace();
         }
     }
-
     private List<SuggestionsInfo> suggestionlist(String OPINIONREPLY) throws JSONException {
+        suggestionsInfos = new ArrayList<SuggestionsInfo>();
         JSONArray array = new JSONArray(OPINIONREPLY);
         for (int i=0;i<array.length();i++){
             JSONObject object1 = (JSONObject) array.get(i);
@@ -222,6 +227,7 @@ public class WorkIdea2Fragmet extends Fragment{
     }
 
     private List<SuggestionFilesInfo> files(String ATTACHMENT) throws JSONException {
+        suggestionFilesInfos = new ArrayList<SuggestionFilesInfo>();
         JSONArray array = new JSONArray(ATTACHMENT);
         for (int i=0;i<array.length();i++){
             JSONObject object1 = (JSONObject) array.get(i);
@@ -234,7 +240,10 @@ public class WorkIdea2Fragmet extends Fragment{
         }
         return suggestionFilesInfos;
     }
+
     private void init() {
+        SwsApplication mApplication = (SwsApplication) getActivity().getApplication();
+        UserID = mApplication.getFUSERID();
         typeopen = getActivity().getIntent().getIntExtra("typeopen", 1);
         dialog = new ShowDialog(getActivity(),R.style.MyDialog,getResources().getString(R.string.dialogmsg));
         mProgressbar = new DownloadProgressDialog(getActivity());
@@ -243,16 +252,21 @@ public class WorkIdea2Fragmet extends Fragment{
         suggestionFilesInfos = new ArrayList<SuggestionFilesInfo>();
         work1Infos = new ArrayList<Work1Info>();
         work1Infos = (List<Work1Info>) getActivity().getIntent().getSerializableExtra("work1Infos");
-        int position = getActivity().getIntent().getIntExtra("intposition", 0);
-        if (typeopen == 4){
-            state = work1Infos.get(position).getF_STATE();
+//        int position = getActivity().getIntent().getIntExtra("intposition", 0);
+            if (typeopen == 4){
+            state = work1Infos.get(0).getF_STATE();
         }
-        F_EXECUTMAINID = work1Infos.get(position).getF_EXECUTMAINID();
-        Title = work1Infos.get(position).getF_TITLE();
-        BusinessCode = work1Infos.get(position).getF_BUSINESSCODE();
-        MainID = work1Infos.get(position).getF_JOINTID();
-        TOKENID = getActivity().getIntent().getStringExtra("TOKENID");
+        F_EXECUTMAINID = work1Infos.get(0).getF_EXECUTMAINID();
+        Title = work1Infos.get(0).getF_TITLE();
+        BusinessCode = work1Infos.get(0).getF_BUSINESSCODE();
+        //MainID为空
+        if(typeopen == 3||typeopen == 1){
+            MainID = work1Infos.get(0).getF_TODOID();
+        }else {
+            MainID = work1Infos.get(0).getF_JOINTID();
+        }
 
+        TOKENID = getActivity().getIntent().getStringExtra("TOKENID");
         no_msg = (LinearLayout) fragment.findViewById(R.id.no_msg);
         idea_list = (ListView) fragment.findViewById(R.id.idea_list);
         adapter = new BaseAdapter() {
@@ -302,72 +316,92 @@ public class WorkIdea2Fragmet extends Fragment{
                 }else if(typeopen == 1){
                         holder.return_msg.setVisibility(View.VISIBLE);
                 }
+
                 final SuggestionInfo suggestionInfo = suggestionInfos.get(position);
+
+                if(suggestionInfo.getF_HANDLEID().equals(UserID)==true)
+                {//如果办理人是自己不显示回复
+                    holder.return_msg.setVisibility(View.GONE);
+                }
+
                 final List<SuggestionFilesInfo> suggestionFilesInfos = suggestionInfo.getSuggestionFilesInfos();
                 holder.man_name.setText(suggestionInfo.getF_HANDLENAME());
                 holder.man_type.setText(suggestionInfo.getF_DEPARTMENTNAME()+"-"+suggestionInfo.getF_POSITIONNAME());
                 holder.man_time.setText(suggestionInfo.getF_HANDLETIME());
                 holder.man_context.setText(suggestionInfo.getF_OPINION());
-                if (suggestionFilesInfos.size()==0){
+                int sizefiles = suggestionFilesInfos.size();
+                if (sizefiles==0){
                     holder.files.setVisibility(View.GONE);
-                }
-                for (int i=0;i<suggestionFilesInfos.size();i++){
-                    TextView textView = new TextView(getActivity());
-                    textView.setText(suggestionFilesInfos.get(i).getF_FILENAME());
-                    textView.setTextColor(Color.parseColor("#21ac69"));
-                    holder.addview.addView(textView);
-                    final int finalI = i;
-                    textView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            downfile(HttpIP.Web+"/"+suggestionFilesInfos.get(finalI).getF_STORAGEPATH(),
-                                    suggestionFilesInfos.get(finalI).getF_FILENAME());
-                        }
-                    });
+                }else {
+                    for (int i=0;i<suggestionFilesInfos.size();i++){
+                        TextView textView = new TextView(getActivity());
+                        textView.setText(suggestionFilesInfos.get(i).getF_FILENAME());
+                        textView.setTextColor(Color.parseColor("#21ac69"));
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textView.getLayoutParams();
+                        params.setMargins(0,20,0,0);
+                        textView.setLayoutParams(params);
+                        holder.addview.addView(textView);
+                        final int finalI = i;
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                downfile(HttpIP.Web+"/"+suggestionFilesInfos.get(finalI).getF_STORAGEPATH(),
+                                        suggestionFilesInfos.get(finalI).getF_FILENAME());
+                            }
+                        });
+                    }
                 }
                 List<SuggestionsInfo> suggestionsInfos = suggestionInfo.getSuggestionsInfos();
-                for (int i=0;i<suggestionsInfos.size();i++){
-                    SuggestionsInfo suggestionsInfo = suggestionsInfos.get(i);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    LayoutInflater inflater = LayoutInflater.from(getActivity());
-                    View view = inflater.inflate(R.layout.wrok_idea_item2, null);
-                    TextView man_name = (TextView) view.findViewById(R.id.man_name);
-                    man_name.setText(suggestionsInfo.getF_USERNAME());
+                int size = suggestionsInfos.size();
+                if (size == 0){
 
-                    TextView man_type = (TextView) view.findViewById(R.id.man_type);
-                    man_type.setText(suggestionsInfo.getF_DEPARTMENTNAME()+"-"+suggestionsInfo.getF_POSITIONNAME());
+                }else {
+                    for (int i=0;i<suggestionsInfos.size();i++){
+                        SuggestionsInfo suggestionsInfo = suggestionsInfos.get(i);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        LayoutInflater inflater = LayoutInflater.from(getActivity());
+                        View view = inflater.inflate(R.layout.wrok_idea_item2, null);
+                        TextView man_name = (TextView) view.findViewById(R.id.man_name);
+                        man_name.setText(suggestionsInfo.getF_USERNAME());
 
-                    TextView man_context = (TextView) view.findViewById(R.id.man_context);
-                    man_context.setText(suggestionsInfo.getF_OPINION());
+                        TextView man_type = (TextView) view.findViewById(R.id.man_type);
+                        man_type.setText(suggestionsInfo.getF_DEPARTMENTNAME()+"-"+suggestionsInfo.getF_POSITIONNAME());
 
-                    LinearLayout files = (LinearLayout) view.findViewById(R.id.files);
-                    LinearLayout addview = (LinearLayout) view.findViewById(R.id.addview);
-                    final List<SuggestionFilesInfo> suggestionFilesInfos1 = suggestionsInfo.getSuggestionFilesInfos();
-                    if (suggestionFilesInfos1.size()==0){
-                        files.setVisibility(View.GONE);
-                    }else {
-                        for (int j=0;j<suggestionFilesInfos1.size();j++){
-                            TextView textView = new TextView(getActivity());
-                            textView.setText(suggestionFilesInfos1.get(j).getF_FILENAME());
-                            textView.setTextColor(Color.parseColor("#21ac69"));
-                            addview.addView(textView);
-                            final int finalJ = j;
-                            textView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    downfile(HttpIP.Web+"/"+suggestionFilesInfos1.get(finalJ).getF_STORAGEPATH(),
-                                            suggestionFilesInfos1.get(finalJ).getF_FILENAME());
-                                }
-                            });
+                        TextView man_context = (TextView) view.findViewById(R.id.man_context);
+                        man_context.setText(suggestionsInfo.getF_OPINION());
+
+                        LinearLayout files = (LinearLayout) view.findViewById(R.id.files);
+                        LinearLayout addview = (LinearLayout) view.findViewById(R.id.addview);
+                        final List<SuggestionFilesInfo> suggestionFilesInfos1 = suggestionsInfo.getSuggestionFilesInfos();
+                        if (suggestionFilesInfos1.size()==0){
+                            files.setVisibility(View.GONE);
+                        }else {
+                            for (int j=0;j<suggestionFilesInfos1.size();j++){
+                                TextView textView = new TextView(getActivity());
+                                textView.setText(suggestionFilesInfos1.get(j).getF_FILENAME());
+                                textView.setTextColor(Color.parseColor("#21ac69"));
+                                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textView.getLayoutParams();
+                                params.setMargins(0, 20, 0, 0);
+                                textView.setLayoutParams(params);
+                                addview.addView(textView);
+                                final int finalJ = j;
+                                textView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        downfile(HttpIP.Web+"/"+suggestionFilesInfos1.get(finalJ).getF_STORAGEPATH(),
+                                                suggestionFilesInfos1.get(finalJ).getF_FILENAME());
+                                    }
+                                });
+                            }
                         }
+
+                        TextView man_time = (TextView) view.findViewById(R.id.man_time);
+                        man_time.setText(suggestionsInfo.getF_REPLYTIME());
+
+                        view.setLayoutParams(lp);
+                        holder.add_ideamsg.addView(view);
                     }
-
-                    TextView man_time = (TextView) view.findViewById(R.id.man_time);
-                    man_time.setText(suggestionsInfo.getF_REPLYTIME());
-
-                    view.setLayoutParams(lp);
-                    holder.add_ideamsg.addView(view);
                 }
                 ImageOptions imageOptions = new ImageOptions.Builder()
                         .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
@@ -383,8 +417,13 @@ public class WorkIdea2Fragmet extends Fragment{
                         List<SuggestionInfo> listsuggestionInfo = new ArrayList<SuggestionInfo>();
                         listsuggestionInfo.add(suggestionInfo);
                         intent.putExtra("suggestionInfo", (Serializable) listsuggestionInfo);
+                        if(MainID==null)
+                        {
+                            MainID=work1Infos.get(0).getF_TODOID();
+                        }
                         intent.putExtra("MainID",MainID);
                         intent.putExtra("Title",Title);
+                        intent.putExtra("reply",1);
                         intent.putExtra("BusinessCode",BusinessCode);
                         startActivityForResult(intent, 2);
                         getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

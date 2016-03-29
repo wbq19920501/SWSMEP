@@ -9,9 +9,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -129,6 +133,23 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         uselogin = (Button) findViewById(R.id.uselogin);
         uselogin.setOnClickListener(this);
 
+        usename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                usepsd.setText("");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         yzm_img = (TextView) findViewById(R.id.login_yzm_img);
         yzm_img.setOnClickListener(this);
 
@@ -154,6 +175,130 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             name = sp.getString("UserName","");
             usename.setText(name);
         }
+
+
+        //焦点定位并显示默认键盘
+        usename.setSelection(usename.getText().length());
+        InputMethodManager imm = (InputMethodManager) usename.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+
+        usename.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                usename.setCursorVisible(true);
+            }
+        });
+
+        //姓名
+        usename.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT
+                        || event.getKeyCode()==66) {
+                    // 在这里编写自己想要实现的功能
+                    if(usename.getText().toString().trim().length()>0)
+                    {
+                        usename.clearFocus();
+                        usename.setCursorVisible(false);
+                        usepsd.requestFocus();
+                        usepsd.setSelection(usepsd.getText().length());
+                    }
+                    return  true;
+                }
+                return false;
+            }
+        });
+
+
+        usepsd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                usepsd.setCursorVisible(true);
+            }
+        });
+
+        //密码
+        usepsd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || event.getKeyCode()==66) {
+                    // 在这里编写自己想要实现的功能
+                    if(usepsd.getText().toString().trim().length()>0)
+                    {
+                        usepsd.clearFocus();
+                        usepsd.setCursorVisible(false);
+                        login_yzm.requestFocus();
+                        login_yzm.setSelection(login_yzm.getText().length());
+                    }
+                    return  true;
+                }
+                return false;
+            }
+        });
+
+        login_yzm.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                login_yzm.setCursorVisible(true);
+            }
+        });
+
+        //***验证码
+        login_yzm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || event.getKeyCode()==66) {
+                    // 在这里编写自己想要实现的功能
+                    if(login_yzm.getText().toString().trim().length()>0)
+                    {
+                        login_yzm.clearFocus();
+                        login_yzm.setCursorVisible(false);
+                        LoadCheck();
+                    }
+                    return  true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void LoadCheck()
+    {
+
+        name = usename.getText().toString().trim();
+        psd = usepsd.getText().toString().trim();
+        String yzm = login_yzm.getText().toString().toString().trim();
+
+        if (name.equals("")||name==null){
+            Toast.makeText(LoginActivity.this,"用户名不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (psd.equals("")||psd==null){
+            Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!yzm_img.getText().toString().trim().equals(yzm) || yzm.equals("")) {
+            Toast.makeText(LoginActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        boolean save = save_psd.isChecked();
+        if (save){
+            editor.putString("UserName",name);
+            editor.putString("UserPsd",psd);
+            editor.putBoolean("CheckBox",true);
+            editor.commit();
+        }else {
+            editor.putString("UserName",name);
+            editor.putString("UserPsd",psd);
+            editor.putBoolean("CheckBox",false);
+            editor.commit();
+        }
+
+        httpRequest();
     }
 
     @Override
@@ -164,38 +309,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 yzm_img.setText(randomx + "");
                 break;
             case R.id.uselogin:
-                name = usename.getText().toString().trim();
-                psd = usepsd.getText().toString().trim();
-                String yzm = login_yzm.getText().toString().toString().trim();
+                LoadCheck();
 
-                if (name.equals("")||name==null){
-                    Toast.makeText(LoginActivity.this,"用户名不能为空",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (psd.equals("")||psd==null){
-                    Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!yzm_img.getText().toString().trim().equals(yzm) || yzm.equals("")) {
-                    Toast.makeText(LoginActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                boolean save = save_psd.isChecked();
-                if (save){
-                    editor.putString("UserName",name);
-                    editor.putString("UserPsd",psd);
-                    editor.putBoolean("CheckBox",true);
-                    editor.commit();
-                }else {
-                    editor.putString("UserName",name);
-                    editor.putString("UserPsd",psd);
-                    editor.putBoolean("CheckBox",false);
-                    editor.commit();
-                }
-//                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//                startActivity(intent);
-//                LoginActivity.this.finish();
-                httpRequest();
                 break;
             case R.id.login_onclick:
                 InputMethodManager imm = (InputMethodManager)

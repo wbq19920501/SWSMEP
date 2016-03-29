@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- **点击时效果**********背景引用的资源************是否获得焦点*********是否按下******* -->
+    <item android:drawable="@drawable/menu_btnchoose" android:state_focused="false" android:state_pressed="false"/>
+    <item android:drawable="@drawable/menu_btnchoose" android:state_focused="true" android:state_pressed="false"/>
+    <item android:drawable="@drawable/menu_btnchoose" android:state_focused="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/menu_btnchoose" android:state_focused="false" android:state_pressed="true"/>
+</selector>

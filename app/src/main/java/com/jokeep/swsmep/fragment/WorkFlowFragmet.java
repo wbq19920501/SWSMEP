@@ -76,13 +76,14 @@ public class WorkFlowFragmet extends Fragment{
     private void init() {
         work1Infos = new ArrayList<Work1Info>();
         work1Infos = (List<Work1Info>) getActivity().getIntent().getSerializableExtra("work1Infos");
-        final int position = getActivity().getIntent().getIntExtra("intposition", 0);
+//        final int position = getActivity().getIntent().getIntExtra("intposition", 0);
 
         sp = getActivity().getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         editor = sp.edit();
         TOKENID = sp.getString(SaveMsg.TOKENID, "");
 
-        F_EXECUTMAINID = work1Infos.get(position).getF_EXECUTMAINID();
+        F_EXECUTMAINID = work1Infos.get(0).getF_EXECUTMAINID();
+
 
         webview = (WebView) fragment.findViewById(R.id.webview);
         openwebview();

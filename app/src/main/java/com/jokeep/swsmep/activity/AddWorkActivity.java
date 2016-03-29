@@ -124,6 +124,7 @@ public class AddWorkActivity extends BaseActivity {
                             JSONObject object3 = (JSONObject) arrayTable.get(0);
                             add_work_title.setText(object3.getString("F_TITLE"));
 
+                            editHtmlContent = object3.getString("F_CONTENT");
                             add_context.addJavascriptInterface(new CoustomJs2Java(AddWorkActivity.this), "android");
                             add_context.getSettings().setJavaScriptEnabled(true);
                             add_context.setWebViewClient(new EditorClient(object3.getString("F_CONTENT")));

@@ -94,6 +94,14 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         });
         viewHolder.name.setText(this.list.get(position).getName());
         viewHolder.nametype.setText(this.list.get(position).getNametype());
+        int j = list.get(position).getF_CALLPHONETYPE();
+        if (j==0){
+            viewHolder.link_msg.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_menu));
+            viewHolder.call_img.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_menu));
+        }else {
+            viewHolder.link_msg.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_menu2));
+            viewHolder.call_img.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.btn_menu2));
+        }
         viewHolder.link_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

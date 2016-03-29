@@ -90,16 +90,28 @@ public class ChangePassdActivity extends BaseActivity{
                 passd2 = new_passd.getText().toString().trim();
                 passd3 = agree_passd.getText().toString().trim();
                 String psd = sp.getString("UserPsd", "");
-                if (!psd.equals(passd1) || passd1==null || passd1.equals("")) {
+                if (!psd.equals(passd1)){
+                    Toast.makeText(ChangePassdActivity.this, "旧密码输入错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passd1==null || passd1.equals("")) {
                     Toast.makeText(ChangePassdActivity.this, "请输入旧密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (passd2.length() < 6 || passd2.equals("") || passd2 == null) {
+                if (passd2.equals("") || passd2 == null) {
                     Toast.makeText(ChangePassdActivity.this, "请输入新密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (passd3.length() < 6 || passd3.equals("") || passd3 == null) {
+                if (passd2.length() < 6 ){
+                    Toast.makeText(ChangePassdActivity.this, "新密码长度不能小于6个字符", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passd3.equals("") || passd3 == null) {
                     Toast.makeText(ChangePassdActivity.this, "请输入确认密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passd3.length() < 6 ){
+                    Toast.makeText(ChangePassdActivity.this, "确认密码长度不能小于6个字符", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!passd2.equals(passd3)) {

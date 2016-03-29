@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <EditText
+
                 android:id="@+id/usename"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -40,7 +41,9 @@
                 android:drawablePadding="10dp"
                 android:maxLength="20"
                 android:background="@drawable/login_ed_shape"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/usepsd"/>
             <ImageView
                 android:id="@+id/clean_usename"
                 android:layout_gravity="center|right"
@@ -58,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <EditText
+
                 android:id="@+id/usepsd"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -71,7 +75,9 @@
                 android:password="true"
                 android:drawablePadding="10dp"
                 android:background="@drawable/login_ed_shape"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/login_yzm"/>
             <ImageView
                 android:id="@+id/clean_psd"
                 android:layout_gravity="center|right"
@@ -87,6 +93,7 @@
             android:layout_height="40dp"
             android:orientation="horizontal">
             <EditText
+                android:imeOptions="actionNext"
                 android:id="@+id/login_yzm"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class Work4Fragment extends Fragment{
     private ShowDialog dialog;
     private int page = 1;
     List<Work1Info> work1Infos;
+    LinearLayout no_msg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,23 +118,37 @@ public class Work4Fragment extends Fragment{
                                 work1Info.setF_JOINTID(object3.getString("F_JOINTID"));
                                 work1Info.setF_EXECUTMAINID(object3.getString("F_EXECUTMAINID"));
                                 work1Info.setF_STATE(object3.getInt("F_STATE"));
+                                work1Info.setF_SENDDATE(object3.getString("F_SENDDATE"));
                                 work1Info.setF_BUSINESSCODE(object3.getString("F_BUSINESSCODE"));
                                 work1Info.setType(1);
                                 work1Info.setTypename(0);
                                 work1Infos.add(work1Info);
                             }
+                            if (page==1){
+                                if (array.length()==0){
+                                    no_msg.setVisibility(View.VISIBLE);
+                                    work4_list.setVisibility(View.GONE);
+                                }else {
+                                    no_msg.setVisibility(View.GONE);
+                                    work4_list.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            work4_list.onRefreshComplete();
+                            adapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
+                        no_msg.setVisibility(View.VISIBLE);
+                        work4_list.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
-                    adapter.notifyDataSetChanged();
-                    work4_list.onRefreshComplete();
                 }
 
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
                     dialog.dismiss();
                     Toast.makeText(getActivity(), "数据错误", Toast.LENGTH_SHORT).show();
+                    no_msg.setVisibility(View.VISIBLE);
+                    work4_list.setVisibility(View.GONE);
                     Log.d("ex",ex.getMessage());
                 }
 
@@ -153,7 +169,9 @@ public class Work4Fragment extends Fragment{
     }
     public void refreshfragment(){
         page = 1;
-        work1Infos.clear();
+        work1Infos=new ArrayList<Work1Info>();
+        adapter = new WorkTabAdapter(getActivity(),work1Infos,4,TOKENID);
+        work4_list.setAdapter(adapter);
         requestmsg();
     };
     private void init() {
@@ -166,5 +184,6 @@ public class Work4Fragment extends Fragment{
         work4_list.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new WorkTabAdapter(getActivity(), work1Infos,4,TOKENID);
         work4_list.setAdapter(adapter);
+        no_msg = (LinearLayout) fragment.findViewById(R.id.no_msg);
     }
 }

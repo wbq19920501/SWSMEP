@@ -12,21 +12,6 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:id="@+id/btn_sub"
-            android:layout_margin="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="确定"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_exit"/>
-        <View
-            android:id="@+id/line"
-            android:layout_above="@id/btn_sub"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/line_background2"/>
         <LinearLayout
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -39,17 +24,6 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/back"
                 android:background="@drawable/btn_back"/>
-            <!--<LinearLayout
-                android:id="@+id/back"
-                android:layout_width="50dp"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/back"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>-->
             <TextView
                 android:id="@+id/idea_memsg"
                 android:layout_width="wrap_content"
@@ -94,6 +68,9 @@
                     android:id="@+id/add_context"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
                     android:hint="输入内容"
                     android:inputType="textMultiLine"
                     android:gravity="left|top"

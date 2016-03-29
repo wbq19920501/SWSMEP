@@ -25,7 +25,7 @@ import java.util.List;
  * SWSMEP
  */
 public class WorkPoPw extends PopupWindow{
-    private int[] res = {R.id.rl_xitong,R.id.rl_gongwen,R.id.rl_genzong};
+    private int[] res = {R.id.rl_gongwen,R.id.rl_xitong,R.id.rl_genzong};
     private List<LinearLayout> mLinearLayout = new ArrayList<>();
     private boolean flag = false;
     private int h;
@@ -62,7 +62,7 @@ public class WorkPoPw extends PopupWindow{
         h = context.getWindowManager().getDefaultDisplay().getHeight();
         int w = context.getWindowManager().getDefaultDisplay().getWidth();
         this.setContentView(mView);
-        this.setHeight(h-49);
+        this.setHeight(h-52);
         this.setWidth(w);
         this.setFocusable(true);
         setOutsideTouchable(true);

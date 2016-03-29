@@ -14,39 +14,7 @@
         android:paddingTop="10dp"
         android:textColor="#444444"
         android:paddingRight="20dp"/>
-    <TextView
-        android:id="@+id/worktab_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="姓名一"
-        android:textSize="16dp"
-        android:layout_below="@+id/worktab_title"
-        android:paddingLeft="20dp"
-        android:textColor="#999999"
-        android:paddingTop="10dp"
-        android:visibility="visible" />
-    <TextView
-        android:id="@+id/worktab_time"
-        android:layout_below="@+id/worktab_title"
-        android:layout_toRightOf="@id/worktab_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2016.2.25"
-        android:textSize="16dp"
-        android:paddingLeft="20dp"
-        android:textColor="#999999"
-        android:paddingTop="10dp"/>
-    <TextView
-        android:id="@+id/worktab_state"
-        android:layout_below="@+id/worktab_title"
-        android:layout_toRightOf="@id/worktab_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="办理中..."
-        android:textSize="16dp"
-        android:paddingLeft="20dp"
-        android:textColor="#999999"
-        android:paddingTop="10dp"/>
+
     <ImageView
         android:id="@+id/worktab_img"
         android:paddingRight="20dp"
@@ -56,11 +24,51 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/worktab_title"
         android:src="@mipmap/work_img"/>
+    <LinearLayout
+        android:id="@+id/tab_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/worktab_title"
+        android:layout_marginRight="60dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/worktab_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="姓名一"
+            android:textSize="16dp"
+            android:paddingLeft="20dp"
+            android:textColor="#999999"
+            android:paddingTop="10dp"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/worktab_time"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="2016.2.25"
+            android:gravity="center|left"
+            android:textSize="16dp"
+            android:paddingLeft="20dp"
+            android:textColor="#999999"
+            android:paddingTop="10dp"/>
+        <TextView
+            android:id="@+id/worktab_state"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="办理中..."
+            android:gravity="center|left"
+            android:textSize="16dp"
+            android:paddingLeft="20dp"
+            android:textColor="#999999"
+            android:paddingTop="10dp"/>
+    </LinearLayout>
+
     <View
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/worktab_time"
+        android:layout_below="@id/tab_msg"
         android:background="#c8c8c8"/>
 </RelativeLayout>

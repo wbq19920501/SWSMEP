@@ -39,7 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
+import org.xutils.common.util.DensityUtil;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
@@ -254,7 +256,14 @@ public class NewsFragment extends Fragment {
                     }else {
                         mViewHolder.mTextViewTitle.setTextColor(0xFF333333);
                     }
-                    x.image().bind(mViewHolder.mIageView, mArrayList.get(position).getF_CONTENTIMG());
+                   /* ImageOptions imageOptions = new ImageOptions.Builder()
+                            .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
+                            .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                            .setLoadingDrawableId(R.mipmap.ic_launcher)
+                            .setFailureDrawableId(R.mipmap.ic_launcher)
+                            .build();*/
+                    String S = mArrayList.get(position).getF_CONTENTIMG();
+                    x.image().bind(mViewHolder.mIageView,HttpIP.WebAdd+mArrayList.get(position).getF_CONTENTIMG());
                     mViewHolder.mTextViewDate.setText(mArrayList.get(position).getF_PUBSHOWDATE());
                     mViewHolder.mTextViewTitle.setText(mArrayList.get(position).getF_CONTENTTITLE());
                 }

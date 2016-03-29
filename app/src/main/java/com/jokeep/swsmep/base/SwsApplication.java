@@ -1,6 +1,7 @@
 package com.jokeep.swsmep.base;
 
 import android.app.Application;
+import android.widget.TextView;
 
 import org.xutils.DbManager;
 import org.xutils.x;
@@ -34,6 +35,10 @@ public class SwsApplication extends Application{
     private String F_MAINUNITID;//登录人单位id
     private String F_POSITIONNAME;//登录人岗位名称
     private String F_DEPARTMENTNAME;//登录人部门名称
+    private String F_INTERVAL;//刷新时间间隔
+    public static boolean IsWordEdit=false;
+
+    public static TextView OutgionCount;
 
     public String getF_DEPARTMENTNAME() {
         return F_DEPARTMENTNAME;
@@ -102,5 +107,13 @@ public class SwsApplication extends Application{
 //
 //                        }
 //                    });
+    }
+
+    public String getF_INTERVAL() {
+        return F_INTERVAL;
+    }
+
+    public void setF_INTERVAL(String f_INTERVAL) {
+        F_INTERVAL = f_INTERVAL;
     }
 }

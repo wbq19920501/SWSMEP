@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,13 +23,12 @@ import com.jokeep.swsmep.fragment.IncomingFragment;
 import com.jokeep.swsmep.fragment.OutgoingFragment;
 import com.jokeep.swsmep.fragment.SignFragment;
 import com.jokeep.swsmep.view.ShowDialog;
-import android.util.Log;
+
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -46,6 +45,7 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
     private TextView mOfficial_num_one,mOfficial_num_two,mOfficial_num_three;
     private View mOfficial_view_one,mOfficial_view_two,mOfficial_view_three;
     private ViewPager mViewPager;
+    private ImageView mImageView;
     private IncomingFragment mIncomingFragment;
     private OutgoingFragment mOutgoingFragment;
     private SignFragment mSignFragment;
@@ -55,6 +55,7 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
     private  SharedPreferences spref;
     private SwsApplication application;
     private String UserID;
+    private String flag ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,30 +78,48 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
         mOfficial_text_two = (TextView) findViewById(R.id.official_text_two);
         mOfficial_text_three = (TextView) findViewById(R.id.official_text_three);
         mOfficial_num_one = (TextView) findViewById(R.id.official_num_one);
+        SwsApplication.OutgionCount =mOfficial_num_one;
         mOfficial_num_two = (TextView) findViewById(R.id.official_num_two);
         mOfficial_num_three = (TextView) findViewById(R.id.official_num_three);
         mOfficial_view_one = findViewById(R.id.official_view_one);
         mOfficial_view_two = findViewById(R.id.official_view_two);
         mOfficial_view_three = findViewById(R.id.official_view_three);
         mViewPager = (ViewPager) findViewById(R.id.official_viewpager);
+        mImageView = (ImageView) findViewById(R.id.seek_official);
         mIncomingFragment = new IncomingFragment();
         mSignFragment = new SignFragment();
         mOutgoingFragment = new OutgoingFragment();
+        //监听公文办理中的返回事件
         mLinearLayout.setOnClickListener(this);
+        //监听公文办理中的搜索事件
+        mImageView.setOnClickListener(this);
     }
     private void init(){
+        flag = getIntent().getStringExtra("flag");
         application = (SwsApplication)getApplication();
         UserID = application.getFUSERID();
         spref =  getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         TOKENID = spref.getString(SaveMsg.TOKENID, "");
         mArrayListFragment = new ArrayList<>();
         mArrayListFragment.add(mOutgoingFragment);
-        mArrayListFragment.add(mSignFragment);
         mArrayListFragment.add(mIncomingFragment);
+        mArrayListFragment.add(mSignFragment);
         mViewPager.setAdapter(new MyFragmentPager(getSupportFragmentManager(),mArrayListFragment));
         mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setCurrentItem(0);
+        setFlag();
         mViewPager.setOnPageChangeListener(new MyViewPagerOnPageChangeListener());
+    }
+    //设置点击工作条目进入公文办理指定位置
+    private void setFlag(){
+        if(flag.equals("out")||flag.equals("Official")){
+            mViewPager.setCurrentItem(0);
+        }else if(flag.equals("sign")){
+            mViewPager.setCurrentItem(2);
+            changeClor(2);
+        }else {
+            mViewPager.setCurrentItem(1);
+            changeClor(1);
+        }
     }
     @Override
     public void onClick(View v) {
@@ -119,6 +138,11 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
             case R.id.official_three:
                 changeClor(2);
                 mViewPager.setCurrentItem(2,false);
+                break;
+            case R.id.seek_official:
+                Intent mIntent = new Intent(this,OfficialSearchActivity.class);
+                startActivity(mIntent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
 
         }
@@ -162,7 +186,7 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
         }
         return super.onKeyDown(keyCode, event);
     }
-
+   //关闭页面自左向右
     private void exitanim() {
         finish();
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
@@ -221,14 +245,14 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
                                     //发文
                                     mOfficial_num_one.setText(item.getString("F_TODOCOUNT").toString());
                                     mOfficial_num_one.setVisibility(View.VISIBLE);
-                                }else  if (item.getString("F_MENUCODE").equals("000005") == true
-                                        && item.getInt("F_TODOCOUNT") > 0) {
-                                    //签报
-                                    mOfficial_num_two.setText(item.getString("F_TODOCOUNT").toString());
-                                    mOfficial_num_two.setVisibility(View.VISIBLE);
                                 }else  if (item.getString("F_MENUCODE").equals("000002") == true
                                         && item.getInt("F_TODOCOUNT") > 0) {
                                     //收文
+                                    mOfficial_num_two.setText(item.getString("F_TODOCOUNT").toString());
+                                    mOfficial_num_two.setVisibility(View.VISIBLE);
+                                }else  if (item.getString("F_MENUCODE").equals("000005") == true
+                                        && item.getInt("F_TODOCOUNT") > 0) {
+                                    //签报
                                     mOfficial_num_three.setText(item.getString("F_TODOCOUNT").toString());
                                     mOfficial_num_three.setVisibility(View.VISIBLE);
                                 }
@@ -239,6 +263,7 @@ public class OfficialActivity extends FragmentActivity implements View.OnClickLi
 
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
                     Toast.makeText(OfficialActivity.this, "请求服务失败,请稍后再试", Toast.LENGTH_SHORT).show();
                 }
 

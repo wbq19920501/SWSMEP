@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class Work3Fragment extends Fragment{
     private ShowDialog dialog;
     private int page = 1;
     List<Work1Info> work1Infos;
+    LinearLayout no_msg;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment == null){
@@ -117,18 +119,29 @@ public class Work3Fragment extends Fragment{
                                 work1Info.setTypename(0);
                                 work1Infos.add(work1Info);
                             }
+                            if (page==1){
+                                if (array.length()==0){
+                                    no_msg.setVisibility(View.VISIBLE);
+                                    work3_list.setVisibility(View.GONE);
+                                }else {
+                                    no_msg.setVisibility(View.GONE);
+                                    work3_list.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            work3_list.onRefreshComplete();
+                            adapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    adapter.notifyDataSetChanged();
-                    work3_list.onRefreshComplete();
                 }
 
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
                     dialog.dismiss();
                     Toast.makeText(getActivity(), "数据错误", Toast.LENGTH_SHORT).show();
+                    no_msg.setVisibility(View.VISIBLE);
+                    work3_list.setVisibility(View.GONE);
                     Log.d("ex",ex.getMessage());
                 }
 
@@ -147,11 +160,15 @@ public class Work3Fragment extends Fragment{
             e.printStackTrace();
         }
     }
+
     public void refreshfragment(){
         page = 1;
-        work1Infos.clear();
+        work1Infos = new ArrayList<Work1Info>();
+        adapter = new WorkTabAdapter(getActivity(), work1Infos,3,TOKENID);
+        work3_list.setAdapter(adapter);
         requestmsg();
-    };
+    }
+
     private void init() {
         Bundle data = getArguments();
         TOKENID = data.getString("TOKENID");
@@ -162,5 +179,6 @@ public class Work3Fragment extends Fragment{
         work3_list.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new WorkTabAdapter(getActivity(), work1Infos,3,TOKENID);
         work3_list.setAdapter(adapter);
+        no_msg = (LinearLayout) fragment.findViewById(R.id.no_msg);
     }
 }

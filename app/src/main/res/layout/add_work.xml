@@ -54,7 +54,7 @@
                 android:paddingLeft="10dp"
                 android:textColorHint="@color/work_textcolor"
                 android:textColor="@color/phone_textcolor"
-                android:background="@null"/>
+                android:background="@color/white"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -100,14 +100,15 @@
                 android:layout_height="1dp"
                 android:background="@color/line"/>
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/add_work2"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@mipmap/add_work2"/>
                 <LinearLayout
                     android:id="@+id/file_list"
@@ -131,13 +132,14 @@
                             android:textSize="18sp"
                             android:textColor="@color/work_textcolor"
                             android:text="附件添加"/>
-                        <ImageView
+                        <ImageButton
                             android:id="@+id/add_file"
                             android:layout_centerInParent="true"
                             android:layout_alignParentRight="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/add_wrok3_file"/>
+                            android:src="@mipmap/add_wrok3_file"
+                            android:background="@drawable/add_wrok"/>
                     </RelativeLayout>
                     <ListView
                         android:id="@+id/files_list"

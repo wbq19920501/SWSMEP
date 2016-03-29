@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -58,8 +59,8 @@ public class WorkFragment extends Fragment {
     BaseAdapter adapter;
     ImageButton work_btn;
     WorkPoPw poPw;
-    String[] colors = {"#6BC773","#5C6BC0","#F75D8C","#008CEE"};
-    private String[] str = {"收文","签报","发文","协同"};
+    String[] colors = {"#F75D8C","#6BC773","#5C6BC0","#008CEE"};
+    private String[] str = {"发文","收文","签报","协同"};
     Intent intent;
     String colorOne = "#E85A4F";
     //dengJ
@@ -72,8 +73,22 @@ public class WorkFragment extends Fragment {
     private SharedPreferences sp;
     private List<WorkInfo> infoList;
     private ShowDialog dialog;
+    private String INTERVAL;
     private WorkInfo[] mWorkInfo = new WorkInfo[4];
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            this.update();
+            handler.postDelayed(this, 1000 * Integer.parseInt(INTERVAL));// 间隔20秒
+        }
+        void update() {
+            //刷新msg的内容
+            NumberList.clear();
+            infoList.clear();
+            requseMsg();
 
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +104,8 @@ public class WorkFragment extends Fragment {
         }
         init();
         requseMsg();
-        initdata();
+        openPopWidow();
+        handler.postDelayed(runnable, 1000 * 20);
         return fragment;
     }
     //dengJ 工作获取个数数据；
@@ -158,8 +174,8 @@ public class WorkFragment extends Fragment {
 
                 @Override
                 public void onError(Throwable ex, boolean isOnCallback) {
-                    Toast.makeText(getActivity(), "数据错误", Toast.LENGTH_SHORT).show();
-                    Log.i("json2","onError");
+                    Toast.makeText(getActivity(),"数据错误", Toast.LENGTH_SHORT).show();
+                    Log.i("json2", "onError");
                 }
 
                 @Override
@@ -249,7 +265,7 @@ public class WorkFragment extends Fragment {
     }
 
     private void requseMsg(){
-        dialog.show();
+        //dialog.show();
         connectToServerByPost();
         connectToServerByPostMain();
         list_refresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -269,7 +285,7 @@ public class WorkFragment extends Fragment {
         });
     }
     //点击按钮打开PopWidow
-    private void initdata() {
+    private void openPopWidow() {
         work_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,6 +306,7 @@ public class WorkFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.bt_gongwen:
                     intent = new Intent(getActivity(), OfficialActivity.class);
+                    intent.putExtra("flag","Official");
                     break;
                 case R.id.bt_genzong:
                     intent = new Intent(getActivity(),TrackActivity.class);
@@ -306,13 +323,13 @@ public class WorkFragment extends Fragment {
     private void getData(){
         for(int i=0;i<infoList.size();i++){
             if(infoList.get(i).getF_BUSINESSCODE().equals("000001")){
-                mWorkInfo[2] = infoList.get(i);
-            }else if(infoList.get(i).getF_BUSINESSCODE().equals("000002")){
                 mWorkInfo[0] = infoList.get(i);
+            }else if(infoList.get(i).getF_BUSINESSCODE().equals("000002")){
+                mWorkInfo[1] = infoList.get(i);
             }else if(infoList.get(i).getF_BUSINESSCODE().equals("000003")){
                 mWorkInfo[3] = infoList.get(i);
             }else if(infoList.get(i).getF_BUSINESSCODE().equals("000005")){
-                mWorkInfo[1] = infoList.get(i);
+                mWorkInfo[2] = infoList.get(i);
             }
         }
     }
@@ -337,6 +354,7 @@ public class WorkFragment extends Fragment {
         //dengJ取TOKENIN,UserID
         application = (SwsApplication) getActivity().getApplication();
         UserID = application.getFUSERID();
+        INTERVAL = application.getF_INTERVAL();
         Log.i("json",UserID);
         sp = getActivity().getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
         TOKENID = sp.getString(SaveMsg.TOKENID, "");
@@ -401,19 +419,19 @@ public class WorkFragment extends Fragment {
                         switch (position){
                             case 0:
                                 intent = new Intent(getActivity(),OfficialActivity.class);
-                                intent.putExtra("out","out");
+                                intent.putExtra("flag","out");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                                 break;
                             case 1:
                                 intent = new Intent(getActivity(),OfficialActivity.class);
-                                intent.putExtra("sign","sign");
+                                intent.putExtra("flag","incom");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                                 break;
                             case 2:
                                 intent = new Intent(getActivity(),OfficialActivity.class);
-                                intent.putExtra("incom","incom");
+                                intent.putExtra("flag","sign");
                                 startActivity(intent);
                                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                                 break;
@@ -433,5 +451,11 @@ public class WorkFragment extends Fragment {
     class ViewHolder{
         TextView work_name,work_title,work_context,work_num,work_time;
         ImageView work_img;
+    }
+
+    @Override
+    public void onDestroy() {
+        handler.removeCallbacks(runnable); //停止刷新
+        super.onDestroy();
     }
 }

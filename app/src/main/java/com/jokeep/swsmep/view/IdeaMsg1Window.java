@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,7 +47,7 @@ import java.util.List;
 public class IdeaMsg1Window extends PopupWindow{
     private View mMenuView;
     private ImageButton back;
-    Button btn_sub;
+//    Button btn_sub;
     TextView add_memsg;
     RelativeLayout choose_addmsg;
     private ListView add_msglist;
@@ -90,7 +89,7 @@ public class IdeaMsg1Window extends PopupWindow{
         listid = new ArrayList<String>();
 
         back = (ImageButton) mMenuView.findViewById(R.id.back);
-        btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
+//        btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
         add_memsg = (TextView) mMenuView.findViewById(R.id.add_memsg);
         add_context = (EditText) mMenuView.findViewById(R.id.add_context);
         edit_open = (LinearLayout) mMenuView.findViewById(R.id.edit_open);
@@ -115,27 +114,27 @@ public class IdeaMsg1Window extends PopupWindow{
                 dismiss();
             }
         });
-        btn_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listItemID.clear();// 清空listItemID
-                for (int i = 0;i<dataList.size();i++){
-                    if (dataList.get(i).checked){
-                        listItemID.add(i);
-                    }
-                }
-                if (listItemID.size() == 0) {
-                    Toast.makeText(context, "没有选中任何记录", Toast.LENGTH_SHORT).show();
-                } else {
-                    for (int i=0;i<listItemID.size();i++){
-                        Integer integer = listItemID.get(i);
-                        memsg.add(dataList.get(integer.intValue()).getF_CONTENT());
-                    }
-                    ongetdata.onDataCallBack(memsg);
-                }
-                dismiss();
-            }
-        });
+//        btn_sub.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listItemID.clear();// 清空listItemID
+//                for (int i = 0;i<dataList.size();i++){
+//                    if (dataList.get(i).checked){
+//                        listItemID.add(i);
+//                    }
+//                }
+//                if (listItemID.size() == 0) {
+//                    Toast.makeText(context, "没有选中任何记录", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    for (int i=0;i<listItemID.size();i++){
+//                        Integer integer = listItemID.get(i);
+//                        memsg.add(dataList.get(integer.intValue()).getF_CONTENT());
+//                    }
+//                    ongetdata.onDataCallBack(memsg);
+//                }
+//                dismiss();
+//            }
+//        });
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
 
@@ -166,6 +165,7 @@ public class IdeaMsg1Window extends PopupWindow{
         add_memsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String btnmsg = add_memsg.getText().toString().trim();
                 if (btnmsg.equals("完成")||btnmsg=="完成"){
                     if (adddel){
@@ -174,6 +174,10 @@ public class IdeaMsg1Window extends PopupWindow{
                         delmsg();
                     }
                 }else {
+                    for (int i=0;i<dataList.size();i++){
+                        dataList.get(i).setChecked(false);
+                    }
+                    adapter.notifyDataSetChanged();
                     if (!addeditting){
                         add_memsg.setText("完成");
                         choose_addmsg.setVisibility(View.VISIBLE);
@@ -198,6 +202,7 @@ public class IdeaMsg1Window extends PopupWindow{
         choose_addmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                msglist.setVisibility(View.GONE);
                 add_msglist.setVisibility(View.GONE);
                 choose_addmsg.setVisibility(View.GONE);
                 edit_open.setVisibility(View.VISIBLE);
@@ -268,6 +273,14 @@ public class IdeaMsg1Window extends PopupWindow{
                         notifyDataSetChanged();
                     }
                 });
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        memsg.add(dataList.get(position).getF_CONTENT());
+                        ongetdata.onDataCallBack(memsg);
+                        dismiss();
+                    }
+                });
                 return convertView;
             }
         };
@@ -310,7 +323,14 @@ public class IdeaMsg1Window extends PopupWindow{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    dismiss();
+//                    dismiss();
+                    add_memsg.setText("编辑");
+                    addeditting = false;
+                    adddel = false;
+                    dataList.clear();
+                    choose_addmsg.setVisibility(View.GONE);
+                    add_msglist.setVisibility(View.VISIBLE);
+                    initdata();
                 }
 
                 @Override
@@ -335,7 +355,7 @@ public class IdeaMsg1Window extends PopupWindow{
     }
 
     private void addmsg() {
-        String contentmsg = add_context.getText().toString().trim();
+        final String contentmsg = add_context.getText().toString().trim();
         if (contentmsg.equals("")||contentmsg==null){
             Toast.makeText(context,"请输入常用语",Toast.LENGTH_SHORT).show();
             return;
@@ -362,11 +382,25 @@ public class IdeaMsg1Window extends PopupWindow{
                             Toast.makeText(context, object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
                         }else if (code==0){
 
+                            //添加成功直接返回,zxp修改
+                            memsg.clear();
+                            memsg.add(contentmsg);
+                            ongetdata.onDataCallBack(memsg);
+                            dismiss();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    dismiss();
+                    add_memsg.setText("编辑");
+                    addeditting = false;
+                    adddel = false;
+                    dataList.clear();
+                    choose_addmsg.setVisibility(View.GONE);
+                    add_msglist.setVisibility(View.VISIBLE);
+                    add_context.setVisibility(View.GONE);
+                    add_context.setText("");
+                    initdata();
+//                    dismiss();
                 }
 
                 @Override

@@ -89,25 +89,31 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:src="@mipmap/schedule_time"/>
-                    <TextView
-                        android:id="@+id/schedule_timechoose_start"
+                    <LinearLayout
                         android:layout_toRightOf="@id/schedule_timechoose"
                         android:layout_width="match_parent"
-                        android:gravity="center|left"
                         android:layout_height="60dp"
-                        android:textSize="18sp"
-                        android:textColor="@color/work_textcolor"
-                        android:text="请选择开始时间"/>
-                    <TextView
-                        android:id="@+id/schedule_timechoose_end"
-                        android:layout_below="@id/schedule_timechoose_start"
-                        android:layout_toRightOf="@id/schedule_timechoose"
-                        android:layout_width="match_parent"
-                        android:gravity="center|left"
-                        android:layout_height="60dp"
-                        android:textSize="18sp"
-                        android:textColor="@color/work_textcolor"
-                        android:text="请选择结束时间"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/schedule_timechoose_start"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:layout_height="60dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/work_textcolor"
+                            android:text="请选择开始时间"/>
+                        <TextView
+                            android:id="@+id/schedule_timechoose_end"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:layout_height="60dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/work_textcolor"
+                            android:text="请选择结束时间"/>
+                    </LinearLayout>
+
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
@@ -166,21 +172,13 @@
                     </RelativeLayout>
                     <LinearLayout
                         android:id="@+id/schedule_remind"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp">
-                            <TextView
-                                android:id="@+id/remind_time"
-                                android:layout_marginLeft="100dp"
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
-                                android:textSize="18sp"
-                                android:layout_height="match_parent"
-                                android:text="3月23日 12:12"/>
                             <TextView
                                 android:id="@+id/remind_time_start"
                                 android:layout_marginRight="20dp"
@@ -190,6 +188,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="开始提醒"/>
+                            <TextView
+                                android:layout_alignParentLeft="true"
+                                android:layout_toLeftOf="@id/remind_time_start"
+                                android:id="@+id/remind_time"
+                                android:layout_marginLeft="100dp"
+                                android:layout_width="match_parent"
+                                android:layout_marginRight="30dp"
+                                android:gravity="center|left"
+                                android:textSize="18sp"
+                                android:layout_height="match_parent"
+                                android:text="3月23日 12:12"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -197,8 +206,8 @@
                             <TextView
                                 android:id="@+id/remind_time2"
                                 android:layout_marginLeft="100dp"
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
+                                android:layout_width="200dp"
+                                android:gravity="center|left"
                                 android:textSize="18sp"
                                 android:layout_height="match_parent"
                                 android:text="10分钟"/>

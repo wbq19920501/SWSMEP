@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +45,7 @@ import java.util.ArrayList;
 public class WorkActivity extends FragmentActivity implements View.OnClickListener{
     public static final String action = "com.swsmep.work";
     private ImageButton back;
-    private ImageView add_work;
+    private ImageButton add_work;
     private RelativeLayout worktab1,worktab2,worktab3,worktab4;
     private TextView worktab_text1,worktab_text2,worktab_text3,worktab_text4;
     private TextView worktab_num1,worktab_num2;
@@ -154,7 +153,7 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
                 exitanim();
             }
         });
-        add_work = (ImageView) findViewById(R.id.add_work);
+        add_work = (ImageButton) findViewById(R.id.add_work);
         add_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +180,7 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
         work3Fragment.setArguments(data);
         work4Fragment.setArguments(data);
         pager.setAdapter(new MyFragmentPager(getSupportFragmentManager(), fragmentList));
-        pager.setOffscreenPageLimit(4);
+        pager.setOffscreenPageLimit(1);
         pager.setCurrentItem(0);
         pager.setOnPageChangeListener(new MyOnPageChangeListener());
     }
@@ -203,16 +202,21 @@ public class WorkActivity extends FragmentActivity implements View.OnClickListen
         request();
     }
 
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            request();
+            changwork(4);
+            pager.setCurrentItem(3);
             work1Fragment.refreshfragment();
             work2Fragment.refreshfragment();
-            work3Fragment.refreshfragment();
-            work4Fragment.refreshfragment();
+            //work3Fragment.refreshfragment();
+            //work4Fragment.refreshfragment();
         }
     };
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){

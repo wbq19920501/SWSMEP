@@ -1,11 +1,13 @@
 package com.jokeep.swsmep.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class Work1Fragment extends Fragment{
     private ShowDialog dialog;
     private int page = 1;
     List<Work1Info> work1Infos;
+    LinearLayout no_msg;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (fragment == null){
@@ -76,6 +79,7 @@ public class Work1Fragment extends Fragment{
             }
         });
     }
+
     private void requestmsg() {
         dialog.show();
         RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointToDo_Filter);
@@ -119,11 +123,23 @@ public class Work1Fragment extends Fragment{
                                 work1Info.setTypename(1);
                                 work1Infos.add(work1Info);
                             }
+                            if (page == 1){
+                                if (array.length()==0){
+                                    no_msg.setVisibility(View.VISIBLE);
+                                    work1_list.setVisibility(View.GONE);
+                                }else {
+                                    no_msg.setVisibility(View.GONE);
+                                    work1_list.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            work1_list.onRefreshComplete();
+                            adapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        no_msg.setVisibility(View.VISIBLE);
+                        work1_list.setVisibility(View.GONE);
                     }
-                    work1_list.onRefreshComplete();
                 }
 
                 @Override
@@ -131,6 +147,8 @@ public class Work1Fragment extends Fragment{
                     work1_list.onRefreshComplete();
                     dialog.dismiss();
                     Toast.makeText(getActivity(), "数据错误", Toast.LENGTH_SHORT).show();
+                    no_msg.setVisibility(View.VISIBLE);
+                    work1_list.setVisibility(View.GONE);
                     Log.d("ex",ex.getMessage());
                 }
 
@@ -148,13 +166,32 @@ public class Work1Fragment extends Fragment{
             dialog.dismiss();
             e.printStackTrace();
         }
-        adapter.notifyDataSetChanged();
     }
+
     public void refreshfragment(){
         page = 1;
-        work1Infos.clear();
+        work1Infos=new ArrayList<Work1Info>();
+        adapter = new WorkTabAdapter(getActivity(),work1Infos,1,TOKENID);
+        work1_list.setAdapter(adapter);
         requestmsg();
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        page = 1;
+//        work1Infos.clear();
+//        requestmsg();
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        page = 1;
+//        work1Infos.clear();
+//        requestmsg();
+//    }
+
     private void init() {
         Bundle data = getArguments();
         TOKENID = data.getString("TOKENID");
@@ -165,5 +202,6 @@ public class Work1Fragment extends Fragment{
         work1_list.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new WorkTabAdapter(getActivity(),work1Infos,1,TOKENID);
         work1_list.setAdapter(adapter);
+        no_msg = (LinearLayout) fragment.findViewById(R.id.no_msg);
     }
 }

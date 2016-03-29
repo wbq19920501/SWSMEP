@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,10 +21,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +39,7 @@ import com.jokeep.swsmep.activity.ChangePassdActivity;
 import com.jokeep.swsmep.activity.SearchManActivity;
 import com.jokeep.swsmep.adapter.MyFragmentPager;
 import com.jokeep.swsmep.base.AES;
+import com.jokeep.swsmep.base.CalendarUtil;
 import com.jokeep.swsmep.base.Client;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.MyData;
@@ -101,8 +108,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private String mCurrentPhotoPath;
     private SwsApplication application;
     private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     private String TOKENID;
     private MyData mMyData = MyData.getInstance();
+
+    private TextView main_year,main_month;
+    private RelativeLayout years,months;
+    PopupWindow popupWindow;
+    PopupWindow popupWindow2;
+    BaseAdapter adapteryear;
+    BaseAdapter adaptermonth;
+    List<Integer> listyear;
+    List<Integer> listymonth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +182,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+        initSchedule();
         initmenu();
 
         tab1 = (RelativeLayout) findViewById(R.id.tab1);
@@ -203,6 +222,137 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         pager.setOnPageChangeListener(new MyOnPageChangeListener());
     }
 
+    private void initSchedule() {
+        listyear = new ArrayList<>();
+        listymonth = new ArrayList<>();
+        final int year = CalendarUtil.getYear();
+        final int month = CalendarUtil.getMonth();
+        years = (RelativeLayout) findViewById(R.id.years);
+        months = (RelativeLayout) findViewById(R.id.months);
+        main_year = (TextView) findViewById(R.id.main_year);
+        main_month = (TextView) findViewById(R.id.main_month);
+        main_year.setText(year+"年");
+        main_month.setText(month + "月");
+        for (int i=1;i<=12;i++){
+            listymonth.add(i);
+        }
+        for (int i=0;i<30;i++){
+            listyear.add(year-10+i);
+        }
+        years.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int yearswidth = v.getWidth();
+                int yearsheight = v.getHeight();
+                showPopupWindow(v, yearswidth, yearsheight, year);
+            }
+        });
+        months.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int monthswidth = v.getWidth();
+                int monthheight = v.getHeight();
+                showPopupWindow2(v, monthswidth, monthheight, month);
+            }
+        });
+        adapteryear = new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return listyear.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return position;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                ViewHolder holder = null;
+                if (convertView == null){
+                    holder = new ViewHolder();
+                    convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.window_schedule_item,null);
+                    holder.calendar = (TextView) convertView.findViewById(R.id.calend_item);
+                    convertView.setTag(holder);
+                }else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                holder.calendar.setText(listyear.get(position)+"年");
+                return convertView;
+            }
+        };
+        adaptermonth = new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return listymonth.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return position;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                ViewHolder holder = null;
+                if (convertView == null){
+                    holder = new ViewHolder();
+                    convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.window_schedule_item,null);
+                    holder.calendar = (TextView) convertView.findViewById(R.id.calend_item);
+                    convertView.setTag(holder);
+                }else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+                holder.calendar.setText(listymonth.get(position)+"月");
+                return convertView;
+            }
+        };
+    }
+    private void showPopupWindow2(View parent,int width,int height,int month) {
+        if (popupWindow2 == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.window_schedule2, null);
+            ListView list = (ListView) view.findViewById(R.id.window_schedule_list);
+            TextView main_month = (TextView) view.findViewById(R.id.main_month);
+            main_month.setText(month+"月");
+//            list.setAdapter(adaptermonth);
+            popupWindow2 = new PopupWindow(view, width, height*5);
+        }
+        popupWindow2.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow2.setOutsideTouchable(true);
+        popupWindow2.setFocusable(true);
+
+        popupWindow2.showAsDropDown(parent, 0, -height);
+    }
+    private void showPopupWindow(View parent,int width,int height,int year) {
+        if (popupWindow == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.window_schedule, null);
+            ListView list = (ListView) view.findViewById(R.id.window_schedule2_list);
+            TextView main_year = (TextView) view.findViewById(R.id.main_year);
+            main_year.setText(year+"年");
+//            list.setAdapter(adapteryear);
+            popupWindow = new PopupWindow(view, width, height*5);
+        }
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+
+        popupWindow.showAsDropDown(parent, 0, -height);
+    }
+    class ViewHolder{
+        TextView calendar;
+    }
     private void initmenu() {
         use_img = (RoundImageView) findViewById(R.id.use_img);
         use_name = (TextView) findViewById(R.id.use_name);
@@ -212,87 +362,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         chang_number = (Button) findViewById(R.id.chang_number);
         use_exit = (Button) findViewById(R.id.use_exit);
         initmenudata();
-    }
-    //dengJ 工作获取个数数据；
-    private void connectToServerByPostMain() {
-        RequestParams params = new RequestParams(HttpIP.mainNumber);
-        JSONObject object = new JSONObject();
-        try {
-            object.put("UserID", FUSERID);
-            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
-            params.setAsJsonContent(true);
-            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
-            x.http().post(params, new Callback.CommonCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    String s = AES.desEncrypt(result.toString());
-                    Log.d("json2", s);
-                    try {
-                        JSONObject object2 = new JSONObject(s);
-                        int code = object2.getInt("ErrorCode");
-                        if (code==1){
-                        }else if (code==0){
-                            Log.i("json2", object2.getString("Result").toString());
-                            JSONArray mArray = new JSONArray(object2.getString("Result").toString());
-                            JSONObject mObject = (JSONObject) mArray.get(0);
-                            JSONArray mArrayOne = new JSONArray(mObject.getString("Table"));
-                            for (int i=0;i<mArrayOne.length();i++){
-                                JSONObject mObjectTwo = (JSONObject) mArrayOne.get(i);
-                                WorkNumber workNumber = new WorkNumber();
-                                workNumber.setF_TODOCOUNT(mObjectTwo.getInt("F_TODOCOUNT"));
-                                workNumber.setF_MENUCODE(mObjectTwo.getString("F_MENUCODE"));
-                                NumberList.add(workNumber);
-                            }
-                            //判断工作是否加number
-                            if(NumberList.get(0).getF_MENUCODE().equals("0001")&&NumberList.get(0).getF_TODOCOUNT()>=1){
-                                main_tabnum1.setText(NumberList.get(0).getF_TODOCOUNT()+"");
-                            }else {
-                                main_tabnum1.setVisibility(View.GONE);
-                            }
-                            //判断日程是否加number
-                            if(NumberList.get(1).getF_MENUCODE().equals("0002")&&NumberList.get(1).getF_TODOCOUNT()>=1){
-                                main_tabnum3.setText(NumberList.get(1).getF_TODOCOUNT()+"");
-                            }else {
-                                main_tabnum3.setVisibility(View.GONE);
-                            }
-                            //传值到PopWindow跟踪
-                            if(NumberList.get(2).getF_MENUCODE().equals("0003")){
-                                mMyData.setmGenZongNum(NumberList.get(2).getF_TODOCOUNT()+"");
-                            }
-                            //传值到PopWindow公文
-                            if(NumberList.get(3).getF_MENUCODE().equals("0004")){
-                                mMyData.setmGongWenNum(NumberList.get(3).getF_TODOCOUNT()+"");
-                            }
-                            //传值到PopWindow协同
-                            if(NumberList.get(4).getF_MENUCODE().equals("0005")){
-                                mMyData.setmXieTongNum(NumberList.get(4).getF_TODOCOUNT()+"");
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-                    Log.i("json2","onError");
-                }
-
-                @Override
-                public void onCancelled(CancelledException cex) {
-
-                }
-
-                @Override
-                public void onFinished() {
-
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
     private void initdata() {
         dialog.show();
@@ -308,6 +377,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         application.setF_MAINUNITID(userInfoEntity.getF_MAINUNITID());
         application.setF_POSITIONNAME(userInfoEntity.getF_POSITIONNAME());
         application.setF_DEPARTMENTNAME(userInfoEntity.getF_DEPARTMENTNAME());
+        application.setF_INTERVAL(userInfoEntity.getF_INTERVAL());
+
 
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
@@ -328,6 +399,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         chang_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                sp = getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE);
+//                editor = sp.edit();
+//                editor.clear();
+//                editor.commit();
                 intent = new Intent(context,LoginActivity.class);
                 startActivity(intent);
                 MainActivity.this.finish();

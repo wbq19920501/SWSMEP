@@ -60,7 +60,12 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:id="@+id/years"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
                             android:layout_height="match_parent">
                             <TextView
                                 android:id="@+id/main_year"
@@ -79,8 +84,12 @@
                                 android:background="@drawable/spinner_selector"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/months"
+                            android:layout_marginRight="20dp"
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
                             android:layout_height="match_parent">
                             <TextView
                                 android:id="@+id/main_month"

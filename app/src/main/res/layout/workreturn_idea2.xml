@@ -99,10 +99,12 @@
                     android:background="@drawable/useful_expressions"/>
             </RelativeLayout>
             <View
+                android:id="@+id/view_file"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line"/>
             <RelativeLayout
+                android:id="@+id/rl_file"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageButton

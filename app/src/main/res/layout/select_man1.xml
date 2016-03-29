@@ -81,6 +81,7 @@
                 android:layout_height="40dp"
                 android:background="#b2b2b2">
                 <EditText
+                    android:imeOptions="actionNext"
                     android:id="@+id/selectman_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,11 +92,30 @@
                     android:singleLine="true"/>
             </LinearLayout>
                     <!--android:imeOptions="actionSearch"-->
-            <ListView
-                android:id="@+id/selectman_list1"
+            <FrameLayout
+                android:id="@+id/msg_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"></ListView>
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/selectman_list1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"></ListView>
+                <TextView
+                    android:id="@+id/sidebar_dialog"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/show_head_toast_bg"
+                    android:gravity="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="30dp"
+                    android:visibility="invisible" />
+            </FrameLayout>
+            <include
+                android:id="@+id/no_no_msg"
+                android:visibility="gone"
+                layout="@layout/no_msg"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

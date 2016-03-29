@@ -23,6 +23,7 @@ import com.jokeep.swsmep.base.SaveMsg;
 import com.jokeep.swsmep.fragment.WorkAnnexFragment;
 import com.jokeep.swsmep.fragment.WorkMainBodyFragment;
 import com.jokeep.swsmep.model.Work1Info;
+import com.jokeep.swsmep.view.MarqueeText;
 import com.jokeep.swsmep.view.ShowDialog;
 
 import org.json.JSONArray;
@@ -49,8 +50,9 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     WorkAnnexFragment workAnnexFragment;
     Button btn_next;
     ImageButton work_idea,work_flow;
-    TextView work_title;
+    MarqueeText work_title;
     private LinearLayout flow_linear,idea_linear,look_workmsg;
+    private TextView look_tab2_num1;
     private ImageButton back;
     private Boolean look1 = true;
     private Boolean look2 = true;
@@ -111,6 +113,65 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
                             }else {
                                 btn_next.setVisibility(View.GONE);
                             }
+                            numinitdata();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    dialog.dismiss();
+                    Log.d("ex", ex.getMessage());
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void numinitdata() {
+        RequestParams params = new RequestParams(HttpIP.MainService+HttpIP.JointAttByID);
+        JSONObject object = new JSONObject();
+        try {
+            object.put("JointID", f_jointid);
+            params.addBodyParameter("parameter", AES.encrypt(object.toString()));
+            params.setAsJsonContent(true);
+            params.addBodyParameter(SaveMsg.TOKENID, TOKENID);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String s = AES.desEncrypt(result.toString());
+                    Log.d("s", s);
+                    dialog.dismiss();
+                    try {
+                        JSONObject object2 = new JSONObject(s);
+                        int code = object2.getInt("ErrorCode");
+                        if (code==1){
+                            Toast.makeText(LookWorkActivity.this, object2.getString("ErrorMsg").toString(), Toast.LENGTH_SHORT).show();
+                        }else if (code==0){
+                            String Result = object2.getString("Result");
+                            JSONArray array0 = new JSONArray(Result);
+                            JSONArray arrayTable = new JSONArray(((JSONObject)array0.get(0)).getString("Table"));
+                            JSONArray arrayTable1 = new JSONArray(((JSONObject)array0.get(0)).getString("Table1"));
+                            JSONObject object3 = (JSONObject) arrayTable.get(0);
+                            f_jointid = object3.getString("F_JOINTID");
+                            if (arrayTable1.length() == 0){
+                                look_tab2_num1.setVisibility(View.GONE);
+                            }else {
+                                look_tab2_num1.setText(arrayTable1.length()+"");
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -142,15 +203,15 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
         typeopen = getIntent().getIntExtra("typeopen", 1);
         work1Infos = new ArrayList<Work1Info>();
         work1Infos = (List<Work1Info>) getIntent().getSerializableExtra("work1Infos");
-        final int position = getIntent().getIntExtra("intposition", 0);
+//        final int position = getIntent().getIntExtra("intposition", 0);
         TOKENID = getIntent().getStringExtra("TOKENID");
-        Work1Info work1Info = work1Infos.get(position);
+        Work1Info work1Info = work1Infos.get(0);
         f_jointid = work1Info.getF_JOINTID();
 
         Bundle data = new Bundle();
         data.putString("TOKENID", TOKENID);
         data.putString("JointID", f_jointid);
-        F_LINKURL = work1Infos.get(position).getF_LINKURL();
+        F_LINKURL = work1Infos.get(0).getF_LINKURL();
 
 
         ExecutMainID = Uri.parse(F_LINKURL).getQueryParameter("ExecutMainID");
@@ -162,7 +223,7 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
 
 
         data.putString("F_LINKURL", F_LINKURL);
-        data.putString("F_EXECUTMAINID", work1Infos.get(position).getF_EXECUTMAINID());
+        data.putString("F_EXECUTMAINID", work1Infos.get(0).getF_EXECUTMAINID());
         workMainBodyFragment.setArguments(data);
         workAnnexFragment.setArguments(data);
 
@@ -196,12 +257,13 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
         }else if (typeopen == 3 || typeopen==4){
             btn_next.setVisibility(View.GONE);
         }
-        work_title = (TextView) findViewById(R.id.work_title);
+        work_title = (MarqueeText) findViewById(R.id.work_title);
         work_idea = (ImageButton) findViewById(R.id.work_idea);
         work_flow = (ImageButton) findViewById(R.id.work_flow);
         flow_linear = (LinearLayout) findViewById(R.id.flow_linear);
         idea_linear = (LinearLayout) findViewById(R.id.idea_linear);
         look_workmsg = (LinearLayout) findViewById(R.id.look_workmsg);
+        look_tab2_num1 = (TextView) findViewById(R.id.look_tab2_num1);
         work_flow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,16 +316,16 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 2:
                 if (resultCode == RESULT_OK){
-//                    intent = new Intent(action);
-//                    sendBroadcast(intent);
+                    intent = new Intent(action);
+                    sendBroadcast(intent);
                     finish();
                 }
                 break;
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -277,8 +339,9 @@ public class LookWorkActivity extends FragmentActivity implements View.OnClickLi
 
     private void exitAnim() {
         finish();
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+        /*overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);*/
     }
+
     private void initpage() {
         look_tab1 = (TextView) findViewById(R.id.look_tab1);
         look_tab1.setOnClickListener(this);

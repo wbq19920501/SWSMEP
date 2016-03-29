@@ -6,13 +6,18 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,9 +28,12 @@ import android.widget.Toast;
 
 import com.jokeep.swsmep.R;
 import com.jokeep.swsmep.adapter.SelectMan1Adapter;
+import com.jokeep.swsmep.adapter.ZimuAdapter;
 import com.jokeep.swsmep.base.AES;
 import com.jokeep.swsmep.base.HttpIP;
 import com.jokeep.swsmep.base.SaveMsg;
+import com.jokeep.swsmep.model.CharacterParser;
+import com.jokeep.swsmep.model.PinyinComparator2;
 import com.jokeep.swsmep.model.Work2Info;
 
 import org.json.JSONArray;
@@ -36,6 +44,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,7 +58,6 @@ public class SelectMan1Window extends PopupWindow{
     private ImageView selectman_sx;
     private EditText selectman_search;
     private ListView selectman_list1;
-//    PhoneAdapter adapter;
     SelectMan1Adapter adapter;
     Activity context;
     private ShowDialog dialog;
@@ -60,6 +68,23 @@ public class SelectMan1Window extends PopupWindow{
     TextView phone_name;
     // 数据接口
     OnGetData ongetdata;
+
+    /**
+     * 汉字转换成拼音的类
+     */
+    private CharacterParser characterParser;
+
+    /**
+     * 根据拼音来排列ListView里面的数据类
+     */
+    private PinyinComparator2 pinyinComparator;
+    ZimuAdapter adapter2;
+    boolean adapter2choose = false;
+    private TextView sidebar_dialog;
+    FrameLayout msg_list;
+    LinearLayout no_no_msg;
+
+
     public SelectMan1Window(final Activity context1, View.OnClickListener itemclick,String UserID, final String TOKENID){
         super();
         this.context = context1;
@@ -70,14 +95,21 @@ public class SelectMan1Window extends PopupWindow{
         getlist = new ArrayList<Work2Info>();
         dialog = new ShowDialog(context,R.style.MyDialog,context.getResources().getString(R.string.dialogmsg));
 
+        // 实例化汉字转拼音类
+        characterParser = CharacterParser.getInstance();
+
+        pinyinComparator = new PinyinComparator2();
+
         back = (ImageButton) mMenuView.findViewById(R.id.back);
         phone_name = (TextView) mMenuView.findViewById(R.id.phone_name);
         selectman_sx = (ImageView) mMenuView.findViewById(R.id.selectman_sx);
         selectman_search = (EditText) mMenuView.findViewById(R.id.selectman_search);
         btn_sub = (Button) mMenuView.findViewById(R.id.btn_sub);
         selectman_list1 = (ListView) mMenuView.findViewById(R.id.selectman_list1);
+        sidebar_dialog = (TextView) mMenuView.findViewById(R.id.sidebar_dialog);
         sear_edit = (LinearLayout) mMenuView.findViewById(R.id.sear_edit);
-//        adapter = new PhoneAdapter();
+        msg_list = (FrameLayout) mMenuView.findViewById(R.id.msg_list);
+        no_no_msg = (LinearLayout) mMenuView.findViewById(R.id.no_no_msg);
         adapter = new SelectMan1Adapter(context,list);
         selectman_list1.setAdapter(adapter);
         selectman_list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,15 +121,61 @@ public class SelectMan1Window extends PopupWindow{
                 } else {
                     list.get(position).setCheck(false);
                 }
-                adapter.notifyDataSetChanged();
+                if (adapter2choose) {
+                    adapter2.notifyDataSetChanged();
+                } else {
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
         selectman_list1.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        if (adapter2choose) {
+            selectman_list1.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                    switch (scrollState) {
+                        case SCROLL_STATE_IDLE://空闲状态
+                            sidebar_dialog.setVisibility(View.GONE);
+                            break;
+                        case SCROLL_STATE_FLING://滚动状态
+                            break;
+                        case SCROLL_STATE_TOUCH_SCROLL://触摸在屏幕上滚动
+                            int firstVisiblePosition = selectman_list1.getFirstVisiblePosition();
+                            int lastVisiblePosition = selectman_list1.getLastVisiblePosition();
+                            String PingYin = characterParser.getSelling(((Work2Info) adapter2.getItem(firstVisiblePosition)).getName());
+                            String sortString = PingYin.substring(0, 1).toUpperCase();
+                            sidebar_dialog.setText(sortString);
+                            sidebar_dialog.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                }
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
+                }
+            });
+        }
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
+            }
+        });
+
+        //***验证码
+        selectman_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || event.getKeyCode() == 66) {
+                    // 在这里编写自己想要实现的功能
+                       String searchman = selectman_search.getText().toString().trim();
+                      if (searchman.toString().length()>0) {
+                          list.clear();
+                          searchmsg(TOKENID, searchman);
+                      }
+                    return true;
+                }
+                return false;
             }
         });
 //        selectman_search.setOnKeyListener(new View.OnKeyListener() {
@@ -129,6 +207,8 @@ public class SelectMan1Window extends PopupWindow{
                 phone_name.setText("筛选");
                 selectman_sx.setVisibility(View.GONE);
                 list.clear();
+                no_no_msg.setVisibility(View.GONE);
+                msg_list.setVisibility(View.VISIBLE);
                 initdataMan(TOKENID);
             }
         });
@@ -180,6 +260,7 @@ public class SelectMan1Window extends PopupWindow{
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         //设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
+        this.setTouchable(true);
         //设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.AnimBottom2);
         //实例化一个ColorDrawable颜色为半透明
@@ -189,6 +270,7 @@ public class SelectMan1Window extends PopupWindow{
 //        this.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
 //        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         initdata(UserID, TOKENID);
+
     }
     // 数据接口设置,数据源接口传入
     public void setOnData(OnGetData sd) {
@@ -231,8 +313,17 @@ public class SelectMan1Window extends PopupWindow{
                                 work2Info.setCheck(false);
                                 list.add(work2Info);
                             }
+                            if (array.length() == 0){
+                                no_no_msg.setVisibility(View.VISIBLE);
+                                msg_list.setVisibility(View.GONE);
+                            }else {
+                                no_no_msg.setVisibility(View.GONE);
+                                msg_list.setVisibility(View.VISIBLE);
+                            }
                         }
                     } catch (JSONException e) {
+                        no_no_msg.setVisibility(View.VISIBLE);
+                        msg_list.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
                     adapter.notifyDataSetChanged();
@@ -293,11 +384,16 @@ public class SelectMan1Window extends PopupWindow{
                                 work2Info.setCheck(false);
                                 list.add(work2Info);
                             }
+                            adapter2choose = true;
+                            list = filledData(list);
+                            Collections.sort(list, pinyinComparator);
+                            adapter2 = new ZimuAdapter(context, list);
+                            selectman_list1.setAdapter(adapter2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    adapter.notifyDataSetChanged();
+                    adapter2.notifyDataSetChanged();
                     dialog.dismiss();
                 }
 
@@ -361,6 +457,11 @@ public class SelectMan1Window extends PopupWindow{
                         e.printStackTrace();
                     }
                     adapter.notifyDataSetChanged();
+
+
+                    selectman_search.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) selectman_search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
                 }
 
                 @Override
@@ -384,70 +485,31 @@ public class SelectMan1Window extends PopupWindow{
             e.printStackTrace();
         }
     }
-//    class PhoneAdapter extends BaseAdapter {
-//        /** 标记CheckBox是否被选中 **/
-//        List<Boolean> mChecked = new ArrayList<Boolean>();
-//        /** 存放要显示的Item数据 **/
-//        /** 一个HashMap对象 **/
-//        @SuppressLint("UseSparseArrays")
-//        HashMap<Integer, View> map = new HashMap<Integer, View>();
-//
-//        public PhoneAdapter() {
-//            mChecked = new ArrayList<Boolean>();
-//            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
-//                mChecked.add(false);
-//            }
-//        }
-//        @Override
-//        public int getCount() {
-//            return list.size();
-//        }
-//        @Override
-//        public Object getItem(int position) {
-//            return position;
-//        }
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            ViewHolder holder = null;
-//            if (map.get(position) == null) {// 根据position判断View是否为空
-//                convertView = LayoutInflater.from(context).inflate(R.layout.select_man1_item,null);
-//                holder = new ViewHolder();
-//                holder.onclick = (LinearLayout) convertView.findViewById(R.id.onclick);
-//                holder.link_name = (TextView) convertView.findViewById(R.id.link_name);
-//                holder.link_type = (TextView) convertView.findViewById(R.id.link_type);
-//                holder.checkbox = (CheckBox) convertView.findViewById(R.id.checkbox);
-//                map.put(position, convertView);// 存储视图信息
-//                convertView.setTag(holder);
-//            } else {
-//                convertView = map.get(position);
-//                holder = (ViewHolder) convertView.getTag();
-//            }
-//            final int p = position;
-//            for (int i = 0; i < list.size(); i++) {// 遍历且设置CheckBox默认状态为未选中
-//                mChecked.add(false);
-//            }
-//            holder.checkbox.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    CheckBox cb = (CheckBox) v;
-//                    mChecked.set(p, cb.isChecked());// 设置CheckBox为选中状态
-//                }
-//            });
-//            Work2Info work2Info = list.get(position);
-//            holder.link_name.setText(work2Info.getF_USERNAME());
-//            holder.link_type.setText(work2Info.getF_DEPARTMENTNAME()+"-"+work2Info.getF_POSITIONNAME());
-//            holder.checkbox.setChecked(mChecked.get(position));
-//            return convertView;
-//        }
-//    }
-//    class ViewHolder{
-//        TextView link_name,link_type;
-//        CheckBox checkbox;
-//        LinearLayout onclick;
-//    }
+    private List<Work2Info> filledData(List<Work2Info > listuserbook) {
+        List<Work2Info> mSortList = new ArrayList<Work2Info>();
+        for(int i=0; i<listuserbook.size(); i++){
+            Work2Info sortModel = new Work2Info();
+            Work2Info userBook = listuserbook.get(i);
+            sortModel.setName(userBook.getF_USERNAME());
+            sortModel.setNametype(userBook.getF_DEPARTMENTNAME() + "-" + userBook.getF_POSITIONNAME());
+            sortModel.setF_USERID(userBook.getF_USERID());
+            sortModel.setF_CALLPHONETYPE(userBook.getF_CALLPHONETYPE());
+            sortModel.setCheck(false);
+            sortModel.setF_USERNAME(userBook.getF_USERNAME());
+            sortModel.setF_DEPARTMENTNAME(userBook.getF_DEPARTMENTNAME());
+            sortModel.setF_POSITIONNAME(userBook.getF_POSITIONNAME());
+            //汉字转换成拼音
+            String pinyin = characterParser.getSelling(userBook.getF_USERNAME());
+            String sortString = pinyin.substring(0, 1).toUpperCase();
+
+            // 正则表达式，判断首字母是否是英文字母
+            if(sortString.matches("[A-Z]")){
+                sortModel.setSortLetters(sortString.toUpperCase());
+            }else{
+                sortModel.setSortLetters("#");
+            }
+            mSortList.add(sortModel);
+        }
+        return mSortList;
+    }
 }
